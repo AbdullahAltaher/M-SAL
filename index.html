@@ -5,33 +5,55 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="ميزانية">
-<meta name="theme-color" content="#0E1013">
+<meta name="theme-color" content="#F5F2EA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1B1A16" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F5F2EA">
 <title>ميزانية الشهر</title>
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cdefs%3E%3ClinearGradient id='sky' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23262A31'/%3E%3Cstop offset='.55' stop-color='%23757B84'/%3E%3Cstop offset='1' stop-color='%230B0B0D'/%3E%3C/linearGradient%3E%3CradialGradient id='st' cx='.32' cy='.28' r='.9'%3E%3Cstop offset='0' stop-color='%23676D76'/%3E%3Cstop offset='.45' stop-color='%231B1C1F'/%3E%3Cstop offset='1' stop-color='%23050506'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='180' height='180' fill='url(%23sky)'/%3E%3Cellipse cx='90' cy='86' rx='46' ry='38' fill='url(%23st)' transform='rotate(-14 90 86)'/%3E%3Cellipse cx='74' cy='68' rx='16' ry='7' fill='%23ffffff' opacity='.35' transform='rotate(-20 74 68)'/%3E%3Crect x='52' y='140' width='76' height='20' fill='none' stroke='%23E8E6E1' stroke-width='2'/%3E%3Ctext x='90' y='155' font-family='Arial' font-size='13' letter-spacing='4' fill='%23E8E6E1' text-anchor='middle'%3EM-SAL%3C/text%3E%3C/svg%3E">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' fill='%230E1013'/%3E%3Cellipse cx='32' cy='30' rx='17' ry='14' fill='%23131417' stroke='%23454A52' transform='rotate(-14 32 30)'/%3E%3Cellipse cx='26' cy='24' rx='6' ry='2.6' fill='%23ffffff' opacity='.4' transform='rotate(-20 26 24)'/%3E%3Crect x='16' y='48' width='32' height='9' fill='none' stroke='%23E8E6E1'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Crect width='180' height='180' fill='%23F5F2EA'/%3E%3Crect x='24' y='24' width='132' height='132' rx='14' fill='%23FFFCF5' stroke='%23DED9CD' stroke-width='2'/%3E%3Cline x1='44' y1='64' x2='136' y2='64' stroke='%2338594A' stroke-width='3'/%3E%3Cline x1='44' y1='88' x2='136' y2='88' stroke='%23DED9CD' stroke-width='2' stroke-dasharray='2 5'/%3E%3Cline x1='44' y1='108' x2='136' y2='108' stroke='%23DED9CD' stroke-width='2' stroke-dasharray='2 5'/%3E%3Ctext x='90' y='146' font-family='Arial' font-size='30' font-weight='700' fill='%23B99A5B' text-anchor='middle'%3E%26%23x62F%3B.%26%23x625%3B%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' fill='%23F5F2EA'/%3E%3Crect x='8' y='8' width='48' height='48' rx='7' fill='%23FFFCF5' stroke='%23DED9CD'/%3E%3Cline x1='16' y1='24' x2='48' y2='24' stroke='%2338594A' stroke-width='2'/%3E%3Cline x1='16' y1='34' x2='48' y2='34' stroke='%23DED9CD' stroke-dasharray='2 4'/%3E%3Cline x1='16' y1='42' x2='48' y2='42' stroke='%23DED9CD' stroke-dasharray='2 4'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
 <style>
 :root{
-  --ink:#EDECE8;
-  --dim:rgba(237,236,232,.6);
-  --faint:rgba(237,236,232,.34);
-  --hair:rgba(255,255,255,.14);
-  --hair-soft:rgba(255,255,255,.08);
-  --plate:rgba(9,10,12,.58);
-  --plate-strong:rgba(9,10,12,.74);
-  --neg:#C24E3F;
+  --bg:#F5F2EA;
+  --surface:#FFFCF5;
+  --ink:#24231F;
+  --sec:#77736A;
+  --border:#DED9CD;
+  --green:#38594A;
+  --brass:#B99A5B;
+  --neg:#B8473F;
+  --header-bg:rgba(245,242,234,.92);
+  --on-green:#FFFCF5;
+  --check:#FFFCF5;
+  --chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2377736A' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
   --ar:"IBM Plex Sans Arabic", -apple-system, "Segoe UI", system-ui, sans-serif;
   --num:-apple-system, system-ui, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
   --lat:-apple-system, system-ui, "Helvetica Neue", Arial, sans-serif;
 }
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#1B1A16;
+    --surface:#242320;
+    --ink:#EDE9DF;
+    --sec:#9A958A;
+    --border:#38362F;
+    --green:#8FB4A0;
+    --brass:#C2A66B;
+    --neg:#D4665C;
+    --header-bg:rgba(27,26,22,.92);
+    --on-green:#1B1A16;
+    --check:#1B1A16;
+    --chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%239A958A' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  }
+}
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{
-  background:#0E1013;
+  background:var(--bg);
   color:var(--ink);
   font-family:var(--ar);
   font-size:17px;
@@ -41,236 +63,189 @@ body{
   -webkit-tap-highlight-color:transparent;
   overflow-x:hidden;
 }
-/* ================= the scene ================= */
-.scene{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;
-  background:
-    radial-gradient(120% 55% at 50% 56%, rgba(214,218,222,.30) 0%, rgba(214,218,222,.10) 34%, rgba(214,218,222,0) 62%),
-    linear-gradient(180deg,
-      #0B0D11 0%, #171B21 16%, #333941 34%,
-      #7C828B 50%, #565B62 57%,
-      #24262B 70%, #101114 84%, #08080A 100%);
-}
-/* levitating obsidian stones */
-.stone{position:absolute;
-  background:radial-gradient(circle at 30% 24%, #6B7079 0%, #24262B 42%, #08090B 78%, #030304 100%);
-  filter:drop-shadow(0 26px 30px rgba(0,0,0,.55));
-  animation:hover 16s ease-in-out infinite alternate;
-  will-change:transform;
-}
-.stone::after{content:"";position:absolute;left:16%;top:12%;width:44%;height:16%;
-  background:linear-gradient(100deg, rgba(255,255,255,.55), rgba(255,255,255,0) 70%);
-  border-radius:50%;transform:rotate(-18deg);
-}
-.stone.s1{width:190px;height:150px;left:56%;top:11%;
-  border-radius:58% 42% 52% 48% / 55% 48% 52% 45%;transform:rotate(-14deg)}
-.stone.s2{width:120px;height:92px;left:8%;top:34%;
-  border-radius:46% 54% 58% 42% / 50% 44% 56% 50%;transform:rotate(9deg);
-  animation-duration:19s;animation-delay:-6s}
-.stone.s3{width:70px;height:58px;left:70%;top:56%;
-  border-radius:52% 48% 44% 56% / 46% 54% 46% 54%;transform:rotate(-28deg);
-  animation-duration:22s;animation-delay:-11s}
-@keyframes hover{
-  from{translate:0 0;rotate:0deg}
-  to{translate:0 -16px;rotate:3deg}
-}
-/* drifting debris */
-.deb{position:absolute;background:#0B0C0E;opacity:.9;
-  animation:drift ease-in-out infinite alternate;will-change:transform}
-.deb.d0{clip-path:polygon(50% 0,100% 38%,78% 100%,10% 82%)}
-.deb.d1{clip-path:polygon(0 22%,72% 0,100% 64%,34% 100%)}
-.deb.d2{clip-path:polygon(28% 0,100% 18%,66% 100%,0 70%)}
-.deb.d3{clip-path:polygon(0 44%,52% 0,100% 52%,48% 100%)}
-@keyframes drift{to{transform:translate(-20px,28px) rotate(140deg)}}
-/* film grain over everything */
-.grain{position:fixed;inset:-40px;z-index:40;pointer-events:none;opacity:.055;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:180px 180px;
-}
 @media (prefers-reduced-motion:reduce){
-  .stone,.deb{animation:none !important}
-  *{transition:none !important}
+  *{transition:none !important;animation:none !important}
 }
-/* ================= plates (panels) ================= */
+/* ================= surfaces ================= */
 .panel{
   position:relative;
-  background:var(--plate);
-  -webkit-backdrop-filter:blur(7px);
-  backdrop-filter:blur(7px);
-  border:1px solid var(--hair);
-  border-radius:2px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
   padding:18px 18px 16px;
+  box-shadow:0 1px 2px rgba(36,35,31,.05);
 }
-/* camera-frame corner ticks */
-.panel::before,.panel::after{
-  content:"";position:absolute;width:9px;height:9px;pointer-events:none;
-  border:1px solid rgba(255,255,255,.5);
-}
-.panel::before{top:-1px;right:-1px;border-left:none;border-bottom:none}
-.panel::after{bottom:-1px;left:-1px;border-right:none;border-top:none}
 .plate-num{
-  position:absolute;top:8px;left:12px;
+  position:absolute;top:12px;left:16px;
   direction:ltr;unicode-bidi:isolate;
-  font:400 10px var(--lat);letter-spacing:.3em;color:var(--faint);
+  font:500 11px var(--lat);letter-spacing:.22em;color:var(--brass);
 }
-/* english micro-eyebrows: always their own single-direction line */
 .eyebrow{
   display:block;direction:ltr;unicode-bidi:isolate;text-align:right;
-  font:500 10px var(--lat);letter-spacing:.34em;color:var(--faint);
+  font:500 10px var(--lat);letter-spacing:.3em;color:var(--brass);
 }
 /* ================= layout ================= */
 .wrap{
   position:relative;z-index:1;
   max-width:560px;margin:0 auto;
   padding:12px 14px calc(48px + env(safe-area-inset-bottom));
-  display:flex;flex-direction:column;gap:16px;
+  display:flex;flex-direction:column;gap:14px;
 }
 /* ================= sticky balance header ================= */
 header.top{
   position:sticky;top:0;z-index:5;
   margin:0 -14px 2px;
   padding:calc(12px + env(safe-area-inset-top)) calc(18px + env(safe-area-inset-right)) 14px calc(18px + env(safe-area-inset-left));
-  background:rgba(10,11,14,.66);
-  -webkit-backdrop-filter:blur(18px);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--hair);
+  background:var(--header-bg);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
   transition:padding .28s cubic-bezier(.23,1,.32,1);
-}
-header.top::before{
-  content:"";position:absolute;inset:0 0 auto 0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.4) 50%,transparent);
 }
 .top-row{display:flex;align-items:center;gap:6px}
 #profileSelect{
   -webkit-appearance:none;appearance:none;
   background:transparent;
-  border:1px solid rgba(255,255,255,.34);border-radius:2px;
-  color:var(--ink);font:600 17px var(--ar);
-  padding:4px 12px;min-width:0;max-width:52%;
+  background-image:var(--chev);
+  background-repeat:no-repeat;
+  background-position:left 2px center;
+  border:none;border-bottom:1px solid transparent;border-radius:0;
+  color:var(--ink);font:600 18px var(--ar);
+  padding:4px 2px 4px 18px;min-width:0;max-width:52%;
 }
-#profileSelect option{background:#15171B;color:var(--ink)}
+#profileSelect:focus{border-bottom-color:var(--green)}
+#profileSelect option{background:var(--surface);color:var(--ink)}
 .saved{
-  font:400 13px var(--ar);color:var(--faint);
+  font:500 12px var(--ar);color:var(--green);
+  border:1px solid var(--green);border-radius:7px;
+  padding:1px 8px 2px;
   opacity:0;transition:opacity .5s;white-space:nowrap;margin-inline-start:auto;
 }
-.saved.on{opacity:1;transition:opacity .12s}
+.saved.on{opacity:.85;transition:opacity .12s}
 #monthLabel{
-  background:none;border:none;color:var(--dim);
+  background:none;border:none;border-bottom:1px solid transparent;
+  color:var(--sec);
   font:500 17px/1.3 var(--ar);
-  width:100%;padding:6px 0 0;
+  width:100%;padding:6px 0 2px;
 }
 .head-eyebrow{margin-top:6px}
 .balance-line{display:flex;align-items:baseline;gap:12px;margin-top:0}
-.balance-caption{color:var(--dim);font:500 15px var(--ar)}
+.balance-caption{color:var(--sec);font:500 15px var(--ar)}
 #finalBalance{
   direction:ltr;unicode-bidi:isolate;
   font-family:var(--num);
-  font-weight:300;font-size:54px;letter-spacing:.02em;
+  font-weight:600;font-size:46px;letter-spacing:-0.015em;
   font-variant-numeric:tabular-nums;font-feature-settings:"tnum";
-  color:var(--ink);
+  color:var(--green);
   transition:font-size .28s cubic-bezier(.23,1,.32,1);
 }
 #finalBalance.neg{color:var(--neg)}
+.approx{color:var(--sec);font-weight:400}
 header.top.shrunk{padding-top:calc(7px + env(safe-area-inset-top));padding-bottom:9px}
-header.top.shrunk #finalBalance{font-size:30px;font-weight:400}
+header.top.shrunk #finalBalance{font-size:28px}
+/* ================= inputs: quiet at rest, clear on focus ================= */
+.title-input,.name-input,.amount-input{
+  background:none;border:none;border-bottom:1px solid transparent;border-radius:0;
+}
+.title-input:focus,.name-input:focus,.amount-input:focus,#monthLabel:focus{
+  border-bottom-color:var(--green);
+}
 /* ================= salary + groups ================= */
 .block-head{display:flex;align-items:center;gap:8px}
 .title-input{
-  flex:1;background:none;border:none;color:var(--ink);
+  flex:1;color:var(--ink);
   font:600 18px var(--ar);padding:2px 0;min-width:0;
 }
-.title-input::placeholder,.name-input::placeholder{color:var(--faint)}
+.title-input::placeholder,.name-input::placeholder{color:var(--sec);opacity:.6}
 .icon-btn{
-  background:none;border:none;color:var(--faint);
-  font:400 20px/1 var(--ar);padding:6px 8px;cursor:pointer;
+  background:none;border:none;color:var(--sec);
+  font:400 19px/1 var(--ar);padding:6px 8px;border-radius:8px;cursor:pointer;
   transition:transform .12s cubic-bezier(.23,1,.32,1), color .12s;
 }
-.icon-btn:active{transform:scale(.96);color:var(--dim)}
+.icon-btn:active{transform:scale(.96);color:var(--ink)}
 .rows{list-style:none;margin-top:6px}
 .row{
   display:flex;align-items:center;gap:10px;
-  padding:10px 0;border-bottom:1px solid var(--hair-soft);
+  padding:10px 0;border-bottom:1px dotted var(--border);
 }
 .rows .row:last-child{border-bottom:none}
 .toggle{
-  flex:none;width:22px;height:22px;border-radius:1px;
-  border:1px solid rgba(255,255,255,.4);background:none;cursor:pointer;
+  flex:none;width:22px;height:22px;border-radius:50%;
+  border:1.5px solid var(--sec);background:none;cursor:pointer;
   display:grid;place-items:center;
-  transition:transform .12s cubic-bezier(.23,1,.32,1), background .15s;
+  transition:transform .12s cubic-bezier(.23,1,.32,1), background .15s, border-color .15s;
 }
 .toggle:active{transform:scale(.96)}
-.toggle.done{background:#E8E6E1;border-color:#E8E6E1}
-.toggle.done::after{content:"";width:10px;height:6px;border:2px solid #101114;border-top:none;border-right:none;transform:rotate(-45deg) translate(0,-1px)}
+.toggle.done{background:var(--green);border-color:var(--green)}
+.toggle.done::after{content:"";width:9px;height:5px;border:2px solid var(--check);border-top:none;border-right:none;transform:rotate(-45deg) translate(0,-1px)}
 .name-input{
-  flex:1;min-width:0;background:none;border:none;color:var(--ink);
+  flex:1;min-width:0;color:var(--ink);
   font:400 17px var(--ar);padding:2px 0;
 }
-.row.done .name-input{text-decoration:line-through;color:var(--dim)}
+.row.done .name-input{text-decoration:line-through;color:var(--sec)}
 .amount-input{
-  flex:none;width:104px;background:none;border:none;color:var(--ink);
+  flex:none;width:104px;color:var(--ink);
   direction:ltr;text-align:right;
-  font-family:var(--num);font-size:17px;font-weight:400;
+  font-family:var(--num);font-size:17px;font-weight:500;
   font-variant-numeric:tabular-nums;font-feature-settings:"tnum";
   padding:2px 0;
 }
-.row.done .amount-input{color:var(--dim)}
-.totals{margin-top:8px;padding-top:10px;border-top:1px solid var(--hair);display:flex;flex-direction:column;gap:3px}
+.row.done .amount-input{color:var(--sec)}
+.totals{margin-top:8px;padding-top:10px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:3px}
 .tline{display:flex;align-items:baseline;justify-content:space-between}
-.tline .lbl{font:500 15px var(--ar);color:var(--dim)}
+.tline .lbl{font:500 15px var(--ar);color:var(--sec)}
 .tline .val{
   direction:ltr;unicode-bidi:isolate;
-  font-family:var(--num);font-weight:500;font-size:17px;
+  font-family:var(--num);font-weight:600;font-size:17px;
   font-variant-numeric:tabular-nums;font-feature-settings:"tnum";
+  color:var(--ink);
 }
-.tline.rest .lbl{color:var(--faint)}
-.tline.rest .val{color:var(--dim);font-weight:400}
+.tline.rest .lbl{color:var(--sec);opacity:.75}
+.tline.rest .val{color:var(--sec);font-weight:500}
 .tline .val.neg{color:var(--neg)}
 .add-row-btn{
-  margin-top:8px;background:none;border:none;color:var(--dim);
-  font:500 15px var(--ar);padding:6px 2px;cursor:pointer;
+  margin-top:8px;background:none;border:none;color:var(--green);
+  font:500 15px var(--ar);padding:6px 2px;cursor:pointer;border-radius:8px;
 }
-/* ================= toolbar ================= */
+/* ================= buttons ================= */
 .toolbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:6px 0 0}
 .pill{
-  border-radius:2px;padding:11px 18px;cursor:pointer;
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.3);
+  border-radius:10px;padding:10px 16px;cursor:pointer;
+  background:var(--surface);
+  border:1px solid var(--border);
   color:var(--ink);font:500 15px var(--ar);
   transition:transform .12s cubic-bezier(.23,1,.32,1), background .12s, color .12s;
 }
-.pill:active{transform:scale(.97);background:#E8E6E1;color:#0E1013}
+.pill:active{transform:scale(.97)}
+.pill.primary{
+  background:var(--green);border-color:var(--green);color:var(--on-green);
+}
 /* ================= focus ================= */
 :focus{outline:none}
-:focus-visible{outline:2px solid rgba(255,255,255,.7);outline-offset:2px}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px;border-radius:6px}
 /* ================= share fallback overlay ================= */
 .overlay{
   position:fixed;inset:0;z-index:50;display:none;
-  background:rgba(6,7,9,.93);
-  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  background:rgba(20,19,16,.62);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
   flex-direction:column;align-items:center;gap:14px;
   padding:calc(16px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom));
   overflow:auto;
 }
 .overlay.on{display:flex}
-.overlay img{max-width:100%;box-shadow:0 20px 60px rgba(0,0,0,.6)}
-.overlay p{color:var(--dim);font-size:15px;text-align:center}
-.overlay a{color:var(--ink);font-size:15px;text-decoration:underline}
+.overlay img{max-width:100%;border-radius:6px;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.overlay p{color:#F5F2EA;font-size:15px;text-align:center}
+.overlay a{color:#F5F2EA;font-size:15px;text-decoration:underline}
+.overlay .pill{background:#F5F2EA;border-color:#F5F2EA;color:#24231F}
 /* ================= small screens ================= */
 @media (max-width:359px){
-  #finalBalance{font-size:42px}
+  #finalBalance{font-size:38px}
   .amount-input{width:88px}
   #profileSelect{max-width:46%}
-  .stone.s1{width:150px;height:118px;left:52%}
 }
 </style>
 </head>
 <body>
-
-<div class="scene" id="scene" aria-hidden="true">
-  <div class="stone s1"></div>
-  <div class="stone s2"></div>
-  <div class="stone s3"></div>
-</div>
-<div class="grain" aria-hidden="true"></div>
 
 <div class="wrap">
   <header class="top" id="topHeader">
@@ -283,7 +258,7 @@ header.top.shrunk #finalBalance{font-size:30px;font-weight:400}
     <div class="top-row">
       <input id="monthLabel" dir="rtl" aria-label="اسم الشهر" placeholder="اسم الشهر">
     </div>
-    <span class="eyebrow head-eyebrow">M-SAL — REMAINING ↗</span>
+    <span class="eyebrow head-eyebrow">M-SAL</span>
     <div class="balance-line">
       <span class="balance-caption" dir="rtl">المتبقي</span>
       <span id="finalBalance" dir="ltr">0</span>
@@ -291,20 +266,20 @@ header.top.shrunk #finalBalance{font-size:30px;font-weight:400}
   </header>
 
   <section class="panel" id="salaryPanel">
-    <span class="plate-num">00 / INCOME</span>
+    <span class="plate-num">00</span>
     <div class="block-head">
       <input class="title-input" id="salaryLabel" dir="rtl" aria-label="مسمى الراتب" placeholder="الراتب">
       <input class="amount-input" id="salaryAmount" dir="ltr" inputmode="decimal" aria-label="مبلغ الراتب" placeholder="0">
     </div>
   </section>
 
-  <div id="blocksHost" style="display:flex;flex-direction:column;gap:16px"></div>
+  <div id="blocksHost" style="display:flex;flex-direction:column;gap:14px"></div>
 
   <nav class="toolbar" aria-label="أدوات">
     <button class="pill" id="btnAddProfile">+ شخص</button>
-    <button class="pill" id="btnAddBlock">+ مجموعة</button>
+    <button class="pill primary" id="btnAddBlock">+ مجموعة</button>
     <button class="pill" id="btnNewMonth">شهر جديد</button>
-    <button class="pill" id="btnReceipt">إيصال</button>
+    <button class="pill primary" id="btnReceipt">إيصال</button>
     <button class="pill" id="btnExport">تصدير</button>
     <button class="pill" id="btnImport">استيراد</button>
   </nav>
@@ -531,7 +506,14 @@ function computeTotals(){
 }
 
 function setVal(el, v, approx){
-  el.textContent = formatValue(v, approx);
+  el.textContent = "";
+  if (approx) {
+    const t = document.createElement("span");
+    t.className = "approx";
+    t.textContent = "~";
+    el.appendChild(t);
+  }
+  el.appendChild(document.createTextNode(fmt.format(v)));
   el.classList.toggle("neg", v < 0);
 }
 
@@ -552,7 +534,7 @@ const blocksHost = document.getElementById("blocksHost");
 function renumberPlates(){
   let i = 1;
   for (const el of blocksHost.querySelectorAll(".plate-num")) {
-    el.textContent = String(i++).padStart(2, "0") + " / SET";
+    el.textContent = String(i++).padStart(2, "0");
   }
 }
 
@@ -825,32 +807,13 @@ window.addEventListener("scroll", () => {
   });
 }, { passive: true });
 
-/* ================= drifting debris ================= */
-(function makeDebris(){
-  const scene = document.getElementById("scene");
-  const frag = document.createDocumentFragment();
-  for (let i = 0; i < 26; i++) {
-    const s = document.createElement("span");
-    s.className = "deb d" + (i % 4);
-    s.style.left = (Math.random() * 100) + "%";
-    s.style.top = (Math.random() * 68) + "%";
-    const sz = 2 + Math.random() * 7;
-    s.style.width = sz + "px";
-    s.style.height = (sz * (0.7 + Math.random() * 0.8)) + "px";
-    s.style.animationDuration = (46 + Math.random() * 50) + "s";
-    s.style.animationDelay = (-Math.random() * 60) + "s";
-    frag.appendChild(s);
-  }
-  scene.appendChild(frag);
-})();
-
 /* ================= receipt export ================= */
 const AR_FONT = '"IBM Plex Sans Arabic", -apple-system, Arial, sans-serif';
 const NUM_FONT = '-apple-system, system-ui, "Helvetica Neue", Arial, sans-serif';
 
 function receiptLayout(ctx, draw){
   const W = 560, pad = 40, teeth = 12;
-  const INK = "#161616", DIMK = "#7C7B76", RULE = "#B4B3AC";
+  const INK = "#24231F", DIMK = "#77736A", RULE = "#B5AE9F";
   let y = teeth + 44;
 
   function arabic(text, size, weight, color, align, x){
@@ -932,14 +895,14 @@ function receiptLayout(ctx, draw){
     number(formatValue(t.blocks[i].sub, t.blocks[i].approx), 16, 600, INK);
     y += 22;
     arabic("المتبقي بعده", 14, 400, DIMK);
-    number(formatValue(t.blocks[i].bal, t.blocks[i].balApprox), 15, 500, t.blocks[i].bal < 0 ? "#A03A2E" : DIMK);
+    number(formatValue(t.blocks[i].bal, t.blocks[i].balApprox), 15, 500, t.blocks[i].bal < 0 ? "#B8473F" : DIMK);
     y += 18; rule(true); y += 32;
   });
 
   /* final */
   y += 6;
   arabic("المتبقي", 20, 700, INK);
-  number(formatValue(t.final, t.finalApprox), 34, 600, t.final < 0 ? "#A03A2E" : INK);
+  number(formatValue(t.final, t.finalApprox), 34, 600, t.final < 0 ? "#B8473F" : "#38594A");
   y += 22; rule(false); y += 2; rule(false);
   y += 34;
 
@@ -972,8 +935,8 @@ function drawReceipt(){
   }
   ctx.closePath();
   const g = ctx.createLinearGradient(0, 0, 0, H);
-  g.addColorStop(0, "#F7F6F2");
-  g.addColorStop(1, "#EDECE6");
+  g.addColorStop(0, "#FFFCF5");
+  g.addColorStop(1, "#F5F2EA");
   ctx.fillStyle = g;
   ctx.fill();
   ctx.save();
