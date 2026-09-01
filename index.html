@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ميزانية">
+<meta name="theme-color" content="#07070B">
+<title>ميزانية الشهر</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23141420'/%3E%3Cstop offset='1' stop-color='%2307070B'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='180' height='180' rx='40' fill='url(%23g)'/%3E%3Ccircle cx='52' cy='48' r='40' fill='%233B3E8F' opacity='.5'/%3E%3Ccircle cx='138' cy='140' r='46' fill='%231F6E6B' opacity='.45'/%3E%3Crect x='30' y='58' width='120' height='64' rx='20' fill='rgba(255,255,255,.10)' stroke='rgba(255,255,255,.25)' stroke-width='2'/%3E%3Ctext x='90' y='106' font-family='Arial' font-size='44' font-weight='700' fill='%23E9C87E' text-anchor='middle'%3E%26%23x62F%3B.%26%23x625%3B%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' rx='14' fill='%2307070B'/%3E%3Ccircle cx='20' cy='18' r='14' fill='%233B3E8F' opacity='.6'/%3E%3Ccircle cx='48' cy='50' r='16' fill='%231F6E6B' opacity='.5'/%3E%3Crect x='10' y='22' width='44' height='22' rx='8' fill='rgba(255,255,255,.12)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#07070B;
+  --ink:#F2F0EC;
+  --dim:rgba(242,240,236,.56);
+  --faint:rgba(242,240,236,.34);
+  --glass:rgba(255,255,255,.06);
+  --glass-strong:rgba(255,255,255,.09);
+  --edge:rgba(255,255,255,.12);
+  --hair:rgba(255,255,255,.07);
+  --accent:#E9C87E;
+  --neg:#FF6B6B;
+  --ar:"IBM Plex Sans Arabic", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --num:-apple-system, system-ui, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--ar);
+  font-size:17px;
+  line-height:1.45;
+  min-height:100dvh;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  overflow-x:hidden;
+}
+/* ---------- background blobs ---------- */
+.blobs{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.34;will-change:transform}
+.blob.a{width:64vmax;height:64vmax;background:#3B3E8F;top:-24vmax;right:-18vmax;animation:driftA 78s ease-in-out infinite alternate}
+.blob.b{width:56vmax;height:56vmax;background:#1F6E6B;bottom:-22vmax;left:-16vmax;animation:driftB 92s ease-in-out infinite alternate}
+.blob.c{width:40vmax;height:40vmax;background:#7A5A28;top:38%;left:32%;opacity:.22;animation:driftC 104s ease-in-out infinite alternate}
+@keyframes driftA{from{transform:translate(0,0) scale(1)}to{transform:translate(-9vmax,7vmax) scale(1.12)}}
+@keyframes driftB{from{transform:translate(0,0) scale(1)}to{transform:translate(8vmax,-6vmax) scale(1.08)}}
+@keyframes driftC{from{transform:translate(0,0)}to{transform:translate(6vmax,-8vmax)}}
+@media (prefers-reduced-motion:reduce){
+  .blob{animation:none !important}
+  *{transition:none !important}
+}
+/* ---------- generic glass ---------- */
+.panel{
+  position:relative;
+  background:var(--glass);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  backdrop-filter:blur(28px) saturate(180%);
+  border:1px solid var(--edge);
+  border-radius:26px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22), 0 18px 46px rgba(0,0,0,.42);
+}
+/* ---------- layout ---------- */
+.wrap{
+  position:relative;z-index:1;
+  max-width:560px;margin:0 auto;
+  padding:12px 14px calc(40px + env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;gap:14px;
+}
+/* ---------- sticky balance header ---------- */
+header.top{
+  position:sticky;top:0;z-index:5;
+  margin:0 -14px 2px;
+  padding:calc(10px + env(safe-area-inset-top)) calc(18px + env(safe-area-inset-right)) 14px calc(18px + env(safe-area-inset-left));
+  background:rgba(10,10,15,.52);
+  -webkit-backdrop-filter:blur(40px) saturate(190%);
+  backdrop-filter:blur(40px) saturate(190%);
+  border-bottom:1px solid var(--edge);
+  box-shadow:0 14px 40px rgba(0,0,0,.35);
+  transition:padding .28s cubic-bezier(.23,1,.32,1);
+}
+header.top::before{ /* specular highlight */
+  content:"";position:absolute;inset:0 0 auto 0;height:1.5px;
+  background:linear-gradient(90deg,transparent 4%,rgba(255,255,255,.55) 30%,rgba(255,255,255,.18) 60%,transparent 95%);
+  pointer-events:none;
+}
+.top-row{display:flex;align-items:center;gap:6px}
+#profileSelect{
+  -webkit-appearance:none;appearance:none;
+  background:var(--glass-strong);
+  border:1px solid var(--edge);border-radius:999px;
+  color:var(--ink);font:600 17px var(--ar);
+  padding:5px 14px;min-width:0;max-width:52%;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18);
+}
+#profileSelect option{background:#141419;color:var(--ink)}
+.saved{
+  font:400 13px var(--ar);color:var(--faint);
+  opacity:0;transition:opacity .5s;white-space:nowrap;margin-inline-start:auto;
+}
+.saved.on{opacity:1;transition:opacity .12s}
+#monthLabel{
+  background:none;border:none;color:var(--dim);
+  font:500 17px/1.3 var(--ar);
+  width:100%;padding:4px 0 0;
+}
+.balance-line{display:flex;align-items:baseline;gap:10px;margin-top:2px}
+.balance-caption{color:var(--dim);font:500 15px var(--ar)}
+#finalBalance{
+  direction:ltr;unicode-bidi:isolate;
+  font-family:var(--num);
+  font-weight:600;font-size:44px;letter-spacing:-0.03em;
+  font-variant-numeric:tabular-nums;font-feature-settings:"tnum";
+  color:var(--accent);
+  transition:font-size .28s cubic-bezier(.23,1,.32,1);
+}
+#finalBalance.neg{color:var(--neg)}
+header.top.shrunk{padding-top:calc(6px + env(safe-area-inset-top));padding-bottom:8px}
+header.top.shrunk #finalBalance{font-size:28px}
+/* ---------- salary + groups ---------- */
+.panel{padding:16px 18px}
+.block-head{display:flex;align-items:center;gap:8px}
+.title-input{
+  flex:1;background:none;border:none;color:var(--ink);
+  font:600 18px var(--ar);padding:2px 0;min-width:0;
+}
+.title-input::placeholder,.name-input::placeholder{color:var(--faint)}
+.icon-btn{
+  background:none;border:none;color:var(--faint);
+  font:400 20px/1 var(--ar);padding:6px 8px;border-radius:12px;cursor:pointer;
+  transition:transform .12s cubic-bezier(.23,1,.32,1);
+}
+.icon-btn:active{transform:scale(.96);color:var(--dim)}
+.rows{list-style:none;margin-top:6px}
+.row{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 0;border-bottom:1px solid var(--hair);
+}
+.rows .row:last-child{border-bottom:none}
+.toggle{
+  flex:none;width:24px;height:24px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.35);background:none;cursor:pointer;
+  display:grid;place-items:center;
+  transition:transform .12s cubic-bezier(.23,1,.32,1), background .15s;
+}
+.toggle:active{transform:scale(.96)}
+.toggle.done{background:rgba(255,255,255,.82);border-color:rgba(255,255,255,.82)}
+.toggle.done::after{content:"";width:10px;height:6px;border:2px solid #14141A;border-top:none;border-right:none;transform:rotate(-45deg) translate(0,-1px)}
+.name-input{
+  flex:1;min-width:0;background:none;border:none;color:var(--ink);
+  font:400 17px var(--ar);padding:2px 0;
+}
+.row.done .name-input{text-decoration:line-through;color:var(--dim)}
+.amount-input{
+  flex:none;width:104px;background:none;border:none;color:var(--ink);
+  direction:ltr;text-align:right;
+  font-family:var(--num);font-size:17px;font-weight:500;
+  font-variant-numeric:tabular-nums;font-feature-settings:"tnum";
+  letter-spacing:-0.01em;padding:2px 0;
+}
+.row.done .amount-input{color:var(--dim)}
+.totals{margin-top:8px;padding-top:10px;border-top:1px solid var(--hair);display:flex;flex-direction:column;gap:3px}
+.tline{display:flex;align-items:baseline;justify-content:space-between}
+.tline .lbl{font:500 15px var(--ar);color:var(--dim)}
+.tline .val{
+  direction:ltr;unicode-bidi:isolate;
+  font-family:var(--num);font-weight:600;font-size:17px;
+  font-variant-numeric:tabular-nums;font-feature-settings:"tnum";letter-spacing:-0.01em;
+}
+.tline.rest .lbl{color:var(--faint)}
+.tline.rest .val{color:var(--dim);font-weight:500}
+.tline .val.neg{color:var(--neg)}
+.add-row-btn{
+  margin-top:8px;background:none;border:none;color:var(--dim);
+  font:500 15px var(--ar);padding:6px 2px;cursor:pointer;border-radius:10px;
+}
+/* ---------- toolbar ---------- */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:4px 0 0}
+.pill{
+  border-radius:999px;padding:11px 18px;cursor:pointer;
+  background:var(--glass-strong);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  backdrop-filter:blur(28px) saturate(180%);
+  border:1px solid var(--edge);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22), 0 8px 24px rgba(0,0,0,.35);
+  color:var(--ink);font:500 15px var(--ar);
+  transition:transform .12s cubic-bezier(.23,1,.32,1);
+}
+.pill:active{transform:scale(.96)}
+/* ---------- focus ---------- */
+:focus{outline:none}
+:focus-visible{outline:2px solid rgba(255,255,255,.65);outline-offset:2px;border-radius:8px}
+/* ---------- share fallback overlay ---------- */
+.overlay{
+  position:fixed;inset:0;z-index:20;display:none;
+  background:rgba(4,4,7,.9);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+  flex-direction:column;align-items:center;gap:14px;
+  padding:calc(16px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom));
+  overflow:auto;
+}
+.overlay.on{display:flex}
+.overlay img{max-width:100%;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.overlay p{color:var(--dim);font-size:15px;text-align:center}
+.overlay a{color:var(--accent);font-size:15px}
+/* ---------- small screens ---------- */
+@media (max-width:359px){
+  #finalBalance{font-size:36px}
+  .amount-input{width:88px}
+  #profileSelect{max-width:46%}
+}
+</style>
+</head>
+<body>
+
+<div class="blobs" aria-hidden="true">
+  <div class="blob a"></div><div class="blob b"></div><div class="blob c"></div>
+</div>
+
+<div class="wrap">
+  <header class="top" id="topHeader">
+    <div class="top-row">
+      <select id="profileSelect" dir="rtl" aria-label="اختيار الشخص"></select>
+      <button class="icon-btn" id="btnRenameProfile" aria-label="إعادة تسمية الشخص">✎</button>
+      <button class="icon-btn" id="btnDeleteProfile" aria-label="حذف الشخص">×</button>
+      <span class="saved" id="savedDot" dir="rtl">محفوظ ✓</span>
+    </div>
+    <div class="top-row">
+      <input id="monthLabel" dir="rtl" aria-label="اسم الشهر" placeholder="اسم الشهر">
+    </div>
+    <div class="balance-line">
+      <span class="balance-caption" dir="rtl">المتبقي</span>
+      <span id="finalBalance" dir="ltr">0</span>
+    </div>
+  </header>
+
+  <section class="panel" id="salaryPanel">
+    <div class="block-head">
+      <input class="title-input" id="salaryLabel" dir="rtl" aria-label="مسمى الراتب" placeholder="الراتب">
+      <input class="amount-input" id="salaryAmount" dir="ltr" inputmode="decimal" aria-label="مبلغ الراتب" placeholder="0">
+    </div>
+  </section>
+
+  <div id="blocksHost" style="display:flex;flex-direction:column;gap:14px"></div>
+
+  <nav class="toolbar" aria-label="أدوات">
+    <button class="pill" id="btnAddProfile">+ شخص</button>
+    <button class="pill" id="btnAddBlock">+ مجموعة</button>
+    <button class="pill" id="btnNewMonth">شهر جديد</button>
+    <button class="pill" id="btnReceipt">إيصال</button>
+    <button class="pill" id="btnExport">تصدير</button>
+    <button class="pill" id="btnImport">استيراد</button>
+  </nav>
+  <input type="file" id="importFile" accept="application/json,.json" style="display:none" aria-hidden="true">
+</div>
+
+<div class="overlay" id="shareOverlay" role="dialog" aria-label="حفظ الإيصال">
+  <p dir="rtl">اضغط مطولاً على الصورة ثم اختر «حفظ الصورة»</p>
+  <img id="overlayImg" alt="إيصال الميزانية">
+  <a id="overlayDl" download="receipt.png" dir="rtl">تنزيل الصورة</a>
+  <button class="pill" id="overlayClose">إغلاق</button>
+</div>
+
+<script>
+"use strict";
+/* ================= state ================= */
+const KEY = "mizaniya.v2";
+const BAK = "mizaniya.v2.bak";
+const OLD_KEYS = ["mizaniya.v1", "mizaniya.v1.bak"];
+
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const raf = (typeof requestAnimationFrame === "function") ? requestAnimationFrame : (fn => setTimeout(fn, 16));
+
+const AR_MONTHS = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+function defaultMonthLabel(){
+  const d = new Date();
+  return AR_MONTHS[d.getMonth()] + " " + d.getFullYear();
+}
+
+function seedData(){
+  return {
+    monthLabel: defaultMonthLabel(),
+    salaryLabel: "الراتب",
+    salary: "",
+    blocks: [
+      { id: uid(), title: "التزامات ثابتة", rows: [ { id: uid(), name: "", amount: "", done: false } ] }
+    ]
+  };
+}
+
+function sanitizeData(d){
+  d = (d && typeof d === "object") ? d : {};
+  const s = {
+    monthLabel: typeof d.monthLabel === "string" ? d.monthLabel : defaultMonthLabel(),
+    salaryLabel: typeof d.salaryLabel === "string" ? d.salaryLabel : "الراتب",
+    salary: (typeof d.salary === "string" || typeof d.salary === "number") ? String(d.salary) : "",
+    blocks: []
+  };
+  if (Array.isArray(d.blocks)) {
+    for (const b of d.blocks) {
+      if (!b || typeof b !== "object") continue;
+      const nb = { id: typeof b.id === "string" ? b.id : uid(),
+                   title: typeof b.title === "string" ? b.title : "",
+                   rows: [] };
+      if (Array.isArray(b.rows)) {
+        for (const r of b.rows) {
+          if (!r || typeof r !== "object") continue;
+          nb.rows.push({
+            id: typeof r.id === "string" ? r.id : uid(),
+            name: typeof r.name === "string" ? r.name : "",
+            amount: (typeof r.amount === "string" || typeof r.amount === "number") ? String(r.amount) : "",
+            done: !!r.done
+          });
+        }
+      }
+      s.blocks.push(nb);
+    }
+  }
+  return s;
+}
+
+function sanitizeState(d){
+  const s = { currentId: "", profiles: [] };
+  if (d && Array.isArray(d.profiles)) {
+    for (const p of d.profiles) {
+      if (!p || typeof p !== "object") continue;
+      s.profiles.push({
+        id: typeof p.id === "string" ? p.id : uid(),
+        name: (typeof p.name === "string" && p.name.trim()) ? p.name : "بدون اسم",
+        data: sanitizeData(p.data)
+      });
+    }
+  }
+  if (!s.profiles.length) s.profiles.push({ id: uid(), name: "الأساسي", data: seedData() });
+  s.currentId = (typeof d?.currentId === "string" && s.profiles.some(p => p.id === d.currentId))
+    ? d.currentId : s.profiles[0].id;
+  return s;
+}
+
+function load(){
+  /* v2: current format */
+  for (const k of [KEY, BAK]) {
+    try {
+      const raw = localStorage.getItem(k);
+      if (!raw) continue;
+      const d = JSON.parse(raw);
+      if (d && typeof d === "object" && Array.isArray(d.profiles)) return sanitizeState(d);
+    } catch (e) { /* try next */ }
+  }
+  /* v1: migrate the old single-person data into the first profile */
+  for (const k of OLD_KEYS) {
+    try {
+      const raw = localStorage.getItem(k);
+      if (!raw) continue;
+      const d = JSON.parse(raw);
+      if (d && typeof d === "object" && Array.isArray(d.blocks)) {
+        return sanitizeState({ profiles: [ { id: uid(), name: "الأساسي", data: d } ] });
+      }
+    } catch (e) { /* try next */ }
+  }
+  return sanitizeState(null);
+}
+
+let state = load();
+function cur(){ return state.profiles.find(p => p.id === state.currentId) || state.profiles[0]; }
+function D(){ return cur().data; }
+
+/* ================= persistence ================= */
+let saveTimer = null;
+function scheduleSave(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveNow, 300);
+}
+function saveNow(){
+  clearTimeout(saveTimer);
+  try {
+    const s = JSON.stringify(state);
+    localStorage.setItem(KEY, s);
+    JSON.parse(localStorage.getItem(KEY));      // verify round-trip
+    localStorage.setItem(BAK, s);               // promote to known-good
+    flashSaved();
+  } catch (e) { /* storage full / private mode: keep running */ }
+}
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") saveNow();
+});
+window.addEventListener("pagehide", saveNow);
+
+let savedTimer = null;
+function flashSaved(){
+  const el = document.getElementById("savedDot");
+  el.classList.add("on");
+  clearTimeout(savedTimer);
+  savedTimer = setTimeout(() => el.classList.remove("on"), 1200);
+}
+
+/* ================= numbers ================= */
+function normalizeDigits(s){
+  return String(s)
+    .replace(/[\u0660-\u0669]/g, c => String(c.charCodeAt(0) - 0x0660))
+    .replace(/[\u06F0-\u06F9]/g, c => String(c.charCodeAt(0) - 0x06F0))
+    .replace(/\u066B/g, ".")   // arabic decimal separator
+    .replace(/\u066C/g, "");   // arabic thousands separator
+}
+function parseAmount(raw){
+  if (raw == null) return { value: 0, approx: false, empty: true };
+  let s = normalizeDigits(String(raw)).trim();
+  if (s === "") return { value: 0, approx: false, empty: true };
+  const approx = /^[~\uFF5E\u223C]/.test(s);
+  s = s.replace(/^[~\uFF5E\u223C]\s*/, "");
+  s = s.replace(/[,\s]/g, "");
+  const v = parseFloat(s);
+  return { value: isFinite(v) ? v : 0, approx, empty: false };
+}
+const fmt = new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 });
+function formatValue(v, approx){
+  return (approx ? "~" : "") + fmt.format(v);
+}
+function canonicalRaw(raw){
+  const p = parseAmount(raw);
+  if (p.empty) return "";
+  return (p.approx ? "~" : "") + String(p.value);
+}
+function displayRaw(raw){
+  const p = parseAmount(raw);
+  if (p.empty) return "";
+  return formatValue(p.value, p.approx);
+}
+
+/* amount inputs: raw while typing, formatted when blurred */
+function bindAmount(input, getRaw, setRaw){
+  input.value = displayRaw(getRaw());
+  input.addEventListener("focus", () => {
+    input.value = canonicalRaw(getRaw()) || normalizeDigits(String(getRaw() || "")).trim();
+    raf(() => { try { input.select(); } catch(e){} });
+  });
+  input.addEventListener("input", () => {
+    setRaw(normalizeDigits(input.value));
+    updateTotals();
+    scheduleSave();
+  });
+  input.addEventListener("blur", () => {
+    const c = canonicalRaw(input.value);
+    setRaw(c);
+    input.value = displayRaw(c);
+    updateTotals();
+    scheduleSave();
+  });
+}
+function bindText(input, getVal, setVal){
+  input.value = getVal();
+  input.addEventListener("input", () => { setVal(input.value); scheduleSave(); });
+}
+
+/* ================= totals ================= */
+function computeTotals(){
+  const d = D();
+  const sal = parseAmount(d.salary);
+  let bal = sal.value;
+  let anyApprox = sal.approx;
+  const blocks = [];
+  for (const b of d.blocks) {
+    let sub = 0, approx = false;
+    for (const r of b.rows) {
+      const p = parseAmount(r.amount);
+      sub += p.value;
+      if (p.approx) approx = true;
+    }
+    bal -= sub;
+    anyApprox = anyApprox || approx;
+    blocks.push({ sub, approx, bal, balApprox: anyApprox });
+  }
+  return { blocks, final: bal, finalApprox: anyApprox };
+}
+
+function setVal(el, v, approx){
+  el.textContent = formatValue(v, approx);
+  el.classList.toggle("neg", v < 0);
+}
+
+function updateTotals(){
+  const t = computeTotals();
+  setVal(document.getElementById("finalBalance"), t.final, t.finalApprox);
+  D().blocks.forEach((b, i) => {
+    const host = document.querySelector('[data-block="' + b.id + '"]');
+    if (!host) return;
+    setVal(host.querySelector(".sub-val"), t.blocks[i].sub, t.blocks[i].approx);
+    setVal(host.querySelector(".rest-val"), t.blocks[i].bal, t.blocks[i].balApprox);
+  });
+}
+
+/* ================= rendering ================= */
+const blocksHost = document.getElementById("blocksHost");
+
+function renderRow(block, row){
+  const li = document.createElement("li");
+  li.className = "row" + (row.done ? " done" : "");
+  li.dataset.row = row.id;
+
+  const tg = document.createElement("button");
+  tg.className = "toggle" + (row.done ? " done" : "");
+  tg.setAttribute("aria-label", "تم الصرف");
+  tg.setAttribute("aria-pressed", String(row.done));
+  tg.addEventListener("click", () => {
+    row.done = !row.done;
+    tg.classList.toggle("done", row.done);
+    tg.setAttribute("aria-pressed", String(row.done));
+    li.classList.toggle("done", row.done);
+    scheduleSave();
+  });
+
+  const name = document.createElement("input");
+  name.className = "name-input";
+  name.dir = "rtl";
+  name.placeholder = "البند";
+  name.setAttribute("aria-label", "اسم البند");
+  bindText(name, () => row.name, v => { row.name = v; });
+
+  const amt = document.createElement("input");
+  amt.className = "amount-input";
+  amt.dir = "ltr";
+  amt.inputMode = "decimal";
+  amt.placeholder = "0";
+  amt.setAttribute("aria-label", "المبلغ");
+  bindAmount(amt, () => row.amount, v => { row.amount = v; });
+
+  const del = document.createElement("button");
+  del.className = "icon-btn";
+  del.textContent = "×";
+  del.setAttribute("aria-label", "حذف البند");
+  del.addEventListener("click", () => {
+    block.rows = block.rows.filter(r => r.id !== row.id);
+    li.remove();
+    updateTotals();
+    scheduleSave();
+  });
+
+  li.append(tg, name, amt, del);
+  return li;
+}
+
+function renderBlock(block){
+  const sec = document.createElement("section");
+  sec.className = "panel";
+  sec.dataset.block = block.id;
+
+  const head = document.createElement("div");
+  head.className = "block-head";
+
+  const title = document.createElement("input");
+  title.className = "title-input";
+  title.dir = "rtl";
+  title.placeholder = "اسم المجموعة";
+  title.setAttribute("aria-label", "اسم المجموعة");
+  bindText(title, () => block.title, v => { block.title = v; });
+
+  const del = document.createElement("button");
+  del.className = "icon-btn";
+  del.textContent = "×";
+  del.setAttribute("aria-label", "حذف المجموعة");
+  del.addEventListener("click", () => {
+    const hasContent = block.rows.some(r => r.name || r.amount);
+    if (hasContent && !confirm("حذف المجموعة «" + (block.title || "بدون اسم") + "» وكل بنودها؟")) return;
+    D().blocks = D().blocks.filter(b => b.id !== block.id);
+    sec.remove();
+    updateTotals();
+    scheduleSave();
+  });
+
+  head.append(title, del);
+
+  const ul = document.createElement("ul");
+  ul.className = "rows";
+  for (const r of block.rows) ul.appendChild(renderRow(block, r));
+
+  const add = document.createElement("button");
+  add.className = "add-row-btn";
+  add.textContent = "+ بند";
+  add.addEventListener("click", () => {
+    const r = { id: uid(), name: "", amount: "", done: false };
+    block.rows.push(r);
+    const li = renderRow(block, r);
+    ul.appendChild(li);
+    li.querySelector(".name-input").focus();
+    scheduleSave();
+  });
+
+  const totals = document.createElement("div");
+  totals.className = "totals";
+  totals.innerHTML =
+    '<div class="tline"><span class="lbl" dir="rtl">المجموع</span><span class="val sub-val" dir="ltr">0</span></div>' +
+    '<div class="tline rest"><span class="lbl" dir="rtl">المتبقي بعده</span><span class="val rest-val" dir="ltr">0</span></div>';
+
+  sec.append(head, ul, add, totals);
+  return sec;
+}
+
+function renderAll(){
+  bindOnceHeader();
+  renderProfileSelect();
+  blocksHost.replaceChildren();
+  for (const b of D().blocks) blocksHost.appendChild(renderBlock(b));
+  updateTotals();
+}
+
+let headerBound = false;
+function bindOnceHeader(){
+  const ml = document.getElementById("monthLabel");
+  const sl = document.getElementById("salaryLabel");
+  const sa = document.getElementById("salaryAmount");
+  if (!headerBound) {
+    headerBound = true;
+    bindText(ml, () => D().monthLabel, v => { D().monthLabel = v; });
+    bindText(sl, () => D().salaryLabel, v => { D().salaryLabel = v; });
+    bindAmount(sa, () => D().salary, v => { D().salary = v; });
+  } else {
+    ml.value = D().monthLabel;
+    sl.value = D().salaryLabel;
+    sa.value = displayRaw(D().salary);
+  }
+}
+
+/* ================= profiles ================= */
+const profileSelect = document.getElementById("profileSelect");
+const ADD_VALUE = "__add__";
+
+function renderProfileSelect(){
+  profileSelect.replaceChildren();
+  for (const p of state.profiles) {
+    const o = document.createElement("option");
+    o.value = p.id;
+    o.textContent = p.name;
+    profileSelect.appendChild(o);
+  }
+  const add = document.createElement("option");
+  add.value = ADD_VALUE;
+  add.textContent = "＋ شخص جديد…";
+  profileSelect.appendChild(add);
+  profileSelect.value = state.currentId;
+}
+
+function addProfile(){
+  const name = (prompt("اسم الشخص الجديد:") || "").trim();
+  if (!name) { profileSelect.value = state.currentId; return; }
+  const p = { id: uid(), name, data: seedData() };
+  state.profiles.push(p);
+  state.currentId = p.id;
+  renderAll();
+  saveNow();
+}
+
+profileSelect.addEventListener("change", () => {
+  if (profileSelect.value === ADD_VALUE) { addProfile(); return; }
+  saveNow();                       // flush the profile we are leaving
+  state.currentId = profileSelect.value;
+  renderAll();
+  saveNow();
+});
+
+document.getElementById("btnAddProfile").addEventListener("click", addProfile);
+
+document.getElementById("btnRenameProfile").addEventListener("click", () => {
+  const p = cur();
+  const name = (prompt("الاسم الجديد:", p.name) || "").trim();
+  if (!name) return;
+  p.name = name;
+  renderProfileSelect();
+  saveNow();
+});
+
+document.getElementById("btnDeleteProfile").addEventListener("click", () => {
+  if (state.profiles.length <= 1) {
+    alert("ما يمكن حذف آخر شخص. أضف شخص ثاني أول.");
+    return;
+  }
+  const p = cur();
+  if (!confirm("حذف «" + p.name + "» وكل بياناته نهائيًا؟ الأفضل تسوي تصدير قبل.")) return;
+  state.profiles = state.profiles.filter(x => x.id !== p.id);
+  state.currentId = state.profiles[0].id;
+  renderAll();
+  saveNow();
+});
+
+/* ================= toolbar ================= */
+document.getElementById("btnAddBlock").addEventListener("click", () => {
+  const b = { id: uid(), title: "", rows: [ { id: uid(), name: "", amount: "", done: false } ] };
+  D().blocks.push(b);
+  const sec = renderBlock(b);
+  blocksHost.appendChild(sec);
+  updateTotals();
+  sec.querySelector(".title-input").focus();
+  scheduleSave();
+});
+
+document.getElementById("btnNewMonth").addEventListener("click", () => {
+  if (!confirm("شهر جديد لـ«" + cur().name + "»؟ بتنمسح علامات الصرف ويتحدّث اسم الشهر، والبنود تبقى مثل ما هي.")) return;
+  const d = D();
+  for (const b of d.blocks) for (const r of b.rows) r.done = false;
+  d.monthLabel = defaultMonthLabel();
+  renderAll();
+  saveNow();
+});
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  const d = new Date();
+  const stamp = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  a.download = "ميزانية-" + stamp + ".json";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+});
+
+const importFile = document.getElementById("importFile");
+document.getElementById("btnImport").addEventListener("click", () => importFile.click());
+importFile.addEventListener("change", () => {
+  const f = importFile.files && importFile.files[0];
+  importFile.value = "";
+  if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => {
+    try {
+      const d = JSON.parse(String(rd.result));
+      if (d && typeof d === "object" && Array.isArray(d.profiles)) {
+        if (!confirm("استبدال كل الأشخاص وبياناتهم بالملف المستورد؟")) return;
+        state = sanitizeState(d);
+      } else if (d && typeof d === "object" && Array.isArray(d.blocks)) {
+        if (!confirm("هذا ملف بصيغة قديمة لشخص واحد. استبدال بيانات «" + cur().name + "» فيه؟")) return;
+        cur().data = sanitizeData(d);
+      } else {
+        throw new Error("shape");
+      }
+      renderAll();
+      saveNow();
+    } catch (e) {
+      alert("الملف غير صالح، ما تم الاستيراد.");
+    }
+  };
+  rd.readAsText(f);
+});
+
+/* ================= header shrink on scroll ================= */
+const topHeader = document.getElementById("topHeader");
+let ticking = false;
+window.addEventListener("scroll", () => {
+  if (ticking) return;
+  ticking = true;
+  raf(() => {
+    topHeader.classList.toggle("shrunk", window.scrollY > 12);
+    ticking = false;
+  });
+}, { passive: true });
+
+/* ================= receipt export ================= */
+const AR_FONT = '"IBM Plex Sans Arabic", -apple-system, Arial, sans-serif';
+const NUM_FONT = '-apple-system, system-ui, "Helvetica Neue", Arial, sans-serif';
+
+function receiptLayout(ctx, draw){
+  const W = 560, pad = 40, teeth = 12;
+  const INK = "#2A241C", DIMK = "#8A8375", RULE = "#B7AD98";
+  let y = teeth + 44;
+
+  function arabic(text, size, weight, color, align, x){
+    if (draw) {
+      ctx.font = weight + " " + size + "px " + AR_FONT;
+      ctx.fillStyle = color;
+      ctx.direction = "rtl";
+      ctx.textAlign = align || "right";
+      ctx.fillText(text, x != null ? x : W - pad, y);
+    }
+  }
+  function number(text, size, weight, color){
+    if (draw) {
+      ctx.font = weight + " " + size + "px " + NUM_FONT;
+      ctx.fillStyle = color;
+      ctx.direction = "ltr";
+      ctx.textAlign = "left";
+      ctx.fillText(text, pad, y);
+    }
+  }
+  function rule(dashed){
+    if (draw) {
+      ctx.strokeStyle = RULE;
+      ctx.lineWidth = 1;
+      ctx.setLineDash(dashed ? [2, 4] : []);
+      ctx.beginPath();
+      ctx.moveTo(pad, y);
+      ctx.lineTo(W - pad, y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+  }
+
+  /* header: person, month, date */
+  arabic(cur().name, 26, 700, INK, "center", W / 2);
+  y += 30;
+  arabic(D().monthLabel || defaultMonthLabel(), 19, 500, INK, "center", W / 2);
+  y += 24;
+  if (draw) {
+    ctx.font = "400 14px " + NUM_FONT;
+    ctx.fillStyle = DIMK;
+    ctx.direction = "ltr";
+    ctx.textAlign = "center";
+    ctx.fillText(new Date().toLocaleDateString("en-GB"), W / 2, y);
+  }
+  y += 24; rule(true); y += 30;
+
+  /* salary */
+  const sal = parseAmount(D().salary);
+  arabic(D().salaryLabel || "الراتب", 19, 600, INK);
+  number(formatValue(sal.value, sal.approx), 19, 600, INK);
+  y += 20; rule(true); y += 32;
+
+  /* groups */
+  const t = computeTotals();
+  D().blocks.forEach((b, i) => {
+    arabic(b.title || "مجموعة", 18, 700, INK);
+    y += 28;
+    for (const r of b.rows) {
+      const p = parseAmount(r.amount);
+      const c = r.done ? DIMK : INK;
+      arabic(r.name || "—", 16, 400, c);
+      if (draw && r.done && r.name) {
+        ctx.font = "400 16px " + AR_FONT;
+        const w = ctx.measureText(r.name).width;
+        ctx.strokeStyle = DIMK;
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([]);
+        ctx.beginPath();
+        ctx.moveTo(W - pad - w, y - 5);
+        ctx.lineTo(W - pad, y - 5);
+        ctx.stroke();
+      }
+      number(p.empty ? "-" : formatValue(p.value, p.approx), 16, r.done ? 400 : 500, c);
+      y += 26;
+    }
+    y += 4;
+    arabic("المجموع", 15, 600, INK);
+    number(formatValue(t.blocks[i].sub, t.blocks[i].approx), 16, 600, INK);
+    y += 22;
+    arabic("المتبقي بعده", 14, 400, DIMK);
+    number(formatValue(t.blocks[i].bal, t.blocks[i].balApprox), 15, 500, t.blocks[i].bal < 0 ? "#9C3B2E" : DIMK);
+    y += 18; rule(true); y += 32;
+  });
+
+  /* final */
+  y += 6;
+  arabic("المتبقي", 20, 700, INK);
+  number(formatValue(t.final, t.finalApprox), 34, 600, t.final < 0 ? "#9C3B2E" : INK);
+  y += 22; rule(false); y += 2; rule(false);
+  y += 34;
+
+  return y + teeth + 20;
+}
+
+function drawReceipt(){
+  const W = 560, teeth = 12, toothW = 16;
+  const probe = document.createElement("canvas").getContext("2d");
+  const H = Math.ceil(receiptLayout(probe, false));
+
+  const scale = (window.devicePixelRatio || 1) * 2;
+  const canvas = document.createElement("canvas");
+  canvas.width = W * scale;
+  canvas.height = H * scale;
+  const ctx = canvas.getContext("2d");
+  ctx.scale(scale, scale);
+
+  /* torn-paper shape */
+  ctx.beginPath();
+  ctx.moveTo(0, teeth);
+  for (let x = 0; x < W; x += toothW) {
+    ctx.lineTo(x + toothW / 2, 0);
+    ctx.lineTo(Math.min(x + toothW, W), teeth);
+  }
+  ctx.lineTo(W, H - teeth);
+  for (let x = W; x > 0; x -= toothW) {
+    ctx.lineTo(x - toothW / 2, H);
+    ctx.lineTo(Math.max(x - toothW, 0), H - teeth);
+  }
+  ctx.closePath();
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, "#F8F2E6");
+  g.addColorStop(1, "#F1E9D8");
+  ctx.fillStyle = g;
+  ctx.fill();
+  ctx.save();
+  ctx.clip();
+  receiptLayout(ctx, true);
+  ctx.restore();
+  return canvas;
+}
+
+const overlay = document.getElementById("shareOverlay");
+document.getElementById("overlayClose").addEventListener("click", () => {
+  overlay.classList.remove("on");
+  const img = document.getElementById("overlayImg");
+  if (img.src) { URL.revokeObjectURL(img.src); img.removeAttribute("src"); }
+});
+
+document.getElementById("btnReceipt").addEventListener("click", async () => {
+  try {
+    if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch(e){} }
+    const canvas = drawReceipt();
+    const name = "receipt-" + Date.now() + ".png";
+    canvas.toBlob(async blob => {
+      if (!blob) return;
+      const file = new File([blob], name, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({ files: [file], title: cur().name + " — " + (D().monthLabel || "ميزانية") });
+          return;
+        } catch (e) {
+          if (e && e.name === "AbortError") return; /* user cancelled: not an error */
+        }
+      }
+      /* fallback: full-screen image + download link */
+      const url = URL.createObjectURL(blob);
+      const img = document.getElementById("overlayImg");
+      const dl = document.getElementById("overlayDl");
+      img.src = url;
+      dl.href = url;
+      dl.download = name;
+      overlay.classList.add("on");
+    }, "image/png");
+  } catch (e) { /* never leave the user with a crash */ }
+});
+
+/* ================= boot ================= */
+renderAll();
+</script>
+</body>
+</html>
