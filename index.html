@@ -402,6 +402,184 @@ select.field{background-image:var(--chev);background-repeat:no-repeat;background
   .x-big{font-size:38px}
   .cat-grid{grid-template-columns:repeat(3,1fr)}
 }
+/* ================= expenses: liquid glass redesign ================= */
+/* Everything below is scoped to body.x-on (set only while the Expenses tab is active), so the ledger is untouched. */
+body.x-on{
+  color-scheme:dark;
+  --x-bg0:#0B1426;--x-bg1:#131C33;--x-blob:rgba(61,120,235,.30);--x-dot:rgba(170,200,255,.85);
+  --x-card:rgba(255,255,255,.05);--x-line:rgba(120,160,255,.18);--x-line-soft:rgba(120,160,255,.10);
+  --x-hi:inset 0 1px 0 rgba(255,255,255,.10);--x-shadow:0 22px 44px -18px rgba(0,0,0,.55);
+  --x-text:#F3F6FF;--x-muted:rgba(255,255,255,.66);
+  --x-accent:#4D8DF0;--x-accent-ink:#8DB8FF;
+  --x-exp:#FF8F85;--x-inc:#5CDC9F;--x-warn:#FFC56B;
+  --x-tile:rgba(6,11,24,.72);--x-field:rgba(255,255,255,.07);--x-track:rgba(255,255,255,.13);
+  --x-glass:rgba(16,26,48,.62);--x-glass-solid:rgba(16,26,48,.96);
+  --x-hero-a:#2F6BE0;--x-hero-b:#1D47A8;--x-on-hero:#FFFFFF;--x-on-hero-muted:rgba(255,255,255,.95);
+  --x-btn-a:#2F6BE0;--x-btn-b:#1F4DB8;
+  --x-chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23B9C6E2' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  /* the shared tokens are re-pointed here, so existing components (header, pills, sheets) pick up the glass look */
+  --bg:var(--x-bg0);--surface:var(--x-card);--ink:var(--x-text);--sec:var(--x-muted);--border:var(--x-line);
+  --green:var(--x-accent);--brass:var(--x-warn);--neg:var(--x-exp);--on-green:#FFFFFF;--header-bg:var(--x-glass);--chev:var(--x-chev);
+}
+@media (prefers-color-scheme: light){
+  body.x-on{
+    color-scheme:light;
+    --x-bg0:#E3EBF8;--x-bg1:#F5F8FD;--x-blob:rgba(110,160,245,.38);--x-dot:rgba(60,110,210,.55);
+    --x-card:rgba(255,255,255,.72);--x-line:rgba(60,100,180,.18);--x-line-soft:rgba(60,100,180,.10);
+    --x-hi:inset 0 1px 0 rgba(255,255,255,.95);--x-shadow:0 20px 40px -20px rgba(40,70,140,.35);
+    --x-text:#0E1A33;--x-muted:rgba(14,26,51,.70);
+    --x-accent:#2459C8;--x-accent-ink:#1F4FB4;
+    --x-exp:#C73A2E;--x-inc:#12794A;--x-warn:#9A5B00;
+    --x-tile:rgba(47,111,224,.10);--x-field:rgba(255,255,255,.85);--x-track:rgba(30,60,130,.14);
+    --x-glass:rgba(255,255,255,.66);--x-glass-solid:rgba(250,252,255,.96);
+    --x-chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235A6785' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  }
+}
+/* ---- animated background ---- */
+.xbg{display:none;position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:linear-gradient(180deg,var(--x-bg0) 0%,var(--x-bg1) 100%)}
+body.x-on .xbg{display:block}
+.xbg .blob{position:absolute;width:560px;height:560px;border-radius:50%;background:radial-gradient(closest-side,var(--x-blob),transparent 72%);animation:xblob 80s ease-in-out infinite alternate}
+.xbg .b1{left:-240px;top:-180px}
+.xbg .b2{right:-280px;top:34%;animation-duration:100s;animation-delay:-25s}
+.xbg .b3{left:-140px;bottom:-260px;animation-duration:90s;animation-delay:-40s}
+@keyframes xblob{from{transform:translate3d(0,0,0)}to{transform:translate3d(70px,50px,0)}}
+.xbg i{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--x-dot);opacity:.12;animation:xdrift 52s linear infinite}
+@keyframes xdrift{0%{transform:translate3d(0,0,0);opacity:.10}50%{opacity:.5}100%{transform:translate3d(var(--dx,24px),var(--dy,-70px),0);opacity:.10}}
+html.x-paused .xbg .blob,html.x-paused .xbg i{animation-play-state:paused}
+/* ---- shared header and tab switcher, restyled only in this state ---- */
+body.x-on header.top{background:var(--x-glass-solid);border-bottom:1px solid var(--x-line)}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+  body.x-on header.top{background:var(--x-glass);-webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%)}
+}
+body.x-on header.top .icon-btn{min-width:44px;min-height:44px;display:inline-grid;place-items:center}
+body.x-on #profileSelect{min-height:44px}
+body.x-on .tabs{background:var(--x-field);border:1px solid var(--x-line);border-radius:999px;padding:4px;gap:4px}
+body.x-on .tab{background:transparent;border:none;border-radius:999px;color:var(--x-muted);min-height:44px;font-weight:600}
+body.x-on .tab[aria-selected="true"]{background:linear-gradient(180deg,var(--x-btn-a),var(--x-btn-b));color:#fff;box-shadow:0 8px 18px -8px rgba(40,100,230,.8),inset 0 1px 0 rgba(255,255,255,.28)}
+body.x-on .wrap{padding-inline:12px}
+body.x-on #viewExp{padding-bottom:calc(120px + env(safe-area-inset-bottom))}
+/* ---- floating glass bar ---- */
+.xbar{display:none}
+body.x-on .xbar{display:flex}
+.xbar{position:fixed;z-index:30;left:0;right:0;margin-inline:auto;width:min(calc(100% - 28px),420px);bottom:calc(14px + env(safe-area-inset-bottom));height:68px;align-items:center;justify-content:space-between;padding:0 10px;border-radius:999px;border:1px solid var(--x-line);box-shadow:var(--x-hi),0 20px 40px -12px rgba(0,0,0,.55);background:var(--x-glass-solid)}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+  .xbar{background:transparent}
+  .xbar::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;background:var(--x-glass);-webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%)}
+}
+.xi{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:transparent;border:none;color:var(--x-muted);cursor:pointer;transition:transform .12s cubic-bezier(.23,1,.32,1),background .12s,color .12s}
+.xi:active{transform:scale(.96)}
+.xi[aria-current="page"]{background:linear-gradient(180deg,var(--x-btn-a),var(--x-btn-b));color:#fff;box-shadow:0 8px 18px -8px rgba(40,100,230,.8),inset 0 1px 0 rgba(255,255,255,.28)}
+.xgap{width:64px;flex:none}
+.xbar .fab{position:fixed;left:calc(50% - 32px);right:auto;bottom:calc(26px + env(safe-area-inset-bottom));width:64px;height:64px;display:grid;place-items:center;background:linear-gradient(180deg,var(--x-btn-a),var(--x-btn-b));color:#fff;box-shadow:0 14px 28px -8px rgba(40,100,230,.75),inset 0 1px 0 rgba(255,255,255,.35),0 0 0 6px var(--x-bg0)}
+body.x-on .toast-host{bottom:calc(104px + env(safe-area-inset-bottom))}
+/* ---- shared building blocks ---- */
+.g-head{display:flex;flex-direction:column;gap:2px;padding:6px 4px 0}
+.g-h1{font:700 30px/1.2 var(--ar);color:var(--x-text)}
+.g-sub{font:500 15px var(--ar);color:var(--x-muted)}
+.g-cyc{display:flex;align-items:center;gap:4px;padding:4px;border-radius:999px;background:var(--x-field);border:1px solid var(--x-line)}
+.g-circ{flex:none;position:relative;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:none;background:transparent;color:var(--x-text);cursor:pointer;transition:transform .12s cubic-bezier(.23,1,.32,1)}
+.g-circ:active:not(:disabled){transform:scale(.96)}
+.g-circ:disabled{opacity:.35;cursor:default}
+.g-cyc-l{flex:1;min-width:0;min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;background:transparent;border:none;border-radius:999px;color:var(--x-text);font:600 15px var(--ar);cursor:pointer}
+.g-cyc-pos{font:500 12px var(--ar);color:var(--x-muted)}
+.rng{display:inline-flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.rng .sep{color:var(--x-warn);font-family:var(--num)}
+.g-card{position:relative;background:var(--x-card);border:1px solid var(--x-line);border-radius:26px;padding:18px;box-shadow:var(--x-hi),var(--x-shadow)}
+.g-card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.g-card-title{font:600 17px var(--ar);color:var(--x-text)}
+.g-link{min-height:44px;padding:0 4px;background:none;border:none;color:var(--x-accent-ink);font:600 15px var(--ar);cursor:pointer}
+.g-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 22px;border-radius:999px;background:var(--x-field);border:1px solid var(--x-line);color:var(--x-text);font:600 16px var(--ar);cursor:pointer;box-shadow:var(--x-hi);transition:transform .12s cubic-bezier(.23,1,.32,1)}
+.g-btn:active{transform:scale(.96)}
+.g-btn.primary{background:linear-gradient(180deg,var(--x-btn-a),var(--x-btn-b));border-color:rgba(255,255,255,.18);color:#fff;box-shadow:0 14px 26px -12px rgba(40,100,230,.85),inset 0 1px 0 rgba(255,255,255,.3)}
+.g-chip{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 16px;border-radius:999px;background:var(--x-field);border:1px solid var(--x-line);color:var(--x-text);font:600 14px var(--ar);cursor:pointer;transition:transform .12s cubic-bezier(.23,1,.32,1)}
+.g-chip:active{transform:scale(.96)}
+.g-pill{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:999px;background:var(--x-field);border:1px solid var(--x-line);color:var(--x-muted);font:500 13px var(--ar)}
+.g-none{color:var(--x-muted);text-align:center;padding:18px 0;font:400 15px var(--ar)}
+.g-bar{height:8px;border-radius:6px;background:var(--x-track);overflow:hidden}
+.g-bar>i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--x-accent),var(--x-accent-ink));transition:width .3s}
+.g-bar.over>i{background:var(--x-exp)}
+/* ---- home: account card ---- */
+.g-hero{position:relative;overflow:hidden;border-radius:30px;padding:20px 20px 22px;color:var(--x-on-hero);background:linear-gradient(145deg,var(--x-hero-a),var(--x-hero-b));border:1px solid rgba(255,255,255,.2);box-shadow:0 26px 50px -20px rgba(30,77,181,.85),inset 0 1px 0 rgba(255,255,255,.34)}
+.g-hero::before,.g-hero::after{content:"";position:absolute;border-radius:50%;border:26px solid rgba(255,255,255,.07);pointer-events:none}
+.g-hero::before{width:200px;height:200px;left:-70px;top:-60px}
+.g-hero::after{width:150px;height:150px;right:-50px;bottom:-70px;border-width:20px}
+.g-hero > *{position:relative}
+.g-hero-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.g-hero-acct{font:600 16px var(--ar);color:var(--x-on-hero-muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.g-circ.on-hero{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);color:#fff}
+.g-hero-label{font:500 15px var(--ar);color:var(--x-on-hero-muted)}
+.g-hero-big{direction:ltr;unicode-bidi:isolate;display:flex;align-items:baseline;gap:8px;margin:2px 0 6px;font:600 46px/1.15 var(--num);font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.g-hero-big .u{font:500 18px var(--ar);color:var(--x-on-hero-muted)}
+.g-hero-big.over{color:#FFE2DE}
+.g-hero-range{font:500 14px var(--ar);color:var(--x-on-hero-muted);margin-bottom:14px}
+.g-hero .g-bar{height:6px;background:rgba(255,255,255,.26)}
+.g-hero .g-bar>i{background:#FFFFFF}
+.g-hero .g-bar.over>i{background:#FFC9C2}
+.g-hero-note{font:500 14px/1.6 var(--ar);color:var(--x-on-hero-muted);margin-bottom:6px}
+.g-over-tag{display:inline-block;margin-top:10px;padding:2px 12px;border-radius:999px;background:rgba(8,20,60,.35);font:600 13px var(--ar);color:#fff}
+.g-acctrow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:-4px}
+.g-dots{display:flex;align-items:center}
+.g-dot{width:44px;height:44px;display:grid;place-items:center;background:none;border:none;cursor:pointer}
+.g-dot i{display:block;width:8px;height:8px;border-radius:50%;background:var(--x-track);transition:width .2s,background .2s}
+.g-dot[aria-current="true"] i{width:22px;background:var(--x-accent);border-radius:6px}
+/* ---- home: daily card, mini cards ---- */
+.g-daily .g-card-head{margin-bottom:2px}
+.g-big{direction:ltr;unicode-bidi:isolate;display:flex;align-items:baseline;gap:6px;font:600 36px/1.2 var(--num);font-variant-numeric:tabular-nums;font-feature-settings:"tnum";color:var(--x-text);margin:0 0 10px}
+.g-big .u{font:500 16px var(--ar);color:var(--x-muted)}
+.g-big.over{color:var(--x-exp)}
+.g-line{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-top:10px;font:500 14px var(--ar);color:var(--x-muted)}
+.g-line .grp{display:inline-flex;align-items:baseline;gap:6px}
+.g-line .money{font-size:15px;color:var(--x-text);font-weight:600}
+.g-prompt{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:12px 16px;text-align:start;background:var(--x-card);border:1px dashed var(--x-accent);border-radius:22px;color:var(--x-text);font:600 15px/1.45 var(--ar);cursor:pointer}
+.g-prompt .ic{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--x-tile);color:var(--x-accent-ink)}
+.g-prompt .tx{flex:1;min-width:0}
+.g-prompt .ch{flex:none;color:var(--x-muted)}
+.g-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g-mini{padding:16px 16px 14px}
+.g-mini .lb{font:500 14px var(--ar);color:var(--x-muted)}
+.g-mini .money{margin-top:6px;font-size:22px;font-weight:600;color:var(--x-text)}
+.g-mini .money .u{font-size:13px}
+.g-mini .sub{margin-top:4px;font:500 12px var(--ar);color:var(--x-muted)}
+.g-mini.spent .money{color:var(--x-exp)}
+.g-mini .sub .money{margin:0;font-size:14px}
+.g-mini .sub .money .u{font-size:11px}
+/* ---- entry rows (home recents, entries view) ---- */
+.g-rows{list-style:none}
+.g-row{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:8px;min-height:72px;padding:4px 0;border-bottom:1px solid var(--x-line-soft)}
+.g-rows .g-row:last-child{border-bottom:none}
+.g-tile{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--x-tile);border:1px solid var(--x-line);font-size:22px;line-height:1}
+.g-rmain{min-width:0}
+.g-rname{font:600 16px/1.3 var(--ar);color:var(--x-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.g-rsub{display:flex;align-items:baseline;gap:6px;min-width:0;white-space:nowrap}
+.g-ramt{direction:ltr;unicode-bidi:isolate;display:inline-flex;align-items:baseline;gap:2px;font:600 15px var(--num);color:var(--x-exp)}
+.g-ramt.inc{color:var(--x-inc)}
+.g-ramt .money{font-weight:600}
+.g-ramt .money .u{color:inherit;opacity:.78;font-size:12px}
+.g-rcat,.g-rdate{font:400 12px var(--ar);color:var(--x-muted);overflow:hidden;text-overflow:ellipsis}
+.g-racts{display:flex;align-items:center}
+.g-ib{position:relative;width:44px;height:44px;display:grid;place-items:center;background:none;border:none;color:var(--x-muted);cursor:pointer;transition:transform .12s cubic-bezier(.23,1,.32,1)}
+.g-ib::before{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--x-field);border:1px solid var(--x-line)}
+.g-ib svg{position:relative}
+.g-ib:active{transform:scale(.96)}
+.g-ib.del{color:var(--x-exp)}
+/* old components that still show in this state pick up the glass look through the re-pointed tokens */
+body.x-on .panel{background:var(--x-card);border-color:var(--x-line);border-radius:26px;box-shadow:var(--x-hi),var(--x-shadow)}
+body.x-on .pill{min-height:44px;background:var(--x-field);border-color:var(--x-line);color:var(--x-text);border-radius:999px}
+body.x-on .pill.primary{background:linear-gradient(180deg,var(--x-btn-a),var(--x-btn-b));border-color:rgba(255,255,255,.18);color:#fff}
+body.x-on .seg-b{min-height:44px;background:var(--x-field);border-color:var(--x-line);color:var(--x-text);border-radius:999px}
+body.x-on .seg-b[aria-pressed="true"]{background:linear-gradient(180deg,var(--x-btn-a),var(--x-btn-b));border-color:rgba(255,255,255,.18);color:#fff}
+body.x-on .field{background:var(--x-field);border-color:var(--x-line);color:var(--x-text);border-radius:16px}
+body.x-on .field::placeholder{color:var(--x-muted)}
+body.x-on .chip{background:var(--x-field);border-color:var(--x-line);color:var(--x-text);min-height:44px}
+body.x-on .banner{background:var(--x-glass-solid);border-color:var(--x-line)}
+body.x-on .banner.bad{border-color:var(--x-exp)}
+@media (max-width:359px){
+  .g-h1{font-size:26px}
+  .g-hero-big{font-size:40px}
+  .g-big{font-size:32px}
+  .g-pair{gap:10px}
+  .g-mini{padding:14px 12px 12px}
+}
 /* ================= small screens ================= */
 @media (max-width:359px){
   #finalBalance{font-size:38px}
@@ -411,6 +589,22 @@ select.field{background-image:var(--chev);background-repeat:no-repeat;background
 </style>
 </head>
 <body>
+
+<div class="xbg" aria-hidden="true">
+  <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+  <i style="left:12%;top:8%;--dx:30px;--dy:-60px;animation-duration:48s;animation-delay:-24s"></i>
+  <i style="left:70%;top:22%;--dx:-24px;--dy:-50px;animation-duration:61s;animation-delay:-30s"></i>
+  <i style="left:30%;top:35%;--dx:20px;--dy:-80px;animation-duration:55s;animation-delay:-27s"></i>
+  <i style="left:86%;top:48%;--dx:-30px;--dy:-60px;animation-duration:70s;animation-delay:-35s"></i>
+  <i style="left:18%;top:60%;--dx:26px;--dy:-70px;animation-duration:44s;animation-delay:-22s"></i>
+  <i style="left:52%;top:72%;--dx:-20px;--dy:-90px;animation-duration:66s;animation-delay:-33s"></i>
+  <i style="left:8%;top:83%;--dx:34px;--dy:-50px;animation-duration:58s;animation-delay:-29s"></i>
+  <i style="left:44%;top:15%;--dx:-26px;--dy:-70px;animation-duration:50s;animation-delay:-25s"></i>
+  <i style="left:76%;top:90%;--dx:22px;--dy:-60px;animation-duration:64s;animation-delay:-32s"></i>
+  <i style="left:62%;top:55%;--dx:-34px;--dy:-80px;animation-duration:47s;animation-delay:-23s"></i>
+  <i style="left:92%;top:29%;--dx:28px;--dy:-60px;animation-duration:72s;animation-delay:-36s"></i>
+  <i style="left:38%;top:66%;--dx:-22px;--dy:-50px;animation-duration:53s;animation-delay:-26s"></i>
+</div>
 
 <div class="wrap">
   <header class="top" id="topHeader">
@@ -461,7 +655,14 @@ select.field{background-image:var(--chev);background-repeat:no-repeat;background
   <div class="view" id="viewExp" role="tabpanel" aria-labelledby="tabBtnExp" hidden></div>
 </div>
 
-<button class="fab" id="fabAdd" type="button" aria-label="إضافة مصروف" hidden>+</button>
+<nav class="xbar" id="xBar" aria-label="التنقل في المصاريف">
+  <button class="xi" type="button" data-v="home" aria-label="الرئيسية"></button>
+  <button class="xi" type="button" data-v="entries" aria-label="المصاريف"></button>
+  <button class="fab" id="fabAdd" type="button" aria-label="إضافة مصروف"></button>
+  <span class="xgap" aria-hidden="true"></span>
+  <button class="xi" type="button" data-v="stats" aria-label="الإحصاءات"></button>
+  <button class="xi" type="button" data-v="more" aria-label="المزيد"></button>
+</nav>
 <div class="toast-host" id="toastHost" aria-live="polite"></div>
 <div id="sheetHost"></div>
 
@@ -2130,7 +2331,7 @@ function showToast(text, act, ms){
 }
 
 /* ================= expenses: data access ================= */
-const X = { profileId: null, cycleKey: null, sub: "list", query: "", cat: "" };
+const X = { profileId: null, cycleKey: null, view: "home", query: "", cat: "" };
 const expHost = document.getElementById("viewExp");
 const fabAdd = document.getElementById("fabAdd");
 
@@ -2195,111 +2396,222 @@ function parseAllowance(raw){
 }
 const SLICE_COLORS = ["#38594A", "#B99A5B", "#B8473F", "#5F7F8F", "#8A6F9B", "#7A8F4E", "#C98B4B", "#4F7A72", "#A76F6F", "#8C8A80"];
 
+/* ================= icons (inline SVG paths, no files) ================= */
+const ICONS = {
+  home: ["M3.5 11L12 4l8.5 7", "M5.5 9.8V20h13V9.8", "M10 20v-5.5h4V20"],
+  list: ["M8.5 6.5H20", "M8.5 12H20", "M8.5 17.5H20", "M4 6.5h.01", "M4 12h.01", "M4 17.5h.01"],
+  plus: ["M12 5v14", "M5 12h14"],
+  chart: ["M5 20v-8", "M12 20V5", "M19 20V9"],
+  more: ["M5 12h.01", "M12 12h.01", "M19 12h.01"],
+  search: ["M11 4.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13z", "M16 16l4.5 4.5"],
+  edit: ["M4 20l1-4L16 5a2.1 2.1 0 0 1 3 3L8 19z"],
+  copy: ["M9 9h11v11H9z", "M5 15H4V4h11v1"],
+  trash: ["M5 7h14", "M10 7V4h4v3", "M7 7l1 13h8l1-13"],
+  chevL: ["M15 6l-6 6 6 6"],
+  chevR: ["M9 6l6 6-6 6"],
+  calendar: ["M4 6h16v14H4z", "M4 10h16", "M8 3v4", "M16 3v4"],
+  repeat: ["M17 3l3 3-3 3", "M4 11V9a3 3 0 0 1 3-3h13", "M7 21l-3-3 3-3", "M20 13v2a3 3 0 0 1-3 3H4"],
+  wallet: ["M3 7a2 2 0 0 1 2-2h13v4", "M3 7v10a2 2 0 0 0 2 2h15V9H5a2 2 0 0 1-2-2z", "M16 14h.01"],
+  grid: ["M4 4h6v6H4z", "M14 4h6v6h-6z", "M4 14h6v6H4z", "M14 14h6v6h-6z"],
+  receipt: ["M6 3h12v18l-3-2-3 2-3-2-3 2z", "M9 8h6", "M9 12h6"],
+  sliders: ["M4 7h9", "M17 7h3", "M4 17h3", "M11 17h9", "M15 4v6", "M9 14v6"],
+  share: ["M12 15V4", "M8 8l4-4 4 4", "M5 13v6h14v-6"]
+};
+function icon(name, size, sw){
+  const s = svg("svg", { viewBox: "0 0 24 24", width: size || 24, height: size || 24, fill: "none", stroke: "currentColor",
+    "stroke-width": sw || 1.8, "stroke-linecap": "round", "stroke-linejoin": "round", "aria-hidden": "true", focusable: "false" });
+  for (const d of ICONS[name]) s.append(svg("path", { d: d }));
+  return s;
+}
+
 /* ================= expenses: main render ================= */
+const VIEW_TITLES = { home: "مصاريفي", entries: "المصاريف", stats: "الإحصاءات" };
 function renderExp(){
   if (!expHost) return;
-  if (X.profileId !== cur().id) { X.profileId = cur().id; X.cycleKey = null; X.query = ""; X.cat = ""; X.sub = "list"; }
+  if (X.profileId !== cur().id) { X.profileId = cur().id; X.cycleKey = null; X.query = ""; X.cat = ""; X.view = "home"; }
   const vm = viewModel();
-  expHost.replaceChildren(...[renderTopBar(vm), renderNav(vm), vm.key === null ? renderEmpty(vm) : renderBody(vm)].filter(Boolean));
+  const body = X.view === "entries" ? renderEntriesView(vm) : (X.view === "stats" ? renderStatsView(vm) : renderHome(vm));
+  expHost.replaceChildren(...[renderHead(vm), renderCycleChip(vm), body].filter(Boolean));
+  syncBar();
 }
-function renderTopBar(vm){
-  const sel = h("select", { class: "x-select", dir: "rtl", "aria-label": "الحساب", onchange: e => {
-    if (e.target.value === "__add__") { addAccount(); renderExp(); return; }
-    EXP().lastAccountId = e.target.value;
-    X.cycleKey = null; X.query = ""; X.cat = "";
-    scheduleSave(); renderExp();
-  } });
-  for (const a of activeAccounts()) sel.append(h("option", { value: a.id, selected: a.id === vm.acc.id, text: a.name }));
-  sel.append(h("option", { value: "__add__", text: "＋ حساب جديد…" }));
-  return h("div", { class: "x-top" }, sel,
-    h("button", { class: "icon-btn", type: "button", "aria-label": "المزيد", onclick: openMoreMenu, text: "⋯" }));
+function setView(v){
+  X.view = v;
+  renderExp();
+  window.scrollTo(0, 0);
 }
-function renderNav(vm){
+function syncBar(){
+  for (const b of document.querySelectorAll("#xBar [data-v]")) {
+    if (b.dataset.v === X.view) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
+  }
+}
+function renderHead(vm){
+  const sub = (X.view === "home" && vm.acc.name === VIEW_TITLES.home) ? null : h("div", { class: "g-sub", dir: "auto", text: vm.acc.name });
+  return h("div", { class: "g-head" }, h("h1", { class: "g-h1", dir: "rtl", text: VIEW_TITLES[X.view] }), sub);
+}
+/* glass chip with the cycle range and arrows (older cycle on the start side); swipe works on it too */
+function renderCycleChip(vm){
   if (!vm.keys.length) return null;
   const go = d => { X.cycleKey = vm.keys[vm.idx + d]; renderExp(); };
   const label = vm.key === NO_CYCLE_KEY
     ? h("span", { dir: "rtl", text: "بدون دورة" })
     : rangeLabel(vm.cycle, cycleBounds(vm.acc.cycles, vm.cycle));
-  const pos = h("span", { class: "pos", dir: "rtl" }, "الدورة ", h("bdi", { dir: "ltr", text: String(vm.idx + 1) }), " من ", h("bdi", { dir: "ltr", text: String(vm.keys.length) }));
-  const nav = h("div", { class: "x-nav" },
-    h("button", { class: "nav-b", type: "button", "aria-label": "الدورة السابقة", disabled: vm.idx <= 0, onclick: () => go(-1), text: "›" }),
-    h("button", { class: "nav-l", type: "button", "aria-label": "تعديل الدورة", onclick: () => (vm.cycle ? openCycleSheet({ cycle: vm.cycle }) : null) }, label, pos),
-    h("button", { class: "nav-b", type: "button", "aria-label": "الدورة التالية", disabled: vm.idx >= vm.keys.length - 1, onclick: () => go(1), text: "‹" }));
+  const pos = h("span", { class: "g-cyc-pos", dir: "rtl" }, "الدورة ", h("bdi", { dir: "ltr", text: String(vm.idx + 1) }), " من ", h("bdi", { dir: "ltr", text: String(vm.keys.length) }));
+  const nav = h("div", { class: "g-cyc" },
+    h("button", { class: "g-circ", type: "button", "aria-label": "الدورة السابقة", disabled: vm.idx <= 0, onclick: () => go(-1) }, icon("chevR", 22)),
+    h("button", { class: "g-cyc-l", type: "button", "aria-label": "تعديل الدورة", onclick: () => (vm.cycle ? openCycleSheet({ cycle: vm.cycle }) : null) }, label, pos),
+    h("button", { class: "g-circ", type: "button", "aria-label": "الدورة التالية", disabled: vm.idx >= vm.keys.length - 1, onclick: () => go(1) }, icon("chevL", 22)));
+  swipe(nav, 50, dx => { if (dx > 0 && vm.idx > 0) go(-1); else if (dx < 0 && vm.idx < vm.keys.length - 1) go(1); });
+  return nav;
+}
+/* horizontal swipe helper: calls fn(dx) for a clear sideways flick */
+function swipe(el, min, fn){
   let sx = null, sy = null;
-  nav.addEventListener("touchstart", e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
-  nav.addEventListener("touchend", e => {
+  el.addEventListener("touchstart", e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+  el.addEventListener("touchend", e => {
     if (sx === null) return;
     const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
     sx = null;
-    if (Math.abs(dx) > 50 && Math.abs(dy) < 40) { if (dx > 0 && vm.idx > 0) go(-1); else if (dx < 0 && vm.idx < vm.keys.length - 1) go(1); }
+    if (Math.abs(dx) > min && Math.abs(dy) < 40) fn(dx);
   }, { passive: true });
-  return nav;
-}
-function renderEmpty(vm){
-  return h("section", { class: "panel x-empty" },
-    h("p", { dir: "rtl", text: "ابدأ بتسجيل أول راتب لتبدأ دورة المصاريف. الدورة تمتد من تاريخ الراتب حتى الراتب التالي، وليس من أول الشهر." }),
-    h("div", { class: "toolbar" }, h("button", { class: "pill primary", type: "button", onclick: () => openCycleSheet({ date: vm.today, allowance: 0 }), text: "وصل الراتب" })),
-    h("p", { class: "hint", dir: "rtl", text: "يمكنك إضافة المصاريف قبل ذلك بزر +، وستظهر في «بدون دورة» حتى تضيف دورة." }));
-}
-function renderBody(vm){
-  const frag = document.createDocumentFragment();
-  frag.append(vm.key === NO_CYCLE_KEY ? renderNoCycle(vm) : renderSummary(vm));
-  const actions = h("div", { class: "toolbar" },
-    h("button", { class: "pill primary", type: "button", onclick: () => openCycleSheet(newCycleDefaults(vm)), text: "وصل الراتب" }),
-    h("button", { class: "pill", type: "button", onclick: () => makeExpReceipt(vm), text: "إيصال" }),
-    vm.cycle ? h("button", { class: "pill", type: "button", onclick: () => openCycleSheet({ cycle: vm.cycle }), text: "تعديل الدورة" }) : null);
-  frag.append(actions);
-  const seg = h("div", { class: "seg", role: "group", "aria-label": "العرض" },
-    h("button", { class: "seg-b", type: "button", "aria-pressed": String(X.sub === "list"), onclick: () => { X.sub = "list"; renderExp(); }, text: "المصاريف" }),
-    h("button", { class: "seg-b", type: "button", "aria-pressed": String(X.sub === "stats"), onclick: () => { X.sub = "stats"; renderExp(); }, text: "الإحصاءات" }));
-  frag.append(seg);
-  frag.append(X.sub === "stats" ? renderStats(vm) : renderListSection(vm));
-  return frag;
 }
 function newCycleDefaults(vm){
   const p = prefillNewCycle(vm.acc.cycles, vm.today);
   return { date: p.startDate, allowance: p.allowance };
 }
-function renderNoCycle(vm){
-  const dated = vm.noCycle.filter(e => isValidDate(e.date)).map(e => e.date).sort();
-  const first = dated[0] || vm.today;
-  return h("section", { class: "panel x-empty" },
-    h("p", { dir: "rtl", text: "هذه المصاريف مؤرخة قبل أول دورة. أضف دورة سابقة لتُحتسب ضمنها، أو عدّل تاريخ أول دورة." }),
-    h("div", { class: "toolbar" }, h("button", { class: "pill primary", type: "button", onclick: () => openCycleSheet({ date: first, allowance: 0 }), text: "إضافة دورة سابقة" })),
-    h("div", { class: "totals" }, tline("المجموع", money(sumMoney(expenseList(vm.noCycle).map(e => Number(e.amount) || 0)), "val"))));
+function switchAccount(id){
+  EXP().lastAccountId = id;
+  X.cycleKey = null; X.query = ""; X.cat = "";
+  scheduleSave();
+  renderExp();
 }
-function renderSummary(vm){
-  const s = cycleSummary(vm.acc.cycles, vm.cycle, vm.live, vm.today);
-  const big = h("div", { class: "x-big" + (s.over ? " neg" : "") }, h("bdi", { class: "n", dir: "ltr", text: formatMoney(s.remaining) }), h("span", { class: "u", dir: "rtl", text: AED }));
-  const bar = h("div", { class: "x-bar" + (s.over ? " over" : ""), role: "progressbar", "aria-label": "نسبة المصروف من المتاح", "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": String(Math.round(s.progress * 100)) },
-    h("i", { style: "width:" + Math.round(s.progress * 100) + "%" }));
-  const sec = h("section", { class: "panel x-sum" },
-    h("div", { class: "balance-line" }, h("span", { class: "balance-caption", dir: "rtl", text: "المتبقي" }), big), bar,
-    h("div", { class: "totals" },
-      tline("صُرف اليوم", money(s.spentToday, "val")),
-      tline("المصروف", money(s.spent, "val")),
-      tline("المخصَّص", money(s.allowance, "val")),
-      s.extra > 0 ? tline("دخل إضافي", money(s.extra, "val")) : null,
-      tline("الفترة", rangeLabel(vm.cycle, { start: s.start, lastDay: s.lastDay })),
-      tline(s.open ? "اليوم" : "مدة الدورة",
-        s.open ? h("span", { class: "val", dir: "ltr" }, h("bdi", { text: String(s.daysElapsed) }), s.totalDays ? " / " : "", s.totalDays ? h("bdi", { text: String(s.totalDays) }) : "")
-               : h("span", { class: "val", dir: "ltr" }, h("bdi", { text: String(s.totalDays) }), " ", h("span", { class: "u", dir: "rtl", text: "يوم" }))),
-      s.daysLeft !== null ? tline("المتبقي للراتب القادم", h("span", { class: "val", dir: "ltr" }, h("bdi", { text: String(s.daysLeft) }), " ", h("span", { class: "u", dir: "rtl", text: "يوم" }))) : null,
-      s.canSpendToday !== null ? tline("يمكنك صرف اليوم", money(s.canSpendToday, "val" + (s.over || s.canSpendToday < 0 ? " neg" : ""))) : null,
-      s.daysLeft === null && s.open ? h("p", { class: "hint", dir: "rtl", text: "حدّد تاريخ الراتب القادم في «تعديل الدورة» ليظهر لك المبلغ اليومي المتاح." }) : null));
-  let sx = null, sy = null;
-  sec.addEventListener("touchstart", e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
-  sec.addEventListener("touchend", e => {
-    if (sx === null) return;
-    const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
-    sx = null;
-    if (Math.abs(dx) > 70 && Math.abs(dy) < 40) {
-      if (dx > 0 && vm.idx > 0) { X.cycleKey = vm.keys[vm.idx - 1]; renderExp(); }
-      else if (dx < 0 && vm.idx < vm.keys.length - 1) { X.cycleKey = vm.keys[vm.idx + 1]; renderExp(); }
-    }
-  }, { passive: true });
-  return sec;
+
+/* ---- home ---- */
+function renderHome(vm){
+  const frag = document.createDocumentFragment();
+  const s = vm.cycle ? cycleSummary(vm.acc.cycles, vm.cycle, vm.live, vm.today) : null;
+  frag.append(renderHero(vm, s), renderAcctRow(vm));
+  if (s) frag.append(renderDaily(vm, s), renderPair(s));
+  frag.append(h("button", { class: "g-btn primary", type: "button", onclick: () => openCycleSheet(newCycleDefaults(vm)), text: "وصل الراتب" }));
+  frag.append(renderRecent(vm));
+  return frag;
 }
+function progressBar(frac, over, label){
+  const pct = Math.max(0, Math.min(100, Math.round(frac * 100)));
+  return h("div", { class: "g-bar" + (over ? " over" : ""), role: "progressbar", "aria-label": label, "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": String(pct) },
+    h("i", { style: "width:" + pct + "%" }));
+}
+function renderHero(vm, s){
+  const accs = activeAccounts();
+  const card = h("section", { class: "g-hero", "aria-label": "الحساب " + vm.acc.name });
+  card.append(h("div", { class: "g-hero-top" },
+    h("span", { class: "g-hero-acct", dir: "auto", text: vm.acc.name }),
+    h("button", { class: "g-circ on-hero", type: "button", "aria-label": "تعديل الحسابات", onclick: openAccountsSheet }, icon("edit", 20))));
+  if (s) {
+    appendKid(card, [
+      h("div", { class: "g-hero-label", dir: "rtl", text: "المتبقي" }),
+      h("div", { class: "g-hero-big" + (s.over ? " over" : "") }, h("bdi", { class: "n", dir: "ltr", text: formatMoney(s.remaining) }), h("span", { class: "u", dir: "rtl", text: AED })),
+      h("div", { class: "g-hero-range" }, rangeLabel(vm.cycle, { start: s.start, lastDay: s.lastDay })),
+      progressBar(s.progress, s.over, "نسبة المصروف من المتاح"),
+      s.over ? h("span", { class: "g-over-tag", dir: "rtl", text: "تجاوزت المتاح" }) : null]);
+  } else if (vm.key === NO_CYCLE_KEY) {
+    card.append(
+      h("div", { class: "g-hero-label", dir: "rtl", text: "بدون دورة" }),
+      h("div", { class: "g-hero-big" }, h("bdi", { class: "n", dir: "ltr", text: formatMoney(sumMoney(expenseList(vm.noCycle).map(e => Number(e.amount) || 0))) }), h("span", { class: "u", dir: "rtl", text: AED })),
+      h("p", { class: "g-hero-note", dir: "rtl", text: "هذه المصاريف مؤرخة قبل أول دورة. أضف دورة سابقة لتُحتسب ضمنها." }),
+      h("button", { class: "g-btn", type: "button", onclick: () => {
+        const dated = vm.noCycle.filter(e => isValidDate(e.date)).map(e => e.date).sort();
+        openCycleSheet({ date: dated[0] || vm.today, allowance: 0 });
+      }, text: "إضافة دورة سابقة" }));
+  } else {
+    card.append(
+      h("div", { class: "g-hero-label", dir: "rtl", text: "ابدأ دورتك الأولى" }),
+      h("p", { class: "g-hero-note", dir: "rtl", text: "الدورة تمتد من تاريخ الراتب حتى الراتب التالي، وليس من أول الشهر. يمكنك إضافة المصاريف قبل ذلك بزر +." }));
+  }
+  swipe(card, 60, dx => {
+    const i = accs.findIndex(a => a.id === vm.acc.id);
+    if (accs.length < 2) return;
+    if (dx > 0 && i > 0) switchAccount(accs[i - 1].id);
+    else if (dx < 0 && i < accs.length - 1) switchAccount(accs[i + 1].id);
+  });
+  return card;
+}
+function renderAcctRow(vm){
+  const accs = activeAccounts();
+  const row = h("div", { class: "g-acctrow" });
+  if (accs.length > 1) {
+    const dots = h("div", { class: "g-dots", role: "group", "aria-label": "الحسابات" });
+    for (const a of accs) dots.append(h("button", { class: "g-dot", type: "button", "aria-label": a.name, "aria-current": a.id === vm.acc.id ? "true" : null, onclick: () => switchAccount(a.id) }, h("i")));
+    row.append(dots);
+  } else row.append(h("span"));
+  row.append(h("button", { class: "g-chip", type: "button", onclick: () => { if (addAccount()) renderExp(); }, text: "+ حساب جديد" }));
+  return row;
+}
+function renderDaily(vm, s){
+  const calBtn = () => openCycleSheet({ cycle: vm.cycle });
+  if (s.open && s.canSpendToday === null) {
+    return h("button", { class: "g-prompt", type: "button", onclick: calBtn },
+      h("span", { class: "ic" }, icon("calendar", 22)),
+      h("span", { class: "tx", dir: "rtl", text: "حدّد تاريخ الراتب القادم لتعرف كم تقدر تصرف كل يوم" }),
+      h("span", { class: "ch" }, icon("chevL", 20)));
+  }
+  if (!s.open) {
+    return h("section", { class: "g-card g-daily" },
+      h("div", { class: "g-card-head" }, h("span", { class: "g-card-title", dir: "rtl", text: "متوسط الصرف اليومي" })),
+      h("div", { class: "g-big" }, h("bdi", { class: "n", dir: "ltr", text: formatMoney(s.dailyAverage) }), h("span", { class: "u", dir: "rtl", text: AED })),
+      h("div", { class: "g-line" }, h("span", { dir: "rtl", text: "مدة الدورة" }), h("span", { class: "grp" }, h("bdi", { dir: "ltr", text: String(s.totalDays) }), h("span", { dir: "rtl", text: "يوم" }))));
+  }
+  const dayBudget = Math.max(0, roundMoney(s.spentToday + s.canSpendToday));
+  const frac = dayBudget > 0 ? s.spentToday / dayBudget : (s.spentToday > 0 ? 1 : 0);
+  const over = s.canSpendToday < 0;
+  return h("section", { class: "g-card g-daily" },
+    h("div", { class: "g-card-head" },
+      h("span", { class: "g-card-title", dir: "rtl", text: "تقدر تصرف اليوم" }),
+      h("span", { class: "g-pill" }, h("span", { dir: "rtl", text: "باقي" }), h("bdi", { dir: "ltr", text: String(s.daysLeft) }), h("span", { dir: "rtl", text: "يوم" }))),
+    h("div", { class: "g-big" + (over ? " over" : "") }, h("bdi", { class: "n", dir: "ltr", text: formatMoney(s.canSpendToday) }), h("span", { class: "u", dir: "rtl", text: AED })),
+    progressBar(frac, over, "المصروف اليوم من المتاح اليوم"),
+    h("div", { class: "g-line" },
+      h("span", { class: "grp" }, h("span", { dir: "rtl", text: "صرفت" }), money(s.spentToday)),
+      h("span", { class: "grp" }, h("span", { dir: "rtl", text: "من" }), money(dayBudget))));
+}
+function renderPair(s){
+  return h("div", { class: "g-pair" },
+    h("section", { class: "g-card g-mini spent" }, h("div", { class: "lb", dir: "rtl", text: "المصروف" }), money(s.spent)),
+    h("section", { class: "g-card g-mini" }, h("div", { class: "lb", dir: "rtl", text: "المخصَّص" }), money(s.allowance),
+      s.extra > 0 ? h("div", { class: "sub" }, h("span", { dir: "rtl", text: "+ دخل إضافي " }), money(s.extra)) : null));
+}
+function renderRecent(vm){
+  const flat = [];
+  for (const d of groupByDay(vm.list)) { for (const e of d.entries) { flat.push(e); if (flat.length >= 5) break; } if (flat.length >= 5) break; }
+  const card = h("section", { class: "g-card" },
+    h("div", { class: "g-card-head" },
+      h("span", { class: "g-card-title", dir: "rtl", text: "آخر المصاريف" }),
+      flat.length ? h("button", { class: "g-link", type: "button", onclick: () => setView("entries"), text: "عرض الكل" }) : null));
+  if (!flat.length) { card.append(h("p", { class: "g-none", dir: "rtl", text: "لا توجد مصاريف في هذه الدورة بعد. اضغط + لإضافة مصروف." })); return card; }
+  const ul = h("ul", { class: "g-rows" });
+  for (const e of flat) ul.append(gRow(e, vm, true));
+  card.append(ul);
+  return card;
+}
+/* one entry row: emoji tile, name with the amount under it, and round icon buttons (all targets 44px) */
+function gRow(e, vm, showDate){
+  const c = catOf(e.categoryId), inc = e.type === "income";
+  const nm = e.name || c.name;
+  return h("li", { class: "g-row" },
+    h("span", { class: "g-tile", "aria-hidden": "true", text: c.emoji }),
+    h("div", { class: "g-rmain" },
+      h("div", { class: "g-rname", dir: "auto", text: nm }),
+      h("div", { class: "g-rsub" },
+        h("span", { class: "g-ramt" + (inc ? " inc" : "") }, inc ? "+" : null, money(Number(e.amount) || 0)),
+        showDate ? h("span", { class: "g-rdate", dir: "rtl", text: safeDayLabel(e.date, vm.today) })
+                 : (e.name && e.name !== c.name ? h("span", { class: "g-rcat", dir: "rtl", text: c.name }) : null))),
+    h("div", { class: "g-racts" },
+      h("button", { class: "g-ib", type: "button", "aria-label": "تعديل " + nm, onclick: () => openEntrySheet(e) }, icon("edit", 18)),
+      h("button", { class: "g-ib", type: "button", "aria-label": "نسخ " + nm + " بتاريخ اليوم", onclick: () => duplicateEntry(e) }, icon("copy", 18)),
+      h("button", { class: "g-ib del", type: "button", "aria-label": "حذف " + nm, onclick: () => softDelete(e) }, icon("trash", 18))));
+}
+/* interim: entries and stats keep their previous look until their own stage */
+function renderEntriesView(vm){ return renderListSection(vm); }
+function renderStatsView(vm){ return renderStats(vm); }
 
 /* ---- entries list ---- */
 function renderListSection(vm){
@@ -2352,7 +2664,7 @@ function jumpTo(entry){
   const acc = exp.accounts.find(a => a.id === accId);
   if (acc && !acc.archived) exp.lastAccountId = acc.id;
   X.cycleKey = cycleKeyForDate(acc || curAccount(), entry.date);
-  X.sub = "list"; X.query = ""; X.cat = "";
+  X.query = ""; X.cat = "";
 }
 function softDelete(e){
   e.deletedAt = Date.now();
@@ -2526,7 +2838,7 @@ function openCycleSheet(opts){
         acc.cycles = r.cycles;
         id = c.id;
       }
-      X.cycleKey = id; X.sub = "list";
+      X.cycleKey = id;
       scheduleSave();
       ctx.close(true);
       renderExp();
@@ -3034,7 +3346,7 @@ function showTab(id){
     document.getElementById(t === "ledger" ? "viewLedger" : "viewExp").hidden = !on;
   }
   topHeader.classList.toggle("on-exp", id === "exp");
-  fabAdd.hidden = id !== "exp";
+  document.body.classList.toggle("x-on", id === "exp");     /* scopes the whole Expenses look; the ledger never sees it */
   if (id === "exp") renderExp();
   try { LS.setItem(TAB_KEY, id); } catch (e) { /* a remembered tab is only a convenience */ }
   window.scrollTo(0, 0);
@@ -3048,6 +3360,20 @@ for (const btn of document.querySelectorAll(".tab")) {
     document.querySelector('.tab[data-tab="' + next + '"]').focus();
   });
 }
+
+/* ================= expenses bar and background ================= */
+(function initBar(){
+  const names = { home: "home", entries: "list", stats: "chart", more: "more" };
+  for (const b of document.querySelectorAll("#xBar [data-v]")) {
+    b.append(icon(names[b.dataset.v], 24, b.dataset.v === "more" ? 3 : 1.8));
+    b.addEventListener("click", () => { if (b.dataset.v === "more") openMoreMenu(); else setView(b.dataset.v); });
+  }
+  fabAdd.append(icon("plus", 30, 2.2));
+  /* the slow background drift pauses while the page is hidden */
+  const sync = () => document.documentElement.classList.toggle("x-paused", document.hidden);
+  document.addEventListener("visibilitychange", sync);
+  sync();
+})();
 
 /* ================= boot ================= */
 renderAll();
