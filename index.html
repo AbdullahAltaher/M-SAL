@@ -237,6 +237,171 @@ header.top.shrunk #finalBalance{font-size:28px}
 .overlay p{color:#F5F2EA;font-size:15px;text-align:center}
 .overlay a{color:#F5F2EA;font-size:15px;text-decoration:underline}
 .overlay .pill{background:#F5F2EA;border-color:#F5F2EA;color:#24231F}
+/* ================= section tabs ================= */
+.view{display:flex;flex-direction:column;gap:14px}
+.view[hidden]{display:none}
+.tabs{display:flex;gap:8px;margin-top:10px}
+.tab{
+  flex:1;min-width:0;cursor:pointer;
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  color:var(--ink);font:500 15px var(--ar);padding:8px 10px;
+  transition:transform .12s cubic-bezier(.23,1,.32,1), background .12s, color .12s;
+}
+.tab:active{transform:scale(.97)}
+.tab[aria-selected="true"]{background:var(--green);border-color:var(--green);color:var(--on-green)}
+header.top.on-exp .ledger-only{display:none}
+.soon{color:var(--sec);font:400 15px var(--ar);text-align:center;padding:18px 0}
+/* ================= expenses ================= */
+[hidden]{display:none !important}
+html.noscroll,html.noscroll body{overflow:hidden}
+.banner-host{display:flex;flex-direction:column;gap:8px}
+.banner-host:empty{display:none}
+.banner{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px;background:var(--surface);border:1px solid var(--brass);border-radius:12px;font:500 15px/1.5 var(--ar)}
+.banner.bad{border-color:var(--neg)}
+.banner.bad .b-text{color:var(--neg)}
+.banner .b-text{flex:1 1 180px;min-width:0}
+.pill.sm{padding:6px 12px;font-size:14px}
+.saved.bad{color:var(--neg);border-color:var(--neg);opacity:1}
+.money{display:inline-flex;align-items:baseline;gap:4px;white-space:nowrap;direction:ltr;unicode-bidi:isolate;font-family:var(--num);font-weight:500;font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.money .u,.tline .val .u{font:400 .78em var(--ar);color:var(--sec)}
+.tline .money.val{font-weight:600;font-size:17px;color:var(--ink)}
+.tline .money.val.neg{color:var(--neg)}
+.hint{color:var(--sec);font:400 14px/1.5 var(--ar);margin-top:6px}
+.x-top{display:flex;align-items:center;gap:6px}
+.x-select{
+  -webkit-appearance:none;appearance:none;flex:1;min-width:0;
+  background:transparent;background-image:var(--chev);background-repeat:no-repeat;background-position:left 2px center;
+  border:none;border-bottom:1px solid transparent;border-radius:0;
+  color:var(--ink);font:600 18px var(--ar);padding:4px 2px 4px 18px;
+}
+.x-select:focus{border-bottom-color:var(--green)}
+.x-select option{background:var(--surface);color:var(--ink)}
+.x-nav{display:flex;align-items:stretch;gap:8px}
+.nav-b{flex:none;width:44px;min-height:44px;border-radius:10px;background:var(--surface);border:1px solid var(--border);color:var(--ink);font:500 24px/1 var(--num);cursor:pointer}
+.nav-b:disabled{opacity:.35;cursor:default}
+.nav-b:active:not(:disabled){transform:scale(.96)}
+.nav-l{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:1px solid transparent;border-radius:10px;color:var(--ink);font:500 15px var(--ar);padding:4px;cursor:pointer}
+.nav-l .pos{font-size:12px;color:var(--sec)}
+.rng{display:inline-flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.rng .sep{color:var(--brass);font-family:var(--num)}
+.x-big{direction:ltr;unicode-bidi:isolate;display:inline-flex;align-items:baseline;gap:6px;font-family:var(--num);font-weight:600;font-size:46px;font-variant-numeric:tabular-nums;font-feature-settings:"tnum";color:var(--green)}
+.x-big.neg{color:var(--neg)}
+.x-big .u{font:500 18px var(--ar);color:var(--sec)}
+.x-sum .balance-line{margin-bottom:10px}
+.x-bar{height:8px;border-radius:6px;background:var(--border);overflow:hidden;margin:6px 0 4px}
+.x-bar>i{display:block;height:100%;background:var(--green);border-radius:6px;transition:width .3s}
+.x-bar.over>i{background:var(--neg)}
+.x-empty p{margin-bottom:10px;font:400 16px/1.6 var(--ar)}
+.x-empty p.hint{font:400 14px/1.5 var(--ar)}
+.seg{display:flex;gap:6px}
+.seg-b{flex:1;min-width:0;padding:9px 8px;border-radius:10px;background:var(--surface);border:1px solid var(--border);color:var(--ink);font:500 15px var(--ar);cursor:pointer}
+.seg-b[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--on-green)}
+.field{display:block;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--ink);font:400 17px var(--ar);-webkit-appearance:none;appearance:none;min-height:44px}
+select.field{background-image:var(--chev);background-repeat:no-repeat;background-position:left 12px center;padding-left:32px}
+.field:focus{border-color:var(--green)}
+.x-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.x-filters .field{flex:1 1 140px;min-width:0}
+.x-panel{padding:4px 16px 10px}
+.x-dayhead{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:12px 0 4px;border-bottom:1px solid var(--border)}
+.x-dayhead h3{font:600 15px var(--ar);color:var(--sec)}
+.x-daytot{display:inline-flex;gap:8px;align-items:baseline}
+.x-daytot .money{font-weight:600;font-size:16px}
+.x-dayinc{color:var(--green);display:inline-flex;direction:ltr;unicode-bidi:isolate}
+.x-rows{list-style:none}
+.x-row{display:grid;grid-template-columns:auto 1fr auto;column-gap:10px;align-items:center;padding:8px 0;border-bottom:1px dotted var(--border)}
+.x-rows .x-row:last-child{border-bottom:none}
+.x-emoji{font-size:24px;line-height:1;width:32px;text-align:center}
+.x-name{font:500 17px var(--ar);overflow-wrap:anywhere}
+.x-cat{font:400 13px var(--ar);color:var(--sec)}
+.x-amt{font-size:17px;display:inline-flex;align-items:baseline;gap:2px;direction:ltr;unicode-bidi:isolate}
+.x-amt.plus{color:var(--green)}
+.x-acts{grid-column:2 / 4;display:flex;gap:6px;justify-content:flex-end;margin-top:4px}
+.ab{min-width:40px;min-height:36px;background:none;border:1px solid var(--border);border-radius:8px;color:var(--sec);font:400 17px/1 var(--num);cursor:pointer}
+.ab:disabled{opacity:.35;cursor:default}
+.ab:active:not(:disabled){transform:scale(.96)}
+.x-none{color:var(--sec);text-align:center;padding:18px 0;font:400 15px var(--ar)}
+#viewExp{padding-bottom:84px}
+.fab{position:fixed;z-index:20;right:calc(16px + env(safe-area-inset-right));bottom:calc(18px + env(safe-area-inset-bottom));width:58px;height:58px;border-radius:50%;background:var(--green);color:var(--on-green);border:none;font:400 32px/1 var(--num);cursor:pointer;box-shadow:0 6px 18px rgba(36,35,31,.28);transition:transform .12s cubic-bezier(.23,1,.32,1)}
+.fab:active{transform:scale(.94)}
+.fab:focus-visible{outline-offset:3px}
+.toast-host{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(86px + env(safe-area-inset-bottom));z-index:70;width:min(92vw,420px);pointer-events:none}
+.toast{pointer-events:auto;display:flex;align-items:center;gap:12px;background:var(--ink);color:var(--bg);padding:10px 14px;border-radius:12px;font:500 15px var(--ar);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.toast .t-text{flex:1;min-width:0}
+.toast .money .u{color:inherit;opacity:.75}
+.m-name[dir="ltr"]{text-align:right;font-family:var(--num)}
+.t-act{background:none;border:none;color:var(--brass);font:700 15px var(--ar);cursor:pointer;padding:6px}
+/* bottom sheets */
+.sheet-back{position:fixed;left:0;right:0;top:0;height:100dvh;z-index:60;background:rgba(20,19,16,.5);display:flex;align-items:flex-end;justify-content:center;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.sheet{width:100%;max-width:560px;max-height:94%;background:var(--bg);border:1px solid var(--border);border-bottom:none;border-radius:18px 18px 0 0;padding:12px 16px calc(14px + env(safe-area-inset-bottom));overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;animation:sheetUp .22s cubic-bezier(.23,1,.32,1)}
+@keyframes sheetUp{from{transform:translateY(24px);opacity:.4}}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.sheet-title{font:600 18px var(--ar)}
+.flabel{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;font:500 15px var(--ar);color:var(--sec)}
+.x-amtrow{display:flex;align-items:center;gap:8px;margin:8px 0 2px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:4px 14px}
+.x-amtrow:focus-within{border-color:var(--green)}
+.x-amount{flex:1;min-width:0;background:none;border:none;color:var(--ink);font:600 34px var(--num);direction:ltr;text-align:center;font-variant-numeric:tabular-nums;padding:4px 0}
+.x-unit{font:500 18px var(--ar);color:var(--sec)}
+.x-hint{min-height:20px;color:var(--neg);font:500 14px var(--ar)}
+.x-note{font:400 14px/1.5 var(--ar);color:var(--sec);margin:2px 0 8px}
+.x-note.warn{color:var(--ink);background:rgba(185,154,91,.2);border-radius:8px;padding:6px 10px}
+.x-note.bad{color:var(--neg)}
+.x-optbtn{background:none;border:none;color:var(--green);font:500 15px var(--ar);padding:8px 2px;cursor:pointer;margin-bottom:6px}
+.x-options{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:7px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--ink);font:500 14px var(--ar);cursor:pointer;min-height:36px}
+.chip:active{transform:scale(.97)}
+.chip.danger{color:var(--neg);border-color:var(--neg)}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:8px}
+.cat{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:68px;padding:8px 4px;background:var(--surface);border:1px solid var(--border);border-radius:12px;color:var(--ink);font:500 13px/1.25 var(--ar);text-align:center;cursor:pointer}
+.cat .e{font-size:24px;line-height:1}
+.cat:active{transform:scale(.97)}
+.cat[aria-pressed="true"]{border-color:var(--green);box-shadow:0 0 0 1px var(--green) inset}
+.menu-b{display:flex;justify-content:space-between;align-items:center;width:100%;padding:14px 4px;background:none;border:none;border-bottom:1px solid var(--border);color:var(--ink);font:500 17px var(--ar);cursor:pointer;text-align:start}
+.menu-b .sub{color:var(--sec);font-size:14px}
+.m-list{list-style:none}
+.m-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px dotted var(--border);flex-wrap:wrap}
+.m-row.off{opacity:.55}
+.m-name{flex:1 1 120px;min-width:0;font:500 16px var(--ar);overflow-wrap:anywhere}
+.m-main{flex:1 1 120px;min-width:0}
+.m-sub{font:400 13px var(--ar);color:var(--sec)}
+.m-emoji{font-size:22px;width:30px;text-align:center}
+.emoji-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:6px;margin-bottom:10px}
+.em{min-height:44px;font-size:24px;background:var(--surface);border:1px solid var(--border);border-radius:10px;cursor:pointer}
+.em[aria-pressed="true"]{border-color:var(--green);box-shadow:0 0 0 1px var(--green) inset}
+.sub-h{font:600 16px var(--ar);margin:14px 0 4px}
+.cmp{width:100%;border-collapse:collapse;margin:10px 0;font:400 15px var(--ar)}
+.cmp th,.cmp td{padding:6px 8px;border-bottom:1px solid var(--border);text-align:start}
+.cmp td[dir="ltr"]{font-family:var(--num);font-variant-numeric:tabular-nums;text-align:right}
+/* stats */
+.x-sh{font:600 16px var(--ar);margin-bottom:10px}
+.x-stat > .totals:first-child{border-top:none;margin-top:0;padding-top:0}
+.donut-wrap{display:flex;flex-direction:column;align-items:center;gap:12px}
+.donut{width:180px;height:180px}
+.donut-t{font:600 15px var(--num);fill:var(--ink)}
+.legend{list-style:none;width:100%}
+.legend li{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px dotted var(--border)}
+.legend .dot{width:12px;height:12px;border-radius:50%;flex:none}
+.lg-n{flex:1;min-width:0;font:400 15px var(--ar);overflow-wrap:anywhere}
+.lg-p{font:500 14px var(--num);color:var(--sec);min-width:38px;text-align:end}
+.bars,.trend{width:100%;height:auto}
+.bar{fill:var(--green)}
+.bar.today{fill:var(--brass)}
+.bar-v{font:500 10px var(--num);fill:var(--sec)}
+.bar-l{font:500 11px var(--num);fill:var(--sec)}
+.tl{stroke:var(--green);stroke-width:2}
+.tp{fill:var(--green)}
+.tp.last{fill:var(--brass)}
+.chg{list-style:none}
+.chg li{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dotted var(--border)}
+.tag{font:500 12px var(--ar);padding:1px 8px;border-radius:999px;border:1px solid var(--border)}
+.chg-up .tag,.chg-up .money{color:var(--neg);border-color:var(--neg)}
+.chg-down .tag,.chg-down .money{color:var(--green);border-color:var(--green)}
+.chg-new .tag{color:var(--brass);border-color:var(--brass)}
+.chg .money{border:none}
+@media (max-width:359px){
+  .x-big{font-size:38px}
+  .cat-grid{grid-template-columns:repeat(3,1fr)}
+}
 /* ================= small screens ================= */
 @media (max-width:359px){
   #finalBalance{font-size:38px}
@@ -255,16 +420,23 @@ header.top.shrunk #finalBalance{font-size:28px}
       <button class="icon-btn" id="btnDeleteProfile" aria-label="حذف الشخص">×</button>
       <span class="saved" id="savedDot" dir="rtl">محفوظ ✓</span>
     </div>
-    <div class="top-row">
+    <div class="top-row ledger-only">
       <input id="monthLabel" dir="rtl" aria-label="اسم الشهر" placeholder="اسم الشهر">
     </div>
-    <span class="eyebrow head-eyebrow">M-SAL</span>
-    <div class="balance-line">
+    <span class="eyebrow head-eyebrow ledger-only">M-SAL</span>
+    <div class="balance-line ledger-only">
       <span class="balance-caption" dir="rtl">المتبقي</span>
       <span id="finalBalance" dir="ltr">0</span>
     </div>
+    <div class="tabs" role="tablist" dir="rtl" aria-label="الأقسام">
+      <button class="tab" id="tabBtnLedger" role="tab" aria-selected="true" aria-controls="viewLedger" data-tab="ledger">الميزانية</button>
+      <button class="tab" id="tabBtnExp" role="tab" aria-selected="false" aria-controls="viewExp" tabindex="-1" data-tab="exp">المصاريف</button>
+    </div>
   </header>
 
+  <div class="banner-host" id="bannerHost" aria-live="polite"></div>
+
+  <div class="view" id="viewLedger" role="tabpanel" aria-labelledby="tabBtnLedger">
   <section class="panel" id="salaryPanel">
     <span class="plate-num">00</span>
     <div class="block-head">
@@ -284,7 +456,14 @@ header.top.shrunk #finalBalance{font-size:28px}
     <button class="pill" id="btnImport">استيراد</button>
   </nav>
   <input type="file" id="importFile" accept="application/json,.json" style="display:none" aria-hidden="true">
+  </div>
+
+  <div class="view" id="viewExp" role="tabpanel" aria-labelledby="tabBtnExp" hidden></div>
 </div>
+
+<button class="fab" id="fabAdd" type="button" aria-label="إضافة مصروف" hidden>+</button>
+<div class="toast-host" id="toastHost" aria-live="polite"></div>
+<div id="sheetHost"></div>
 
 <div class="overlay" id="shareOverlay" role="dialog" aria-label="حفظ الإيصال">
   <p dir="rtl">اضغط مطولاً على الصورة ثم اختر «حفظ الصورة»</p>
@@ -296,6 +475,7 @@ header.top.shrunk #finalBalance{font-size:28px}
 <script>
 "use strict";
 /* ================= state ================= */
+/* @@DATA-MODEL-BEGIN  (storage keys, defaults, sanitizers, migration, loader; see test/migration.test.js) */
 const KEY = "mizaniya.v2";
 const BAK = "mizaniya.v2.bak";
 const OLD_KEYS = ["mizaniya.v1", "mizaniya.v1.bak"];
@@ -309,6 +489,227 @@ function defaultMonthLabel(){
   return AR_MONTHS[d.getMonth()] + " " + d.getFullYear();
 }
 
+/* @@CYCLE-LOGIC-BEGIN
+   Salary-cycle model. Pure functions only: no DOM, no storage, no dependence on the
+   device time zone. Dates are local calendar strings "YYYY-MM-DD", always built and
+   parsed from year/month/day components (never via toISOString).
+   test/cycles.test.js extracts this block verbatim, so keep it self-contained.
+   cycle = { id, startDate, allowance, expectedNextSalaryDate? }; a cycle ends exactly
+   when the next cycle's startDate begins (end exclusive); the latest cycle is open.
+   An entry's cycle is always derived from its date, never stored on the entry. */
+const DAY_MS = 86400000;
+function pad2(n){ return (n < 10 ? "0" : "") + n; }
+function formatDate(y, m, d){ return String(y).padStart(4, "0") + "-" + pad2(m) + "-" + pad2(d); }
+function parseDate(s){
+  if (typeof s !== "string") return null;
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+  if (!m) return null;
+  const y = +m[1], mo = +m[2], d = +m[3];
+  const t = new Date(Date.UTC(y, mo - 1, d));
+  if (t.getUTCFullYear() !== y || t.getUTCMonth() !== mo - 1 || t.getUTCDate() !== d) return null;
+  return { y: y, m: mo, d: d };
+}
+function isValidDate(s){ return parseDate(s) !== null; }
+/* whole days since 1970-01-01 for a valid date string (pure UTC arithmetic: no DST, no zone) */
+function dayNumber(s){
+  const p = parseDate(s);
+  return Math.round(Date.UTC(p.y, p.m - 1, p.d) / DAY_MS);
+}
+function addDays(s, n){
+  const t = new Date((dayNumber(s) + n) * DAY_MS);
+  return formatDate(t.getUTCFullYear(), t.getUTCMonth() + 1, t.getUTCDate());
+}
+function daysBetween(a, b){ return dayNumber(b) - dayNumber(a); }
+/* the local calendar date of a Date object, from its LOCAL components */
+function localDateStr(date){ return formatDate(date.getFullYear(), date.getMonth() + 1, date.getDate()); }
+function todayStr(now){ return localDateStr(now || new Date()); }
+
+function roundMoney(n){ return Math.round((n + Number.EPSILON) * 100) / 100; }
+function sumMoney(list){
+  let cents = 0;
+  for (const x of list) cents += Math.round(x * 100);
+  return cents / 100;
+}
+
+/* valid cycles sorted by startDate (ties by id, so the order is deterministic) */
+function sortCycles(cycles){
+  return (Array.isArray(cycles) ? cycles : [])
+    .filter(c => c && typeof c === "object" && isValidDate(c.startDate))
+    .slice()
+    .sort((a, b) => {
+      if (a.startDate !== b.startDate) return a.startDate < b.startDate ? -1 : 1;
+      const x = String(a.id), y = String(b.id);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+}
+/* the cycle that owns a date: the latest cycle starting on or before it, else null */
+function cycleForDate(cycles, date){
+  if (!isValidDate(date)) return null;
+  let found = null;
+  for (const c of sortCycles(cycles)) {
+    if (c.startDate <= date) found = c; else break;
+  }
+  return found;
+}
+/* { start, endExclusive, lastDay, open }; endExclusive/lastDay are null for the open cycle */
+function cycleBounds(cycles, cycle){
+  const next = sortCycles(cycles).find(c => c.startDate > cycle.startDate) || null;
+  return {
+    start: cycle.startDate,
+    endExclusive: next ? next.startDate : null,
+    lastDay: next ? addDays(next.startDate, -1) : null,
+    open: !next
+  };
+}
+/* { byCycle: {cycleId: [entries]}, noCycle: [...], invalid: [...] }.
+   Every entry lands in exactly one bucket, so none can ever disappear. */
+function bucketEntries(cycles, entries){
+  const out = { byCycle: {}, noCycle: [], invalid: [] };
+  for (const c of sortCycles(cycles)) out.byCycle[c.id] = [];
+  for (const e of (Array.isArray(entries) ? entries : [])) {
+    if (!e || !isValidDate(e.date)) { out.invalid.push(e); continue; }
+    const c = cycleForDate(cycles, e.date);
+    if (c) out.byCycle[c.id].push(e); else out.noCycle.push(e);
+  }
+  return out;
+}
+/* { ok:true } or { ok:false, error:"invalid"|"duplicate" } */
+function validateCycleDate(cycles, date, ignoreId){
+  if (!isValidDate(date)) return { ok: false, error: "invalid" };
+  const clash = (Array.isArray(cycles) ? cycles : []).some(c => c && c.startDate === date && c.id !== ignoreId);
+  return clash ? { ok: false, error: "duplicate" } : { ok: true };
+}
+function cleanAllowance(v){
+  const n = Number(v);
+  return (isFinite(n) && n >= 0) ? roundMoney(n) : 0;
+}
+/* Both mutators return a NEW array and leave the input untouched. */
+function addCycle(cycles, cycle){
+  const v = validateCycleDate(cycles, cycle && cycle.startDate);
+  if (!v.ok) return v;
+  const c = Object.assign({}, cycle, { allowance: cleanAllowance(cycle.allowance) });
+  return { ok: true, cycles: (cycles || []).concat([c]) };
+}
+function setCycleDate(cycles, id, date){
+  const list = cycles || [];
+  if (!list.some(c => c && c.id === id)) return { ok: false, error: "notfound" };
+  const v = validateCycleDate(list, date, id);
+  if (!v.ok) return v;
+  return { ok: true, cycles: list.map(c => (c && c.id === id) ? Object.assign({}, c, { startDate: date }) : c) };
+}
+/* "Salary arrived": the date defaults to today, the allowance to the latest cycle's */
+function prefillNewCycle(cycles, today){
+  const sorted = sortCycles(cycles);
+  const last = sorted.length ? sorted[sorted.length - 1] : null;
+  return { startDate: today, allowance: last ? cleanAllowance(last.allowance) : 0 };
+}
+/* Figures for one cycle. Entries are { type:"expense"|"income", amount, date, deletedAt? }.
+   Soft-deleted entries (deletedAt set) are ignored. */
+function cycleSummary(cycles, cycle, entries, today){
+  const b = cycleBounds(cycles, cycle);
+  const mine = (bucketEntries(cycles, entries).byCycle[cycle.id] || []).filter(e => !e.deletedAt);
+  const amt = e => (isFinite(Number(e.amount)) ? Number(e.amount) : 0);
+  const spent = sumMoney(mine.filter(e => e.type !== "income").map(amt));
+  const extra = sumMoney(mine.filter(e => e.type === "income").map(amt));
+  const spentToday = sumMoney(mine.filter(e => e.type !== "income" && e.date === today).map(amt));
+  const allowance = cleanAllowance(cycle.allowance);
+  const budget = roundMoney(allowance + extra);
+  const remaining = roundMoney(budget - spent);
+
+  const lastCounted = b.lastDay && b.lastDay < today ? b.lastDay : today;
+  const daysElapsed = lastCounted < b.start ? 0 : daysBetween(b.start, lastCounted) + 1;
+
+  let totalDays = null, daysLeft = null, canSpendToday = null;
+  if (!b.open) {
+    totalDays = daysBetween(b.start, b.endExclusive);
+  } else {
+    const exp = cycle.expectedNextSalaryDate;
+    if (isValidDate(exp) && exp > b.start) {
+      totalDays = daysBetween(b.start, exp);
+      daysLeft = Math.max(1, daysBetween(today, exp));
+      canSpendToday = roundMoney(remaining / daysLeft);
+    }
+  }
+  return {
+    start: b.start, endExclusive: b.endExclusive, lastDay: b.lastDay, open: b.open,
+    allowance: allowance, extra: extra, budget: budget, spent: spent, remaining: remaining,
+    spentToday: spentToday,
+    progress: budget > 0 ? Math.min(1, spent / budget) : (spent > 0 ? 1 : 0),
+    daysElapsed: daysElapsed, totalDays: totalDays, daysLeft: daysLeft, canSpendToday: canSpendToday,
+    dailyAverage: roundMoney(spent / Math.max(1, daysElapsed)),
+    over: remaining < 0,
+    entryCount: mine.length
+  };
+}
+/* @@CYCLE-LOGIC-END */
+
+/* Schema versions: 2 = the original app (storage keys are named .v2), 3 = adds the optional
+   per-profile `exp` object (Expenses section). Migration is additive and non-destructive:
+   every field that is not understood, at every level, is carried through untouched. */
+const SCHEMA_VERSION = 3;
+const isObj = v => !!v && typeof v === "object" && !Array.isArray(v);
+const cloneJSON = v => JSON.parse(JSON.stringify(v));
+
+const DEFAULT_ACCOUNT_ID = "acc_main";
+const DEFAULT_ACCOUNT_NAME = "مصاريفي";
+const DEFAULT_CATEGORIES = [
+  ["cat_food", "أكل ومطاعم", "🍔"], ["cat_grocery", "بقالة", "🛒"],
+  ["cat_fuel", "بنزين ومواصلات", "⛽"], ["cat_bills", "فواتير", "🧾"],
+  ["cat_electricity", "كهرباء", "⚡"], ["cat_water", "ماء", "💧"],
+  ["cat_telecom", "اتصالات وإنترنت", "📱"], ["cat_rent", "إيجار", "🏠"],
+  ["cat_shopping", "ملابس وتسوق", "👕"], ["cat_health", "صحة", "💊"],
+  ["cat_fun", "ترفيه", "🎮"], ["cat_coffee", "قهوة وكافيهات", "☕"],
+  ["cat_travel", "سفر", "✈️"], ["cat_edu", "تعليم", "🎓"],
+  ["cat_kids", "أطفال", "🧸"], ["cat_gifts", "هدايا", "🎁"],
+  ["cat_charity", "تبرعات وصدقة", "🤝"], ["cat_care", "عناية شخصية", "🧼"],
+  ["cat_pets", "حيوانات أليفة", "🐕"], ["cat_other", "أخرى", "📦"]
+];
+function defaultCategories(){
+  return DEFAULT_CATEGORIES.map(c => ({ id: c[0], name: c[1], emoji: c[2], hidden: false }));
+}
+function defaultAccount(){
+  return { id: DEFAULT_ACCOUNT_ID, name: DEFAULT_ACCOUNT_NAME, archived: false, cycles: [] };
+}
+function defaultExp(){
+  return { accounts: [defaultAccount()], lastAccountId: DEFAULT_ACCOUNT_ID, categories: defaultCategories(), entries: [] };
+}
+const nonEmptyStr = v => typeof v === "string" && v !== "";
+
+/* exp = { accounts:[{id,name,archived,cycles:[]}], lastAccountId, categories:[{id,name,emoji,hidden}],
+           entries:[{id,type,amount,name,categoryId,date,accountId,deletedAt?}] }
+   Anything already present is kept; only missing structure is filled in. Idempotent. */
+function sanitizeExp(e){
+  const x = isObj(e) ? cloneJSON(e) : {};
+  const accounts = [];
+  for (const a of (Array.isArray(x.accounts) ? x.accounts : [])) {
+    if (!isObj(a)) continue;
+    if (!nonEmptyStr(a.id)) a.id = uid();
+    if (!nonEmptyStr(a.name)) a.name = DEFAULT_ACCOUNT_NAME;
+    a.archived = !!a.archived;
+    a.cycles = (Array.isArray(a.cycles) ? a.cycles : []).filter(isObj);
+    for (const c of a.cycles) if (!nonEmptyStr(c.id)) c.id = uid();
+    accounts.push(a);
+  }
+  if (!accounts.length) accounts.push(defaultAccount());
+  x.accounts = accounts;
+  if (!accounts.some(a => a.id === x.lastAccountId)) {
+    x.lastAccountId = (accounts.find(a => !a.archived) || accounts[0]).id;
+  }
+  const cats = [];
+  for (const c of (Array.isArray(x.categories) ? x.categories : [])) {
+    if (!isObj(c)) continue;
+    if (!nonEmptyStr(c.id)) c.id = uid();
+    if (typeof c.name !== "string") c.name = "";
+    if (!nonEmptyStr(c.emoji)) c.emoji = "📦";
+    c.hidden = !!c.hidden;
+    cats.push(c);
+  }
+  x.categories = cats.length ? cats : defaultCategories();
+  x.entries = (Array.isArray(x.entries) ? x.entries : []).filter(isObj);
+  for (const en of x.entries) if (!nonEmptyStr(en.id)) en.id = uid();
+  return x;
+}
+
 function seedData(){
   return {
     monthLabel: defaultMonthLabel(),
@@ -316,115 +717,830 @@ function seedData(){
     salary: "",
     blocks: [
       { id: uid(), title: "التزامات ثابتة", rows: [ { id: uid(), name: "", amount: "", done: false } ] }
-    ]
+    ],
+    exp: defaultExp()
   };
 }
 
-function sanitizeData(d){
-  d = (d && typeof d === "object") ? d : {};
-  const s = {
-    monthLabel: typeof d.monthLabel === "string" ? d.monthLabel : defaultMonthLabel(),
-    salaryLabel: typeof d.salaryLabel === "string" ? d.salaryLabel : "الراتب",
-    salary: (typeof d.salary === "string" || typeof d.salary === "number") ? String(d.salary) : "",
-    blocks: []
-  };
+/* Known fields are validated exactly as before; unknown fields ride along untouched.
+   keepExp: data written by a NEWER app version is not reshaped. */
+function sanitizeData(d, keepExp){
+  d = isObj(d) ? d : {};
+  const s = cloneJSON(d);
+  s.monthLabel = typeof d.monthLabel === "string" ? d.monthLabel : defaultMonthLabel();
+  s.salaryLabel = typeof d.salaryLabel === "string" ? d.salaryLabel : "الراتب";
+  s.salary = (typeof d.salary === "string" || typeof d.salary === "number") ? String(d.salary) : "";
+  s.blocks = [];
   if (Array.isArray(d.blocks)) {
     for (const b of d.blocks) {
-      if (!b || typeof b !== "object") continue;
-      const nb = { id: typeof b.id === "string" ? b.id : uid(),
-                   title: typeof b.title === "string" ? b.title : "",
-                   rows: [] };
+      if (!isObj(b)) continue;
+      const nb = cloneJSON(b);
+      nb.id = typeof b.id === "string" ? b.id : uid();
+      nb.title = typeof b.title === "string" ? b.title : "";
+      nb.rows = [];
       if (Array.isArray(b.rows)) {
         for (const r of b.rows) {
-          if (!r || typeof r !== "object") continue;
-          nb.rows.push({
-            id: typeof r.id === "string" ? r.id : uid(),
-            name: typeof r.name === "string" ? r.name : "",
-            amount: (typeof r.amount === "string" || typeof r.amount === "number") ? String(r.amount) : "",
-            done: !!r.done
-          });
+          if (!isObj(r)) continue;
+          const nr = cloneJSON(r);
+          nr.id = typeof r.id === "string" ? r.id : uid();
+          nr.name = typeof r.name === "string" ? r.name : "";
+          nr.amount = (typeof r.amount === "string" || typeof r.amount === "number") ? String(r.amount) : "";
+          nr.done = !!r.done;
+          nb.rows.push(nr);
         }
       }
       s.blocks.push(nb);
     }
   }
+  if (!keepExp) s.exp = sanitizeExp(d.exp);
   return s;
 }
 
 function sanitizeState(d){
-  const s = { currentId: "", profiles: [] };
-  if (d && Array.isArray(d.profiles)) {
-    for (const p of d.profiles) {
-      if (!p || typeof p !== "object") continue;
-      s.profiles.push({
-        id: typeof p.id === "string" ? p.id : uid(),
-        name: (typeof p.name === "string" && p.name.trim()) ? p.name : "بدون اسم",
-        data: sanitizeData(p.data)
-      });
+  const raw = isObj(d) ? d : {};
+  const ver = (typeof raw.schemaVersion === "number" && isFinite(raw.schemaVersion)) ? raw.schemaVersion : 0;
+  const newer = ver > SCHEMA_VERSION;
+  const s = cloneJSON(raw);
+  s.profiles = [];
+  if (Array.isArray(raw.profiles)) {
+    for (const p of raw.profiles) {
+      if (!isObj(p)) continue;
+      const np = cloneJSON(p);
+      np.id = typeof p.id === "string" ? p.id : uid();
+      np.name = (typeof p.name === "string" && p.name.trim()) ? p.name : "بدون اسم";
+      np.data = sanitizeData(p.data, newer);
+      s.profiles.push(np);
     }
   }
   if (!s.profiles.length) s.profiles.push({ id: uid(), name: "الأساسي", data: seedData() });
-  s.currentId = (typeof d?.currentId === "string" && s.profiles.some(p => p.id === d.currentId))
-    ? d.currentId : s.profiles[0].id;
+  s.currentId = (typeof raw.currentId === "string" && s.profiles.some(p => p.id === raw.currentId))
+    ? raw.currentId : s.profiles[0].id;
+  s.schemaVersion = newer ? ver : SCHEMA_VERSION;
   return s;
 }
 
-function load(){
+/* Reads (never writes) the stored state from a localStorage-like object, newest format first.
+   A store only counts if it holds at least one real profile, so an empty or damaged main
+   store can no longer shadow a good .bak.
+   Returns { state, source: "main"|"bak"|"v1"|"v1bak"|"empty",
+             migratedFrom: <schemaVersion found>|"v1"|null,
+             unusable: [{ key, reason: "corrupt"|"empty" }] }
+   `unusable` lets the caller refuse to overwrite a store it could not read. */
+function loadFrom(store){
+  const unusable = [];
+  const read = (k, shapeOk, nonEmpty) => {
+    let raw = null;
+    try { raw = store.getItem(k); } catch (e) { return null; }
+    if (raw == null || raw === "") return null;
+    let d;
+    try { d = JSON.parse(raw); } catch (e) { unusable.push({ key: k, reason: "corrupt" }); return null; }
+    if (!shapeOk(d)) { unusable.push({ key: k, reason: "corrupt" }); return null; }
+    if (!nonEmpty(d)) { unusable.push({ key: k, reason: "empty" }); return null; }
+    return d;
+  };
   /* v2: current format */
-  for (const k of [KEY, BAK]) {
-    try {
-      const raw = localStorage.getItem(k);
-      if (!raw) continue;
-      const d = JSON.parse(raw);
-      if (d && typeof d === "object" && Array.isArray(d.profiles)) return sanitizeState(d);
-    } catch (e) { /* try next */ }
+  const stateShape = d => isObj(d) && Array.isArray(d.profiles);
+  const stateFull = d => d.profiles.some(isObj);
+  for (const [k, src] of [[KEY, "main"], [BAK, "bak"]]) {
+    const d = read(k, stateShape, stateFull);
+    if (d) {
+      const found = (typeof d.schemaVersion === "number" && isFinite(d.schemaVersion)) ? d.schemaVersion : 0;
+      return { state: sanitizeState(d), source: src, migratedFrom: found < SCHEMA_VERSION ? found : null, unusable };
+    }
   }
   /* v1: migrate the old single-person data into the first profile */
-  for (const k of OLD_KEYS) {
-    try {
-      const raw = localStorage.getItem(k);
-      if (!raw) continue;
-      const d = JSON.parse(raw);
-      if (d && typeof d === "object" && Array.isArray(d.blocks)) {
-        return sanitizeState({ profiles: [ { id: uid(), name: "الأساسي", data: d } ] });
-      }
-    } catch (e) { /* try next */ }
+  const v1Shape = d => isObj(d) && Array.isArray(d.blocks);
+  for (const [k, src] of [[OLD_KEYS[0], "v1"], [OLD_KEYS[1], "v1bak"]]) {
+    const d = read(k, v1Shape, () => true);
+    if (d) {
+      return { state: sanitizeState({ profiles: [ { id: uid(), name: "الأساسي", data: d } ] }),
+               source: src, migratedFrom: "v1", unusable };
+    }
   }
-  return sanitizeState(null);
+  return { state: sanitizeState(null), source: "empty", migratedFrom: null, unusable };
+}
+/* @@DATA-MODEL-END */
+
+/* @@EXP-LOGIC-BEGIN
+   Expenses: pure helpers (amounts, dates, grouping, search, stats, merge, receipt model).
+   No DOM, no storage. Uses the cycle block and AR_MONTHS above. Tested by test/expenses.test.js. */
+const AED = "د.إ";
+const AR_WEEKDAYS = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+const NF_INT = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
+const NF_DEC = new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+/* 46 -> "46", 46.5 -> "46.50", 1200 -> "1,200"; always Latin digits */
+function formatMoney(v){
+  const r = roundMoney(Number(v) || 0);
+  return Number.isInteger(r) ? NF_INT.format(r) : NF_DEC.format(r);
+}
+function moneyText(v){ return formatMoney(v) + " " + AED; }
+
+function toLatinDigits(s){
+  return String(s)
+    .replace(/[٠-٩]/g, c => String(c.charCodeAt(0) - 0x0660))
+    .replace(/[۰-۹]/g, c => String(c.charCodeAt(0) - 0x06F0));
+}
+/* "٤٦٫٢٥", "46,25", "1,234.50", " 12 " -> number (2 decimals), or null when not a positive amount */
+function parseEntryAmount(raw){
+  if (raw == null) return null;
+  let s = toLatinDigits(raw).replace(/٫/g, ".").replace(/٬/g, "").replace(/،/g, ",").replace(/[\s‎‏]/g, "");
+  if (s === "") return null;
+  if (s.indexOf(".") >= 0) s = s.replace(/,/g, "");
+  else {
+    const parts = s.split(",");
+    s = (parts.length === 2 && parts[1].length > 0 && parts[1].length <= 2) ? parts[0] + "." + parts[1] : parts.join("");
+  }
+  if (!/^(\d+\.?\d*|\.\d+)$/.test(s)) return null;
+  const v = parseFloat(s);
+  if (!isFinite(v) || v <= 0 || v > 999999999) return null;
+  const r = roundMoney(v);
+  return r > 0 ? r : null;
 }
 
-let state = load();
+/* ---------- dates for display (Latin digits, Arabic names) ---------- */
+function weekdayIndex(date){ return (((dayNumber(date) + 4) % 7) + 7) % 7; }   /* 0 = Sunday */
+function shortArabicDate(date, withYear){
+  const p = parseDate(date);
+  return p.d + " " + AR_MONTHS[p.m - 1] + (withYear ? " " + p.y : "");
+}
+function fullArabicDate(date){
+  const p = parseDate(date);
+  return AR_WEEKDAYS[weekdayIndex(date)] + " " + p.d + " " + AR_MONTHS[p.m - 1] + " " + p.y;
+}
+function dayLabel(date, today){
+  if (date === today) return "اليوم";
+  if (date === addDays(today, -1)) return "أمس";
+  if (date === addDays(today, 1)) return "غدًا";
+  return fullArabicDate(date);
+}
+
+/* ---------- entries ---------- */
+const NO_CYCLE_KEY = "__none__";
+function newEntry(f, id, now){
+  return { id: id, type: f.type === "income" ? "income" : "expense", amount: f.amount, name: f.name || "",
+           categoryId: f.categoryId, date: f.date, accountId: f.accountId, createdAt: now };
+}
+function entryAccountId(exp, e){
+  return exp.accounts.some(a => a.id === e.accountId) ? e.accountId : exp.accounts[0].id;
+}
+/* an entry whose account no longer exists is shown under the first account, never hidden */
+function accountEntries(exp, accountId){
+  return exp.entries.filter(e => entryAccountId(exp, e) === accountId);
+}
+function liveEntries(list){ return list.filter(e => e && !e.deletedAt); }
+function deletedEntries(list){ return list.filter(e => e && e.deletedAt); }
+
+function searchKey(s){
+  return toLatinDigits(String(s == null ? "" : s)).toLowerCase()
+    .replace(/[ً-ٰٟـ]/g, "")
+    .replace(/[أإآٱ]/g, "ا").replace(/ى/g, "ي").replace(/ة/g, "ه")
+    .trim();
+}
+/* filter = { query, categoryId }; catName(id) -> display name of the category */
+function filterEntries(list, filter, catName){
+  const q = searchKey(filter.query || "");
+  return list.filter(e => {
+    if (filter.categoryId && e.categoryId !== filter.categoryId) return false;
+    if (!q) return true;
+    return searchKey(e.name).indexOf(q) >= 0 || searchKey(catName(e.categoryId)).indexOf(q) >= 0;
+  });
+}
+/* newest day first; inside a day, newest entry first. day total = expenses only. */
+function groupByDay(list){
+  const sorted = list.slice().sort((a, b) =>
+    a.date !== b.date ? (a.date < b.date ? 1 : -1) : ((b.createdAt || 0) - (a.createdAt || 0)) || (String(a.id) < String(b.id) ? 1 : -1));
+  const days = [];
+  for (const e of sorted) {
+    let d = days[days.length - 1];
+    if (!d || d.date !== e.date) { d = { date: e.date, entries: [], spent: 0, extra: 0 }; days.push(d); }
+    d.entries.push(e);
+    const a = Number(e.amount) || 0;
+    if (e.type === "income") d.extra = roundMoney(d.extra + a); else d.spent = roundMoney(d.spent + a);
+  }
+  return days;
+}
+
+/* ---------- stats ---------- */
+function expenseList(list){ return liveEntries(list).filter(e => e.type !== "income"); }
+/* [{categoryId, total, pct}] biggest first; pct are whole numbers that add up to exactly 100 */
+function categoryTotals(list){
+  const map = new Map();
+  for (const e of expenseList(list)) map.set(e.categoryId, (map.get(e.categoryId) || 0) + Math.round((Number(e.amount) || 0) * 100));
+  const rows = [...map.entries()].map(([categoryId, cents]) => ({ categoryId: categoryId, total: cents / 100, cents: cents }));
+  rows.sort((a, b) => b.cents - a.cents || (String(a.categoryId) < String(b.categoryId) ? -1 : 1));
+  const sum = rows.reduce((n, r) => n + r.cents, 0);
+  if (sum > 0) {
+    let used = 0;
+    const rem = [];
+    rows.forEach((r, i) => { const exact = r.cents * 100 / sum; r.pct = Math.floor(exact); used += r.pct; rem.push([exact - r.pct, i]); });
+    rem.sort((a, b) => b[0] - a[0] || a[1] - b[1]);
+    for (let k = 0; k < 100 - used; k++) rows[rem[k][1]].pct++;
+  } else rows.forEach(r => { r.pct = 0; });
+  return rows.map(r => ({ categoryId: r.categoryId, total: r.total, pct: r.pct }));
+}
+/* spending per day for up to n days ending at endDay, never earlier than firstDay */
+function lastDays(list, firstDay, endDay, n){
+  let start = addDays(endDay, -(n - 1));
+  if (start < firstDay) start = firstDay;
+  const out = [];
+  for (let d = start; d <= endDay; d = addDays(d, 1)) out.push({ date: d, total: 0 });
+  for (const e of expenseList(list)) {
+    const row = out.find(x => x.date === e.date);
+    if (row) row.total = roundMoney(row.total + (Number(e.amount) || 0));
+  }
+  return out;
+}
+/* totals of the n cycles ending at cycleId, oldest first */
+function cycleTrend(cycles, entries, cycleId, n){
+  const sorted = sortCycles(cycles);
+  const i = sorted.findIndex(c => c.id === cycleId);
+  if (i < 0) return [];
+  const buckets = bucketEntries(cycles, entries).byCycle;
+  return sorted.slice(Math.max(0, i - n + 1), i + 1).map(c => ({
+    id: c.id, start: c.startDate, total: sumMoney(expenseList(buckets[c.id] || []).map(e => Number(e.amount) || 0))
+  }));
+}
+/* category movement versus the previous cycle: [{categoryId, cur, prev, delta, kind:"new"|"up"|"down"}] */
+function categoryChanges(cycles, entries, cycleId){
+  const sorted = sortCycles(cycles);
+  const i = sorted.findIndex(c => c.id === cycleId);
+  if (i <= 0) return [];
+  const buckets = bucketEntries(cycles, entries).byCycle;
+  const cur = new Map(categoryTotals(buckets[sorted[i].id] || []).map(r => [r.categoryId, r.total]));
+  const prev = new Map(categoryTotals(buckets[sorted[i - 1].id] || []).map(r => [r.categoryId, r.total]));
+  const out = [];
+  for (const k of new Set([...cur.keys(), ...prev.keys()])) {
+    const c = cur.get(k) || 0, p = prev.get(k) || 0;
+    const delta = roundMoney(c - p);
+    if (delta === 0) continue;
+    out.push({ categoryId: k, cur: c, prev: p, delta: delta, kind: p === 0 ? "new" : (delta > 0 ? "up" : "down") });
+  }
+  out.sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta) || (String(a.categoryId) < String(b.categoryId) ? -1 : 1));
+  return out;
+}
+
+/* ---------- receipt model ---------- */
+/* `cycle` null means the "no cycle" group (entries dated before the first cycle). */
+function buildReceiptModel(exp, accountId, cycleKey, today){
+  const acc = exp.accounts.find(a => a.id === accountId) || exp.accounts[0];
+  const mine = accountEntries(exp, acc.id);
+  const b = bucketEntries(acc.cycles, mine);
+  const catName = id => { const c = exp.categories.find(x => x.id === id); return c ? c.name : "أخرى"; };
+  let list, start = null, end = null, allowance = 0, summary = null;
+  if (cycleKey === NO_CYCLE_KEY) {
+    list = b.noCycle;
+  } else {
+    const cycle = sortCycles(acc.cycles).find(c => c.id === cycleKey);
+    list = cycle ? (b.byCycle[cycle.id] || []) : [];
+    if (cycle) {
+      summary = cycleSummary(acc.cycles, cycle, mine, today);
+      start = summary.start; end = summary.lastDay || today; allowance = summary.allowance;
+    }
+  }
+  list = liveEntries(list);
+  const days = groupByDay(list).map(d => ({
+    date: d.date, label: dayLabel(d.date, today), spent: d.spent, extra: d.extra,
+    entries: d.entries.map(e => ({ name: e.name || catName(e.categoryId), type: e.type, amount: Number(e.amount) || 0 }))
+  }));
+  const spent = sumMoney(expenseList(list).map(e => Number(e.amount) || 0));
+  const extra = sumMoney(list.filter(e => e.type === "income").map(e => Number(e.amount) || 0));
+  return {
+    accountName: acc.name, start: start, end: end, allowance: allowance, extra: extra, spent: spent,
+    remaining: summary ? summary.remaining : roundMoney(extra - spent),
+    categories: categoryTotals(list).map(r => ({ name: catName(r.categoryId), total: r.total, pct: r.pct })),
+    days: days
+  };
+}
+
+/* ---------- counting and merging (import preview / merge) ---------- */
+function countState(st){
+  const c = { profiles: 0, blocks: 0, rows: 0, accounts: 0, cycles: 0, entries: 0, deleted: 0 };
+  if (!isObj(st) || !Array.isArray(st.profiles)) return c;
+  for (const p of st.profiles) {
+    if (!isObj(p)) continue;
+    c.profiles++;
+    const d = isObj(p.data) ? p.data : {};
+    for (const b of (Array.isArray(d.blocks) ? d.blocks : [])) {
+      if (!isObj(b)) continue;
+      c.blocks++;
+      c.rows += (Array.isArray(b.rows) ? b.rows : []).filter(isObj).length;
+    }
+    const e = isObj(d.exp) ? d.exp : null;
+    if (e) {
+      for (const a of (Array.isArray(e.accounts) ? e.accounts : [])) {
+        if (!isObj(a)) continue;
+        c.accounts++;
+        c.cycles += (Array.isArray(a.cycles) ? a.cycles : []).filter(isObj).length;
+      }
+      for (const en of (Array.isArray(e.entries) ? e.entries : [])) {
+        if (!isObj(en)) continue;
+        if (en.deletedAt) c.deleted++; else c.entries++;
+      }
+    }
+  }
+  return c;
+}
+/* How much real content a state holds (0 = nothing but defaults). Works on raw, unmigrated shapes too. */
+function contentScore(st){
+  if (!isObj(st) || !Array.isArray(st.profiles)) return 0;
+  let n = Math.max(0, st.profiles.filter(isObj).length - 1);
+  for (const p of st.profiles) {
+    const d = isObj(p) && isObj(p.data) ? p.data : null;
+    if (!d) continue;
+    if (String(d.salary == null ? "" : d.salary).trim()) n++;
+    for (const b of (Array.isArray(d.blocks) ? d.blocks : [])) {
+      if (!isObj(b)) continue;
+      for (const r of (Array.isArray(b.rows) ? b.rows : [])) {
+        if (isObj(r) && (String(r.name == null ? "" : r.name).trim() || String(r.amount == null ? "" : r.amount).trim())) n++;
+      }
+    }
+    const e = isObj(d.exp) ? d.exp : null;
+    if (e) {
+      n += (Array.isArray(e.entries) ? e.entries : []).filter(isObj).length;
+      for (const a of (Array.isArray(e.accounts) ? e.accounts : [])) {
+        if (!isObj(a)) continue;
+        n += (Array.isArray(a.cycles) ? a.cycles : []).filter(isObj).length;
+        if (a.id !== DEFAULT_ACCOUNT_ID) n++;
+      }
+      n += (Array.isArray(e.categories) ? e.categories : []).filter(c => isObj(c) && !DEFAULT_CATEGORIES.some(dc => dc[0] === c.id)).length;
+    }
+  }
+  return n;
+}
+/* Union merge, "current wins": nothing already here is changed or removed; the incoming file
+   only contributes profiles/blocks/rows/accounts/cycles/categories/entries that are missing (by id). */
+function mergeStates(cur, inc){
+  const out = sanitizeState(cur);
+  const add = sanitizeState(inc);
+  const missing = (list, id) => !list.some(x => x.id === id);
+  for (const ip of add.profiles) {
+    const cp = out.profiles.find(p => p.id === ip.id);
+    if (!cp) { out.profiles.push(ip); continue; }
+    mergeProfileData(cp.data, ip.data);
+  }
+  return sanitizeState(out);
+  function mergeProfileData(a, b){
+    for (const k of Object.keys(b)) if (!(k in a)) a[k] = b[k];
+    for (const bb of b.blocks) {
+      const ab = a.blocks.find(x => x.id === bb.id);
+      if (!ab) { a.blocks.push(bb); continue; }
+      for (const r of bb.rows) if (missing(ab.rows, r.id)) ab.rows.push(r);
+    }
+    const ae = sanitizeExp(a.exp), be = sanitizeExp(b.exp);
+    for (const ba of be.accounts) {
+      const aa = ae.accounts.find(x => x.id === ba.id);
+      if (!aa) { ae.accounts.push(ba); continue; }
+      for (const c of ba.cycles) if (missing(aa.cycles, c.id) && !aa.cycles.some(x => x.startDate === c.startDate)) aa.cycles.push(c);
+    }
+    for (const c of be.categories) if (missing(ae.categories, c.id)) ae.categories.push(c);
+    for (const en of be.entries) if (missing(ae.entries, en.id)) ae.entries.push(en);
+    a.exp = ae;
+  }
+}
+/* How many entries would change cycle if cycle `cycleId` moved to `newDate` (shown before saving). */
+function movedEntryCount(cycles, entries, cycleId, newDate){
+  const r = setCycleDate(cycles, cycleId, newDate);
+  if (!r.ok) return 0;
+  const owners = list => {
+    const b = bucketEntries(list, entries), m = new Map();
+    for (const k of Object.keys(b.byCycle)) for (const e of b.byCycle[k]) m.set(e.id, k);
+    for (const e of b.noCycle) m.set(e.id, NO_CYCLE_KEY);
+    return m;
+  };
+  const before = owners(cycles), after = owners(r.cycles);
+  let n = 0;
+  for (const [id, k] of after) if (before.get(id) !== k) n++;
+  return n;
+}
+/* "Replace" import: the file wins, except that a profile whose file entry has no `exp` at all
+   (an old export) keeps the Expenses data it already has here, so replacing the ledger can never
+   silently wipe expenses that the old file simply did not know about. */
+function replaceKeepingExp(cur, incRaw){
+  const out = sanitizeState(incRaw);
+  const have = new Map(sanitizeState(cur).profiles.map(p => [p.id, p.data.exp]));
+  const raw = Array.isArray(incRaw && incRaw.profiles) ? incRaw.profiles : [];
+  out.profiles.forEach((p, i) => {
+    const src = raw.filter(isObj)[i];
+    const hadExp = src && isObj(src.data) && isObj(src.data.exp);
+    if (!hadExp && have.has(p.id)) p.data.exp = cloneJSON(have.get(p.id));
+  });
+  return out;
+}
+/* import file -> { ok, kind: "state"|"single", data, counts, newer } | { ok:false, error } */
+function parseImport(text){
+  let d;
+  try { d = JSON.parse(String(text)); } catch (e) { return { ok: false, error: "json" }; }
+  if (isObj(d) && Array.isArray(d.profiles) && d.profiles.some(isObj)) {
+    const st = sanitizeState(d);
+    return { ok: true, kind: "state", data: d, counts: countState(st), newer: typeof d.schemaVersion === "number" && d.schemaVersion > SCHEMA_VERSION };
+  }
+  if (isObj(d) && Array.isArray(d.blocks)) {
+    const st = { profiles: [{ data: sanitizeData(d) }] };
+    return { ok: true, kind: "single", data: d, counts: countState(st), newer: false };
+  }
+  return { ok: false, error: "shape" };
+}
+/* @@EXP-LOGIC-END */
+
+/* @@PERSIST-BEGIN
+   Data safety: verified writes, empty-overwrite guard, IndexedDB mirror, rolling snapshots,
+   recovery planning, export reminder. Everything takes its storage as a parameter, so
+   test/persistence.test.js can drive it with fakes. No DOM here. */
+const META_KEY = "mizaniya.v2.meta";      /* { lastExport, firstSeen } : small, separate from the data */
+const TAB_KEY = "mizaniya.ui.tab";        /* last used tab: separate small key */
+const SNAP_MAX = 5;
+const EXPORT_REMIND_DAYS = 14;
+
+function isQuotaError(e){
+  return !!e && (e.name === "QuotaExceededError" || e.name === "NS_ERROR_DOM_QUOTA_REACHED" || e.code === 22 || e.code === 1014);
+}
+/* Raw stored text -> how much content it holds. -1 = unreadable (corrupt) but non-empty. */
+function scoreOfRaw(raw){
+  let d;
+  try { d = JSON.parse(raw); } catch (e) { return -1; }
+  if (isObj(d) && Array.isArray(d.blocks) && !Array.isArray(d.profiles)) d = { profiles: [{ data: d }] };   /* v1 shape */
+  if (!isObj(d) || !Array.isArray(d.profiles)) return (d === null || d === undefined) ? 0 : -1;
+  return contentScore(d);
+}
+/* "" when writing `state` is safe, else why it is not: an empty/default state must never replace
+   stored data that holds content, or that cannot be read (so it could still be recovered). */
+function overwriteRisk(store, state){
+  if (contentScore(state) > 0) return "";
+  let raw = null;
+  try { raw = store.getItem(KEY); } catch (e) { return ""; }
+  if (raw == null || raw === "") return "";
+  const sc = scoreOfRaw(raw);
+  return sc > 0 ? "empty-over-data" : (sc < 0 ? "empty-over-corrupt" : "");
+}
+/* Write, then read back and compare. { ok:true, bakOk, json } | { ok:false, kind:"quota"|"write"|"verify"|"stringify" }.
+   A failed main write leaves the previous value (and .bak) as they were; nothing is ever pruned. */
+function writeMain(store, state){
+  let s;
+  try { s = JSON.stringify(state); } catch (e) { return { ok: false, kind: "stringify", message: String(e) }; }
+  try { store.setItem(KEY, s); }
+  catch (e) { return { ok: false, kind: isQuotaError(e) ? "quota" : "write", message: String(e && e.message || e) }; }
+  let back = null;
+  try { back = store.getItem(KEY); } catch (e) { return { ok: false, kind: "verify", message: String(e) }; }
+  if (back !== s) return { ok: false, kind: "verify", message: "read-back differs" };
+  let bakOk = true;
+  try { store.setItem(BAK, s); if (store.getItem(BAK) !== s) bakOk = false; } catch (e) { bakOk = false; }
+  return { ok: true, bakOk: bakOk, json: s };
+}
+
+/* idb facade (real one in the app, a Map in tests):
+   get(store,key) -> value|undefined, put(store,key,value), del(store,key), all(store) -> [values]. */
+async function mirrorWrite(idb, json, now){
+  try { await idb.put("mirror", "state", { savedAt: now, json: json }); return true; } catch (e) { return false; }
+}
+async function mirrorRead(idb){
+  try { const r = await idb.get("mirror", "state"); return (r && typeof r.json === "string") ? r : null; } catch (e) { return null; }
+}
+/* kind "auto": at most one per local day. kind "forced": always (before migration, import, bulk delete,
+   restore). Identical-to-newest and content-free states are skipped. Only the newest SNAP_MAX are kept. */
+async function takeSnapshot(idb, json, reason, now, day, kind){
+  try {
+    const all = (await idb.all("snapshots")).sort((a, b) => b.at - a.at);
+    const sc = scoreOfRaw(json);
+    if (sc === 0) return { skipped: "empty" };
+    if (kind === "auto" && all.some(s => s.day === day)) return { skipped: "daily" };
+    if (all[0] && all[0].json === json) return { skipped: "duplicate" };
+    const rec = { id: now + "-" + Math.random().toString(36).slice(2, 7), at: now, day: day, reason: reason, json: json, corrupt: sc < 0 };
+    await idb.put("snapshots", rec.id, rec);
+    const ordered = [rec].concat(all).sort((a, b) => b.at - a.at);
+    for (const old of ordered.slice(SNAP_MAX)) await idb.del("snapshots", old.id);
+    return { saved: rec.id };
+  } catch (e) { return { failed: String(e && e.message || e) }; }
+}
+async function listSnapshots(idb){
+  try { return (await idb.all("snapshots")).sort((a, b) => b.at - a.at); } catch (e) { return []; }
+}
+
+/* Should the mirror replace what the main store gave us at boot?
+   info = loadFrom() result; mirrorRec = mirrorRead() result.
+   -> { restore:boolean, why } */
+function planRecovery(info, mirrorRec){
+  if (!mirrorRec) return { restore: false, why: "no-mirror" };
+  let m;
+  try { m = JSON.parse(mirrorRec.json); } catch (e) { return { restore: false, why: "mirror-corrupt" }; }
+  if (contentScore(m) === 0) return { restore: false, why: "mirror-empty" };
+  const have = contentScore(info.state);
+  if (info.source === "main") return have > 0 ? { restore: false, why: "main-ok" } : { restore: true, why: "main-empty" };
+  if (info.source === "bak") return { restore: false, why: "bak-ok" };      /* verified local copy: used, user is told */
+  return { restore: true, why: info.unusable.length ? "main-corrupt" : "main-missing" };
+}
+
+/* ---------- export reminder + small meta key ---------- */
+function readMeta(store){
+  try { const m = JSON.parse(store.getItem(META_KEY)); return isObj(m) ? m : {}; } catch (e) { return {}; }
+}
+function writeMeta(store, patch){
+  try { store.setItem(META_KEY, JSON.stringify(Object.assign(readMeta(store), patch))); return true; } catch (e) { return false; }
+}
+/* due when the last export (or, if never exported, the first run) is 14+ days ago and there is data to lose */
+function exportReminder(meta, nowMs, hasData){
+  if (!hasData) return { show: false };
+  const base = typeof meta.lastExport === "number" ? meta.lastExport : (typeof meta.firstSeen === "number" ? meta.firstSeen : nowMs);
+  const days = Math.floor((nowMs - base) / 86400000);
+  return { show: days >= EXPORT_REMIND_DAYS, days: days, never: typeof meta.lastExport !== "number" };
+}
+function exportFileName(now){ return "ميزانية-" + todayStr(now) + ".json"; }
+/* @@PERSIST-END */
+
+const memStore = (() => { const m = new Map(); return { getItem: k => (m.has(k) ? m.get(k) : null), setItem: (k, v) => { m.set(k, String(v)); }, removeItem: k => { m.delete(k); } }; })();
+let STORAGE_USABLE = true;
+const LS = (() => { try { const st = window.localStorage; st.getItem(KEY); return st; } catch (e) { STORAGE_USABLE = false; return memStore; } })();
+const bootInfo = loadFrom(LS);
+let state = bootInfo.state;
 function cur(){ return state.profiles.find(p => p.id === state.currentId) || state.profiles[0]; }
 function D(){ return cur().data; }
 
-/* ================= persistence ================= */
+/* ================= tiny DOM helper (textContent only: user text can never become markup) ================= */
+function h(tag, attrs){
+  const el = document.createElement(tag);
+  if (attrs) for (const k of Object.keys(attrs)) {
+    const v = attrs[k];
+    if (v === null || v === undefined || v === false) continue;
+    if (k === "class") el.className = v;
+    else if (k === "text") el.textContent = v;
+    else if (k.slice(0, 2) === "on") el.addEventListener(k.slice(2), v);
+    else el.setAttribute(k, v === true ? "" : String(v));
+  }
+  for (let i = 2; i < arguments.length; i++) appendKid(el, arguments[i]);
+  return el;
+}
+function appendKid(el, kid){
+  if (kid === null || kid === undefined || kid === false) return;
+  if (Array.isArray(kid)) { kid.forEach(k => appendKid(el, k)); return; }
+  el.append(kid.nodeType ? kid : document.createTextNode(String(kid)));
+}
+function withTimeout(p, ms){
+  return new Promise((resolve, reject) => {
+    const t = setTimeout(() => reject(new Error("timeout")), ms);
+    Promise.resolve(p).then(v => { clearTimeout(t); resolve(v); }, e => { clearTimeout(t); reject(e); });
+  });
+}
+
+/* ================= persistence (glue around the tested @@PERSIST functions) ================= */
+const IDB_NAME = "mizaniya-mirror";
+const P = {
+  ready: false, dirty: false, allowEmpty: false,
+  idb: null, persisted: null,
+  lastOk: 0, lastErr: null, bakOk: true,
+  mirrorOk: null, mirrorAt: 0, pendingMirror: null, mirrorBusy: false,
+  storageUsable: STORAGE_USABLE, restored: null
+};
+function safeGet(k){ try { return LS.getItem(k); } catch (e) { return null; } }
+
+/* ---- banners (persistent messages; save failures stay until a save succeeds) ---- */
+const bannerHost = document.getElementById("bannerHost");
+const banners = new Map();
+function setBanner(id, o){
+  if (o) banners.set(id, o); else banners.delete(id);
+  bannerHost.replaceChildren();
+  for (const [bid, b] of banners) {
+    const el = h("div", { class: "banner " + (b.kind || ""), role: b.kind === "bad" ? "alert" : "status" },
+      h("span", { class: "b-text", dir: "rtl", text: b.text }));
+    for (const a of (b.actions || [])) el.append(h("button", { class: "pill sm", type: "button", onclick: a.fn, text: a.label }));
+    if (b.dismissible) el.append(h("button", { class: "icon-btn", type: "button", "aria-label": "إغلاق", onclick: () => setBanner(bid, null), text: "×" }));
+    bannerHost.append(el);
+  }
+}
+
+const savedDot = document.getElementById("savedDot");
+let savedTimer = null;
+function flashSaved(){
+  savedDot.textContent = "محفوظ ✓";
+  savedDot.classList.remove("bad");
+  savedDot.classList.add("on");
+  clearTimeout(savedTimer);
+  savedTimer = setTimeout(() => savedDot.classList.remove("on"), 1200);
+}
+function showUnsaved(){
+  clearTimeout(savedTimer);
+  savedDot.textContent = "⚠ لم يُحفظ";
+  savedDot.classList.add("on", "bad");
+}
+
+/* ---- the save path ---- */
 let saveTimer = null;
 function scheduleSave(){
   clearTimeout(saveTimer);
   saveTimer = setTimeout(saveNow, 300);
 }
+function saveFailed(r){
+  P.lastErr = r;
+  showUnsaved();
+  const quota = r.kind === "quota";
+  setBanner("save", {
+    kind: "bad",
+    text: quota
+      ? "مساحة تخزين التطبيق ممتلئة، لذلك لم تُحفظ آخر تعديلاتك. لم يُحذف أي شيء تلقائيًا. صدّر نسخة احتياطية الآن ثم أفرغ مساحة على الجهاز."
+      : "تعذّر حفظ بياناتك على هذا الجهاز، وآخر تعديلاتك غير محفوظة. صدّر نسخة احتياطية الآن.",
+    actions: [{ label: "إعادة المحاولة", fn: () => saveNow() }, { label: "تصدير الآن", fn: () => doExport() }]
+  });
+}
 function saveNow(){
   clearTimeout(saveTimer);
-  try {
-    const s = JSON.stringify(state);
-    localStorage.setItem(KEY, s);
-    JSON.parse(localStorage.getItem(KEY));      // verify round-trip
-    localStorage.setItem(BAK, s);               // promote to known-good
-    flashSaved();
-  } catch (e) { /* storage full / private mode: keep running */ }
+  if (!P.storageUsable) { showUnsaved(); return; }
+  if (!P.ready) { P.dirty = true; return; }          /* boot safety checks still running: save right after them */
+  P.dirty = false;
+  if (!P.allowEmpty) {
+    const risk = overwriteRisk(LS, state);
+    if (risk) {
+      showUnsaved();
+      setBanner("guard", {
+        kind: "bad",
+        text: risk === "empty-over-corrupt"
+          ? "لم يُحفظ شيء: الحالة الحالية فارغة بينما التخزين يحوي قيمة تعذّرت قراءتها. لحمايتها لن تُكتب الحالة الفارغة فوقها."
+          : "لم يُحفظ شيء: الحالة الحالية فارغة بينما التخزين يحوي بيانات. لحمايتها لن تُكتب الحالة الفارغة فوقها.",
+        actions: [{ label: "حفظ الحالة الفارغة", fn: async () => {
+          if (!confirm("حفظ حالة فارغة سيستبدل البيانات المخزّنة. تأكيد؟")) return;
+          await ensureSnapshot("before-empty-save");
+          P.allowEmpty = true; saveNow();
+        } }, { label: "استيراد ملف", fn: () => importFile.click() }]
+      });
+      return;
+    }
+  }
+  setBanner("guard", null);
+  const r = writeMain(LS, state);
+  if (!r.ok) { saveFailed(r); return; }
+  P.allowEmpty = false;
+  P.lastErr = null;
+  P.lastOk = Date.now();
+  P.bakOk = r.bakOk;
+  setBanner("save", null);
+  setBanner("bak", r.bakOk ? null : { kind: "warn", dismissible: true, text: "حُفظت بياناتك، لكن تعذّر تحديث النسخة الاحتياطية المحلية (المساحة)." });
+  queueMirror(r.json);
+  flashSaved();
+}
+function queueMirror(json){
+  P.pendingMirror = json;
+  flushMirror();
+}
+function flushMirror(){
+  if (!P.idb || P.mirrorBusy || P.pendingMirror === null) return;
+  const j = P.pendingMirror;
+  P.pendingMirror = null;
+  P.mirrorBusy = true;
+  withTimeout(mirrorWrite(P.idb, j, Date.now()), 5000).catch(() => false).then(ok => {
+    P.mirrorOk = !!ok;
+    if (ok) P.mirrorAt = Date.now();
+    P.mirrorBusy = false;
+    setBanner("mirror", ok ? null : { kind: "warn", dismissible: true, text: "تعذّر تحديث النسخة الاحتياطية الداخلية (IndexedDB). بياناتك الرئيسية محفوظة." });
+    flushMirror();
+  });
 }
 document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "hidden") saveNow();
+  else if (P.ready) { dailySnapshot(); checkExportReminder(); }
 });
 window.addEventListener("pagehide", saveNow);
 
-let savedTimer = null;
-function flashSaved(){
-  const el = document.getElementById("savedDot");
-  el.classList.add("on");
-  clearTimeout(savedTimer);
-  savedTimer = setTimeout(() => el.classList.remove("on"), 1200);
+/* ---- IndexedDB (mirror + snapshots) ---- */
+function openIdb(){
+  return new Promise((resolve, reject) => {
+    if (typeof indexedDB === "undefined") { reject(new Error("no idb")); return; }
+    let req;
+    try { req = indexedDB.open(IDB_NAME, 1); } catch (e) { reject(e); return; }
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains("mirror")) db.createObjectStore("mirror");
+      if (!db.objectStoreNames.contains("snapshots")) db.createObjectStore("snapshots");
+    };
+    req.onsuccess = () => {
+      const db = req.result;
+      const run = (store, mode, fn) => new Promise((res, rej) => {
+        let out;
+        const tx = db.transaction(store, mode);
+        const r = fn(tx.objectStore(store));
+        if (r) r.onsuccess = () => { out = r.result; };
+        tx.oncomplete = () => res(out);
+        tx.onerror = tx.onabort = () => rej(tx.error || new Error("idb tx"));
+      });
+      resolve({
+        get: (s, k) => run(s, "readonly", st => st.get(k)),
+        put: (s, k, v) => run(s, "readwrite", st => st.put(v, k)),
+        del: (s, k) => run(s, "readwrite", st => st.delete(k)),
+        all: s => run(s, "readonly", st => st.getAll())
+      });
+    };
+    req.onerror = req.onblocked = () => reject(req.error || new Error("idb blocked"));
+  });
 }
+
+/* ---- snapshots ---- */
+async function snapshotRaw(raw, reason){
+  if (!raw) return true;
+  if (P.idb) {
+    try {
+      const r = await withTimeout(takeSnapshot(P.idb, raw, reason, Date.now(), todayStr(), "forced"), 5000);
+      if (r.saved || r.skipped === "duplicate") return true;
+    } catch (e) { /* fall through to the local copy */ }
+  }
+  try { LS.setItem("mizaniya.v2.rescue." + Date.now(), raw); return true; } catch (e) { return false; }
+}
+/* before any import, restore or bulk delete: true when a safety copy exists (or the user accepts going on without) */
+async function ensureSnapshot(reason){
+  if (contentScore(state) === 0) return true;
+  if (await snapshotRaw(JSON.stringify(state), reason)) return true;
+  return confirm("تعذّر حفظ نسخة احتياطية قبل هذا الإجراء. هل تتابع على أي حال؟");
+}
+async function dailySnapshot(){
+  if (!P.idb || contentScore(state) === 0) return;
+  try { await withTimeout(takeSnapshot(P.idb, JSON.stringify(state), "daily", Date.now(), todayStr(), "auto"), 5000); } catch (e) { /* best effort */ }
+}
+
+/* ---- export reminder ---- */
+function checkExportReminder(){
+  const rem = exportReminder(readMeta(LS), Date.now(), contentScore(state) > 0);
+  setBanner("export", rem.show ? {
+    kind: "warn", dismissible: true,
+    text: rem.never ? "لم تُصدّر نسخة احتياطية من بياناتك بعد. صدّر نسخة لتحتفظ بها خارج المتصفح."
+                    : "مرّت " + rem.days + " يومًا على آخر نسخة احتياطية مُصدَّرة. صدّر نسخة جديدة.",
+    actions: [{ label: "تصدير الآن", fn: () => doExport() }]
+  } : null);
+}
+
+/* ---- export ---- */
+function doExport(){
+  try {
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = exportFileName(new Date());
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    writeMeta(LS, { lastExport: Date.now() });
+    setBanner("export", null);
+  } catch (e) { alert("تعذّر إنشاء ملف التصدير."); }
+}
+async function shareExport(){
+  try {
+    const file = new File([JSON.stringify(state, null, 2)], exportFileName(new Date()), { type: "application/json" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file], title: "ميزانية" });
+      writeMeta(LS, { lastExport: Date.now() });
+      setBanner("export", null);
+      return;
+    }
+  } catch (e) { if (e && e.name === "AbortError") return; }
+  doExport();
+}
+
+/* ---- boot safety: mirror recovery, pre-migration copy, daily snapshot, persist() ---- */
+async function bootSafety(){
+  const info = bootInfo;
+  try { P.idb = await withTimeout(openIdb(), 3500); } catch (e) { P.idb = null; }
+  let restored = false;
+  try {
+    /* keep every unreadable stored value before anything can overwrite it */
+    for (const u of info.unusable) if (u.reason === "corrupt") await snapshotRaw(safeGet(u.key), "corrupt-" + u.key);
+    if (P.idb) {
+      const rec = await withTimeout(mirrorRead(P.idb), 3500);
+      const plan = planRecovery(info, rec);
+      if (plan.restore) {
+        if (info.source === "v1" || info.source === "v1bak") await snapshotRaw(safeGet(info.source === "v1" ? OLD_KEYS[0] : OLD_KEYS[1]), "before-mirror-restore");
+        state = sanitizeState(JSON.parse(rec.json));
+        restored = true;
+        P.restored = plan.why;
+      }
+    }
+    if (!restored && info.migratedFrom !== null && info.source !== "empty") {
+      const srcKey = { main: KEY, bak: BAK, v1: OLD_KEYS[0], v1bak: OLD_KEYS[1] }[info.source];
+      await snapshotRaw(safeGet(srcKey), "migration");        /* the exact text that was stored before upgrading */
+    }
+  } catch (e) { /* never block the app on the safety net */ }
+
+  if (restored) {
+    setBanner("restore", { kind: "warn", dismissible: true,
+      text: "تم استرجاع بياناتك تلقائيًا من النسخة الاحتياطية الداخلية لأن التخزين الرئيسي كان " +
+            (P.restored === "main-empty" ? "فارغًا" : (P.restored === "main-corrupt" ? "تالفًا" : "مفقودًا")) + ". راجع بياناتك وصدّر نسخة." });
+  } else if (info.source === "bak") {
+    setBanner("restore", { kind: "warn", dismissible: true, text: "تعذّرت قراءة التخزين الرئيسي، فاستُخدمت النسخة الاحتياطية المحلية. راجع بياناتك وصدّر نسخة." });
+  } else if (info.source === "empty" && info.unusable.some(u => u.reason === "corrupt")) {
+    setBanner("restore", { kind: "bad",
+      text: "تعذّرت قراءة بياناتك المخزّنة ولا توجد نسخة داخلية صالحة. حُفظت نسخة من القيمة التالفة، ولن تُكتب حالة فارغة فوقها. استورد ملف تصدير سابقًا إن وُجد.",
+      actions: [{ label: "استيراد ملف", fn: () => importFile.click() }] });
+  }
+  if (!P.storageUsable) setBanner("storage", { kind: "bad", text: "التخزين المحلي غير متاح في هذا المتصفح (قد يكون وضعًا خاصًا)؛ لن تُحفظ بياناتك. صدّر نسخة قبل الخروج." , actions: [{ label: "تصدير الآن", fn: () => doExport() }] });
+  else if (!P.idb) setBanner("idb", { kind: "warn", dismissible: true, text: "النسخة الاحتياطية الداخلية (IndexedDB) غير متاحة هنا؛ الاعتماد على التخزين الرئيسي والتصدير اليدوي." });
+
+  try {
+    if (navigator.storage && navigator.storage.persist) P.persisted = await withTimeout(navigator.storage.persist(), 3000);
+  } catch (e) { P.persisted = null; }
+
+  if (typeof readMeta(LS).firstSeen !== "number") writeMeta(LS, { firstSeen: Date.now() });
+  P.ready = true;
+  if (restored || P.dirty || info.migratedFrom !== null) saveNow();
+  else if (P.idb && contentScore(state) > 0) queueMirror(JSON.stringify(state));
+  dailySnapshot();
+  checkExportReminder();
+  if (restored) renderAll();
+}
+
 
 /* ================= numbers ================= */
 function normalizeDigits(s){
@@ -608,9 +1724,10 @@ function renderBlock(block){
   del.className = "icon-btn";
   del.textContent = "×";
   del.setAttribute("aria-label", "حذف المجموعة");
-  del.addEventListener("click", () => {
+  del.addEventListener("click", async () => {
     const hasContent = block.rows.some(r => r.name || r.amount);
     if (hasContent && !confirm("حذف المجموعة «" + (block.title || "بدون اسم") + "» وكل بنودها؟")) return;
+    if (hasContent && !(await ensureSnapshot("delete-group"))) return;
     D().blocks = D().blocks.filter(b => b.id !== block.id);
     sec.remove();
     renumberPlates();
@@ -653,6 +1770,7 @@ function renderAll(){
   for (const b of D().blocks) blocksHost.appendChild(renderBlock(b));
   renumberPlates();
   updateTotals();
+  renderExp();
 }
 
 let headerBound = false;
@@ -720,13 +1838,14 @@ document.getElementById("btnRenameProfile").addEventListener("click", () => {
   saveNow();
 });
 
-document.getElementById("btnDeleteProfile").addEventListener("click", () => {
+document.getElementById("btnDeleteProfile").addEventListener("click", async () => {
   if (state.profiles.length <= 1) {
     alert("ما يمكن حذف آخر شخص. أضف شخص ثاني أول.");
     return;
   }
   const p = cur();
   if (!confirm("حذف «" + p.name + "» وكل بياناته نهائيًا؟ الأفضل تسوي تصدير قبل.")) return;
+  if (!(await ensureSnapshot("delete-profile"))) return;
   state.profiles = state.profiles.filter(x => x.id !== p.id);
   state.currentId = state.profiles[0].id;
   renderAll();
@@ -745,8 +1864,9 @@ document.getElementById("btnAddBlock").addEventListener("click", () => {
   scheduleSave();
 });
 
-document.getElementById("btnNewMonth").addEventListener("click", () => {
+document.getElementById("btnNewMonth").addEventListener("click", async () => {
   if (!confirm("شهر جديد لـ«" + cur().name + "»؟ بتنمسح علامات الصرف ويتحدّث اسم الشهر، والبنود تبقى مثل ما هي.")) return;
+  if (!(await ensureSnapshot("new-month"))) return;
   const d = D();
   for (const b of d.blocks) for (const r of b.rows) r.done = false;
   d.monthLabel = defaultMonthLabel();
@@ -754,46 +1874,7 @@ document.getElementById("btnNewMonth").addEventListener("click", () => {
   saveNow();
 });
 
-document.getElementById("btnExport").addEventListener("click", () => {
-  const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  const d = new Date();
-  const stamp = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
-  a.download = "ميزانية-" + stamp + ".json";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-});
-
-const importFile = document.getElementById("importFile");
-document.getElementById("btnImport").addEventListener("click", () => importFile.click());
-importFile.addEventListener("change", () => {
-  const f = importFile.files && importFile.files[0];
-  importFile.value = "";
-  if (!f) return;
-  const rd = new FileReader();
-  rd.onload = () => {
-    try {
-      const d = JSON.parse(String(rd.result));
-      if (d && typeof d === "object" && Array.isArray(d.profiles)) {
-        if (!confirm("استبدال كل الأشخاص وبياناتهم بالملف المستورد؟")) return;
-        state = sanitizeState(d);
-      } else if (d && typeof d === "object" && Array.isArray(d.blocks)) {
-        if (!confirm("هذا ملف بصيغة قديمة لشخص واحد. استبدال بيانات «" + cur().name + "» فيه؟")) return;
-        cur().data = sanitizeData(d);
-      } else {
-        throw new Error("shape");
-      }
-      renderAll();
-      saveNow();
-    } catch (e) {
-      alert("الملف غير صالح، ما تم الاستيراد.");
-    }
-  };
-  rd.readAsText(f);
-});
+document.getElementById("btnExport").addEventListener("click", doExport);
 
 /* ================= header shrink on scroll ================= */
 const topHeader = document.getElementById("topHeader");
@@ -981,8 +2062,997 @@ document.getElementById("btnReceipt").addEventListener("click", async () => {
   } catch (e) { /* never leave the user with a crash */ }
 });
 
+/* ================= sheets and toasts ================= */
+const sheetHost = document.getElementById("sheetHost");
+const toastHost = document.getElementById("toastHost");
+let sheetState = null;
+
+function fitSheet(){
+  if (!sheetState) return;
+  const vv = window.visualViewport, b = sheetState.back;
+  b.style.top = (vv ? vv.offsetTop : 0) + "px";           /* keep the sheet above the on-screen keyboard */
+  b.style.height = (vv ? vv.height : window.innerHeight) + "px";
+}
+if (window.visualViewport) {
+  window.visualViewport.addEventListener("resize", fitSheet);
+  window.visualViewport.addEventListener("scroll", fitSheet);
+}
+window.addEventListener("resize", fitSheet);
+
+function closeSheet(silent){
+  if (!sheetState) return;
+  const s = sheetState;
+  sheetState = null;
+  s.back.remove();
+  document.documentElement.classList.remove("noscroll");
+  if (!silent && s.opener && document.contains(s.opener)) { try { s.opener.focus({ preventScroll: true }); } catch (e) {} }
+  if (s.onClose) s.onClose();
+}
+/* build(body, {close}) fills the sheet; it may focus an input (called synchronously from the tap, so iOS opens the keyboard) */
+function openSheet(title, build, opts){
+  closeSheet(true);
+  const opener = document.activeElement;
+  const body = h("div", { class: "sheet-body" });
+  const sheet = h("div", { class: "sheet", role: "dialog", "aria-modal": "true", "aria-label": title, tabindex: "-1" },
+    h("div", { class: "sheet-head" },
+      h("h2", { class: "sheet-title", dir: "rtl", text: title }),
+      h("button", { class: "icon-btn", type: "button", "aria-label": "إغلاق", onclick: () => closeSheet(), text: "×" })),
+    body);
+  const back = h("div", { class: "sheet-back", onclick: e => { if (e.target === back) closeSheet(); } }, sheet);
+  sheetHost.append(back);
+  document.documentElement.classList.add("noscroll");
+  sheetState = { back: back, sheet: sheet, opener: opener, onClose: opts && opts.onClose };
+  fitSheet();
+  sheet.focus({ preventScroll: true });
+  build(body, { close: closeSheet, sheet: sheet });
+  return sheetState;
+}
+document.addEventListener("keydown", e => {
+  if (!sheetState) return;
+  if (e.key === "Escape") { e.preventDefault(); closeSheet(); return; }
+  if (e.key !== "Tab") return;
+  const f = [...sheetState.sheet.querySelectorAll('button:not([disabled]),input:not([disabled]):not([hidden]),select,textarea,[tabindex="0"]')].filter(x => x.offsetParent !== null);
+  if (!f.length) return;
+  const first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && (document.activeElement === first || document.activeElement === sheetState.sheet)) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
+
+let toastTimer = null;
+function showToast(text, act, ms){
+  toastHost.replaceChildren();
+  const el = h("div", { class: "toast" },
+    h("span", { class: "t-text", dir: "rtl" }, text),     /* text may be a string or [label, money(...)] so words and numbers stay in separate elements */
+    act ? h("button", { class: "t-act", type: "button", text: act.label, onclick: () => { clearTimeout(toastTimer); toastHost.replaceChildren(); act.fn(); } }) : null);
+  toastHost.append(el);
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastHost.replaceChildren(), ms || (act ? 7000 : 3000));
+}
+
+/* ================= expenses: data access ================= */
+const X = { profileId: null, cycleKey: null, sub: "list", query: "", cat: "" };
+const expHost = document.getElementById("viewExp");
+const fabAdd = document.getElementById("fabAdd");
+
+function EXP(){
+  const d = D();
+  if (!isObj(d.exp)) d.exp = sanitizeExp(null);
+  return d.exp;
+}
+function activeAccounts(){ return EXP().accounts.filter(a => !a.archived); }
+function curAccount(){
+  const e = EXP();
+  return e.accounts.find(a => a.id === e.lastAccountId && !a.archived) || e.accounts.find(a => !a.archived) || e.accounts[0];
+}
+function catOf(id){
+  return EXP().categories.find(c => c.id === id) || { id: id, name: "أخرى", emoji: "📦", hidden: false };
+}
+const catNameOf = id => catOf(id).name;
+
+function viewModel(){
+  const acc = curAccount();
+  const entries = accountEntries(EXP(), acc.id);
+  const live = liveEntries(entries);
+  const sorted = sortCycles(acc.cycles);
+  const buckets = bucketEntries(acc.cycles, live);
+  const noCycle = buckets.noCycle.concat(buckets.invalid.filter(isObj));       /* broken dates are shown, never hidden */
+  const keys = (noCycle.length ? [NO_CYCLE_KEY] : []).concat(sorted.map(c => c.id));
+  let key = X.cycleKey;
+  if (keys.indexOf(key) < 0) key = sorted.length ? sorted[sorted.length - 1].id : (keys[0] || null);
+  X.cycleKey = key;
+  const cycle = sorted.find(c => c.id === key) || null;
+  const list = key === NO_CYCLE_KEY ? noCycle : (cycle ? (buckets.byCycle[cycle.id] || []) : []);
+  return { acc: acc, entries: entries, live: live, sorted: sorted, buckets: buckets, noCycle: noCycle, keys: keys,
+           key: key, cycle: cycle, list: list, idx: keys.indexOf(key), today: todayStr() };
+}
+function cycleKeyForDate(acc, date){
+  if (!isValidDate(date)) return NO_CYCLE_KEY;
+  const c = cycleForDate(acc.cycles, date);
+  return c ? c.id : NO_CYCLE_KEY;
+}
+function safeDayLabel(date, today){ return isValidDate(date) ? dayLabel(date, today) : "تاريخ غير صالح"; }
+
+/* ================= expenses: small view helpers ================= */
+function money(v, cls){
+  return h("span", { class: "money " + (cls || ""), dir: "ltr" },
+    h("bdi", { class: "n", text: formatMoney(v) }), h("span", { class: "u", dir: "rtl", text: AED }));
+}
+function tline(label, valueEl, cls){
+  return h("div", { class: "tline " + (cls || "") }, h("span", { class: "lbl", dir: "rtl", text: label }), valueEl);
+}
+function numVal(n, cls){ return h("span", { class: "val " + (cls || ""), dir: "ltr", text: String(n) }); }
+function rangeLabel(c, bounds){
+  return h("span", { class: "rng" },
+    h("span", { dir: "rtl", text: shortArabicDate(bounds.start, true) }),
+    h("span", { class: "sep", "aria-hidden": "true", text: "←" }),
+    h("span", { dir: "rtl", text: bounds.lastDay ? shortArabicDate(bounds.lastDay, true) : "الآن" }));
+}
+function parseAllowance(raw){
+  const s = toLatinDigits(String(raw == null ? "" : raw)).replace(/[\s,.٫٬،]/g, "");
+  if (s === "") return null;
+  if (/^0+$/.test(s)) return 0;
+  return parseEntryAmount(raw);
+}
+const SLICE_COLORS = ["#38594A", "#B99A5B", "#B8473F", "#5F7F8F", "#8A6F9B", "#7A8F4E", "#C98B4B", "#4F7A72", "#A76F6F", "#8C8A80"];
+
+/* ================= expenses: main render ================= */
+function renderExp(){
+  if (!expHost) return;
+  if (X.profileId !== cur().id) { X.profileId = cur().id; X.cycleKey = null; X.query = ""; X.cat = ""; X.sub = "list"; }
+  const vm = viewModel();
+  expHost.replaceChildren(...[renderTopBar(vm), renderNav(vm), vm.key === null ? renderEmpty(vm) : renderBody(vm)].filter(Boolean));
+}
+function renderTopBar(vm){
+  const sel = h("select", { class: "x-select", dir: "rtl", "aria-label": "الحساب", onchange: e => {
+    if (e.target.value === "__add__") { addAccount(); renderExp(); return; }
+    EXP().lastAccountId = e.target.value;
+    X.cycleKey = null; X.query = ""; X.cat = "";
+    scheduleSave(); renderExp();
+  } });
+  for (const a of activeAccounts()) sel.append(h("option", { value: a.id, selected: a.id === vm.acc.id, text: a.name }));
+  sel.append(h("option", { value: "__add__", text: "＋ حساب جديد…" }));
+  return h("div", { class: "x-top" }, sel,
+    h("button", { class: "icon-btn", type: "button", "aria-label": "المزيد", onclick: openMoreMenu, text: "⋯" }));
+}
+function renderNav(vm){
+  if (!vm.keys.length) return null;
+  const go = d => { X.cycleKey = vm.keys[vm.idx + d]; renderExp(); };
+  const label = vm.key === NO_CYCLE_KEY
+    ? h("span", { dir: "rtl", text: "بدون دورة" })
+    : rangeLabel(vm.cycle, cycleBounds(vm.acc.cycles, vm.cycle));
+  const pos = h("span", { class: "pos", dir: "rtl" }, "الدورة ", h("bdi", { dir: "ltr", text: String(vm.idx + 1) }), " من ", h("bdi", { dir: "ltr", text: String(vm.keys.length) }));
+  const nav = h("div", { class: "x-nav" },
+    h("button", { class: "nav-b", type: "button", "aria-label": "الدورة السابقة", disabled: vm.idx <= 0, onclick: () => go(-1), text: "›" }),
+    h("button", { class: "nav-l", type: "button", "aria-label": "تعديل الدورة", onclick: () => (vm.cycle ? openCycleSheet({ cycle: vm.cycle }) : null) }, label, pos),
+    h("button", { class: "nav-b", type: "button", "aria-label": "الدورة التالية", disabled: vm.idx >= vm.keys.length - 1, onclick: () => go(1), text: "‹" }));
+  let sx = null, sy = null;
+  nav.addEventListener("touchstart", e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+  nav.addEventListener("touchend", e => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    sx = null;
+    if (Math.abs(dx) > 50 && Math.abs(dy) < 40) { if (dx > 0 && vm.idx > 0) go(-1); else if (dx < 0 && vm.idx < vm.keys.length - 1) go(1); }
+  }, { passive: true });
+  return nav;
+}
+function renderEmpty(vm){
+  return h("section", { class: "panel x-empty" },
+    h("p", { dir: "rtl", text: "ابدأ بتسجيل أول راتب لتبدأ دورة المصاريف. الدورة تمتد من تاريخ الراتب حتى الراتب التالي، وليس من أول الشهر." }),
+    h("div", { class: "toolbar" }, h("button", { class: "pill primary", type: "button", onclick: () => openCycleSheet({ date: vm.today, allowance: 0 }), text: "وصل الراتب" })),
+    h("p", { class: "hint", dir: "rtl", text: "يمكنك إضافة المصاريف قبل ذلك بزر +، وستظهر في «بدون دورة» حتى تضيف دورة." }));
+}
+function renderBody(vm){
+  const frag = document.createDocumentFragment();
+  frag.append(vm.key === NO_CYCLE_KEY ? renderNoCycle(vm) : renderSummary(vm));
+  const actions = h("div", { class: "toolbar" },
+    h("button", { class: "pill primary", type: "button", onclick: () => openCycleSheet(newCycleDefaults(vm)), text: "وصل الراتب" }),
+    h("button", { class: "pill", type: "button", onclick: () => makeExpReceipt(vm), text: "إيصال" }),
+    vm.cycle ? h("button", { class: "pill", type: "button", onclick: () => openCycleSheet({ cycle: vm.cycle }), text: "تعديل الدورة" }) : null);
+  frag.append(actions);
+  const seg = h("div", { class: "seg", role: "group", "aria-label": "العرض" },
+    h("button", { class: "seg-b", type: "button", "aria-pressed": String(X.sub === "list"), onclick: () => { X.sub = "list"; renderExp(); }, text: "المصاريف" }),
+    h("button", { class: "seg-b", type: "button", "aria-pressed": String(X.sub === "stats"), onclick: () => { X.sub = "stats"; renderExp(); }, text: "الإحصاءات" }));
+  frag.append(seg);
+  frag.append(X.sub === "stats" ? renderStats(vm) : renderListSection(vm));
+  return frag;
+}
+function newCycleDefaults(vm){
+  const p = prefillNewCycle(vm.acc.cycles, vm.today);
+  return { date: p.startDate, allowance: p.allowance };
+}
+function renderNoCycle(vm){
+  const dated = vm.noCycle.filter(e => isValidDate(e.date)).map(e => e.date).sort();
+  const first = dated[0] || vm.today;
+  return h("section", { class: "panel x-empty" },
+    h("p", { dir: "rtl", text: "هذه المصاريف مؤرخة قبل أول دورة. أضف دورة سابقة لتُحتسب ضمنها، أو عدّل تاريخ أول دورة." }),
+    h("div", { class: "toolbar" }, h("button", { class: "pill primary", type: "button", onclick: () => openCycleSheet({ date: first, allowance: 0 }), text: "إضافة دورة سابقة" })),
+    h("div", { class: "totals" }, tline("المجموع", money(sumMoney(expenseList(vm.noCycle).map(e => Number(e.amount) || 0)), "val"))));
+}
+function renderSummary(vm){
+  const s = cycleSummary(vm.acc.cycles, vm.cycle, vm.live, vm.today);
+  const big = h("div", { class: "x-big" + (s.over ? " neg" : "") }, h("bdi", { class: "n", dir: "ltr", text: formatMoney(s.remaining) }), h("span", { class: "u", dir: "rtl", text: AED }));
+  const bar = h("div", { class: "x-bar" + (s.over ? " over" : ""), role: "progressbar", "aria-label": "نسبة المصروف من المتاح", "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": String(Math.round(s.progress * 100)) },
+    h("i", { style: "width:" + Math.round(s.progress * 100) + "%" }));
+  const sec = h("section", { class: "panel x-sum" },
+    h("div", { class: "balance-line" }, h("span", { class: "balance-caption", dir: "rtl", text: "المتبقي" }), big), bar,
+    h("div", { class: "totals" },
+      tline("صُرف اليوم", money(s.spentToday, "val")),
+      tline("المصروف", money(s.spent, "val")),
+      tline("المخصَّص", money(s.allowance, "val")),
+      s.extra > 0 ? tline("دخل إضافي", money(s.extra, "val")) : null,
+      tline("الفترة", rangeLabel(vm.cycle, { start: s.start, lastDay: s.lastDay })),
+      tline(s.open ? "اليوم" : "مدة الدورة",
+        s.open ? h("span", { class: "val", dir: "ltr" }, h("bdi", { text: String(s.daysElapsed) }), s.totalDays ? " / " : "", s.totalDays ? h("bdi", { text: String(s.totalDays) }) : "")
+               : h("span", { class: "val", dir: "ltr" }, h("bdi", { text: String(s.totalDays) }), " ", h("span", { class: "u", dir: "rtl", text: "يوم" }))),
+      s.daysLeft !== null ? tline("المتبقي للراتب القادم", h("span", { class: "val", dir: "ltr" }, h("bdi", { text: String(s.daysLeft) }), " ", h("span", { class: "u", dir: "rtl", text: "يوم" }))) : null,
+      s.canSpendToday !== null ? tline("يمكنك صرف اليوم", money(s.canSpendToday, "val" + (s.over || s.canSpendToday < 0 ? " neg" : ""))) : null,
+      s.daysLeft === null && s.open ? h("p", { class: "hint", dir: "rtl", text: "حدّد تاريخ الراتب القادم في «تعديل الدورة» ليظهر لك المبلغ اليومي المتاح." }) : null));
+  let sx = null, sy = null;
+  sec.addEventListener("touchstart", e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+  sec.addEventListener("touchend", e => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    sx = null;
+    if (Math.abs(dx) > 70 && Math.abs(dy) < 40) {
+      if (dx > 0 && vm.idx > 0) { X.cycleKey = vm.keys[vm.idx - 1]; renderExp(); }
+      else if (dx < 0 && vm.idx < vm.keys.length - 1) { X.cycleKey = vm.keys[vm.idx + 1]; renderExp(); }
+    }
+  }, { passive: true });
+  return sec;
+}
+
+/* ---- entries list ---- */
+function renderListSection(vm){
+  const wrap = h("div", { class: "x-listwrap" });
+  const search = h("input", { class: "field", type: "search", dir: "rtl", enterkeyhint: "search", placeholder: "بحث بالاسم أو الفئة", "aria-label": "بحث", value: X.query,
+    oninput: e => { X.query = e.target.value; fill(); } });
+  const sel = h("select", { class: "field", dir: "rtl", "aria-label": "تصفية بالفئة", onchange: e => { X.cat = e.target.value; fill(); } },
+    h("option", { value: "", text: "كل الفئات" }));
+  for (const c of EXP().categories) sel.append(h("option", { value: c.id, selected: c.id === X.cat, text: c.emoji + " " + c.name + (c.hidden ? " (مخفية)" : "") }));
+  const host = h("div", { class: "x-days" });
+  function fill(){ host.replaceChildren(renderDays(vm)); }
+  wrap.append(h("div", { class: "x-filters" }, search, sel), host);
+  fill();
+  return wrap;
+}
+function renderDays(vm){
+  const filtered = filterEntries(vm.list, { query: X.query, categoryId: X.cat }, catNameOf);
+  if (!filtered.length) {
+    return h("p", { class: "x-none", dir: "rtl", text: vm.list.length ? "لا توجد نتائج مطابقة." : "لا توجد مصاريف في هذه الدورة بعد. اضغط + لإضافة مصروف." });
+  }
+  const panel = h("section", { class: "panel x-panel" });
+  for (const d of groupByDay(filtered)) {
+    panel.append(h("div", { class: "x-dayhead" },
+      h("h3", { dir: "rtl", text: safeDayLabel(d.date, vm.today) }),
+      h("span", { class: "x-daytot" }, money(d.spent), d.extra > 0 ? h("span", { class: "x-dayinc" }, "+", money(d.extra)) : null)));
+    const ul = h("ul", { class: "x-rows" });
+    for (const e of d.entries) ul.append(entryRow(e, vm));
+    panel.append(ul);
+  }
+  return panel;
+}
+function entryRow(e, vm){
+  const c = catOf(e.categoryId), inc = e.type === "income";
+  const nm = e.name || c.name;
+  const li = h("li", { class: "x-row" + (inc ? " inc" : "") },
+    h("span", { class: "x-emoji", "aria-hidden": "true", text: c.emoji }),
+    h("div", { class: "x-main" },
+      h("div", { class: "x-name", dir: "auto", text: nm }),
+      e.name && e.name !== c.name ? h("div", { class: "x-cat", dir: "rtl", text: c.name }) : null),
+    h("span", { class: "x-amt" + (inc ? " plus" : "") }, inc ? "+" : null, money(Number(e.amount) || 0)),
+    h("div", { class: "x-acts" },
+      h("button", { class: "ab", type: "button", "aria-label": "تعديل " + nm, onclick: () => openEntrySheet(e), text: "✎" }),
+      h("button", { class: "ab", type: "button", "aria-label": "نسخ " + nm + " بتاريخ اليوم", onclick: () => duplicateEntry(e), text: "⧉" }),
+      h("button", { class: "ab", type: "button", "aria-label": "حذف " + nm, onclick: () => softDelete(e), text: "×" })));
+  return li;
+}
+function jumpTo(entry){
+  const exp = EXP();
+  const accId = entryAccountId(exp, entry);
+  const acc = exp.accounts.find(a => a.id === accId);
+  if (acc && !acc.archived) exp.lastAccountId = acc.id;
+  X.cycleKey = cycleKeyForDate(acc || curAccount(), entry.date);
+  X.sub = "list"; X.query = ""; X.cat = "";
+}
+function softDelete(e){
+  e.deletedAt = Date.now();
+  scheduleSave();
+  renderExp();
+  showToast("حُذف «" + (e.name || catNameOf(e.categoryId)) + "»", { label: "تراجع", fn: () => { delete e.deletedAt; scheduleSave(); renderExp(); } });
+}
+function duplicateEntry(e){
+  const copy = Object.assign({}, e, { id: uid(), date: todayStr(), createdAt: Date.now() });
+  delete copy.deletedAt; delete copy.updatedAt;
+  EXP().entries.push(copy);
+  jumpTo(copy);
+  scheduleSave();
+  renderExp();
+  showToast(["نُسخ بتاريخ اليوم: ", money(Number(copy.amount) || 0)], { label: "تراجع", fn: () => {
+    const x = EXP().entries; x.splice(x.indexOf(copy), 1); scheduleSave(); renderExp();
+  } });
+}
+
+/* ================= entry sheet (amount, then one tap on a category) ================= */
+function openEntrySheet(editing, preset){
+  const exp = EXP();
+  const today = todayStr();
+  const startAcc = editing ? (exp.accounts.find(a => a.id === entryAccountId(exp, editing)) || curAccount()) : curAccount();
+  const f = editing
+    ? { type: editing.type === "income" ? "income" : "expense", name: editing.name || "", categoryId: editing.categoryId, date: editing.date, accountId: startAcc.id }
+    : { type: (preset && preset.type) || "expense", name: "", categoryId: null, date: (preset && preset.date) || today, accountId: startAcc.id };
+  openSheet(editing ? "تعديل" : "إضافة", (body, ctx) => {
+    const bExp = h("button", { class: "seg-b", type: "button", text: "مصروف" });
+    const bInc = h("button", { class: "seg-b", type: "button", text: "دخل إضافي" });
+    const setType = t => { f.type = t; bExp.setAttribute("aria-pressed", String(t === "expense")); bInc.setAttribute("aria-pressed", String(t === "income")); };
+    bExp.addEventListener("click", () => setType("expense"));
+    bInc.addEventListener("click", () => setType("income"));
+    setType(f.type);
+
+    const amount = h("input", { class: "x-amount", type: "text", inputmode: "decimal", autocomplete: "off", autocapitalize: "off", autocorrect: "off",
+      enterkeyhint: "done", dir: "ltr", placeholder: "0", "aria-label": "المبلغ", value: editing ? String(editing.amount) : "" });
+    const hint = h("div", { class: "x-hint", role: "alert", dir: "rtl" });
+    amount.addEventListener("input", () => {
+      const n = toLatinDigits(amount.value).replace(/٫/g, ".").replace(/،/g, ",");
+      if (n !== amount.value) amount.value = n;
+      hint.textContent = "";
+    });
+    amount.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); amount.blur(); } });
+
+    const note = h("div", { class: "x-note", dir: "rtl" });
+    const nameIn = h("input", { class: "field", type: "text", dir: "auto", placeholder: "الاسم (يُستخدم اسم الفئة إن تُرك فارغًا)", "aria-label": "الاسم", value: f.name,
+      oninput: () => { f.name = nameIn.value; } });
+    const dateIn = h("input", { class: "field", type: "date", dir: "ltr", "aria-label": "التاريخ", value: isValidDate(f.date) ? f.date : "",
+      onchange: () => { f.date = dateIn.value; refreshNote(); } });
+    const setDate = d => { f.date = d; dateIn.value = d; refreshNote(); };
+    const chips = h("div", { class: "chips" },
+      h("button", { class: "chip", type: "button", text: "اليوم", onclick: () => setDate(today) }),
+      h("button", { class: "chip", type: "button", text: "أمس", onclick: () => setDate(addDays(today, -1)) }),
+      h("button", { class: "chip", type: "button", text: "اختيار تاريخ", onclick: () => { dateIn.focus(); try { if (dateIn.showPicker) dateIn.showPicker(); } catch (e) {} } }));
+    const acctSel = h("select", { class: "field", dir: "rtl", "aria-label": "الحساب", onchange: () => { f.accountId = acctSel.value; refreshNote(); } });
+    for (const a of exp.accounts.filter(x => !x.archived || x.id === f.accountId)) acctSel.append(h("option", { value: a.id, selected: a.id === f.accountId, text: a.name }));
+
+    function refreshNote(){
+      const acc = exp.accounts.find(a => a.id === f.accountId) || startAcc;
+      note.className = "x-note";
+      if (!isValidDate(f.date)) { note.textContent = "تاريخ غير صالح، اختر تاريخًا صحيحًا."; note.classList.add("bad"); return; }
+      const c = cycleForDate(acc.cycles, f.date);
+      let where;
+      if (c) { const b = cycleBounds(acc.cycles, c); where = "ضمن الدورة: " + shortArabicDate(b.start) + " ← " + (b.lastDay ? shortArabicDate(b.lastDay) : "الآن"); }
+      else where = acc.cycles.length ? "قبل أول دورة، ستظهر في «بدون دورة»" : "لا توجد دورات بعد، ستظهر في «بدون دورة»";
+      const day = dayLabel(f.date, today);
+      if (f.date === today) note.textContent = "التاريخ: اليوم · " + where;
+      else { note.textContent = "سيُسجَّل بتاريخ: " + day + (day === fullArabicDate(f.date) ? "" : " (" + fullArabicDate(f.date) + ")") + " · " + where; note.classList.add("warn"); }
+    }
+    const options = h("div", { class: "x-options", hidden: true }, nameIn, chips, dateIn, exp.accounts.filter(a => !a.archived).length > 1 || editing ? acctSel : null);
+    const optBtn = h("button", { class: "x-optbtn", type: "button", "aria-expanded": "false", text: "خيارات: الاسم، التاريخ، الحساب",
+      onclick: () => { const open = options.hidden; options.hidden = !open; optBtn.setAttribute("aria-expanded", String(open)); } });
+    if (editing || f.date !== today) { options.hidden = false; optBtn.setAttribute("aria-expanded", "true"); }
+
+    const grid = h("div", { class: "cat-grid", role: "group", "aria-label": "الفئة" });
+    const visible = exp.categories.filter(c => !c.hidden || (editing && c.id === editing.categoryId));
+    function paint(){ for (const b of grid.children) b.setAttribute("aria-pressed", String(b.dataset.id === f.categoryId)); }
+    for (const c of visible) {
+      grid.append(h("button", { class: "cat", type: "button", "data-id": c.id, "aria-pressed": "false", onclick: () => {
+        f.categoryId = c.id;
+        nameIn.placeholder = c.name;
+        paint();
+        if (!editing) commit();
+      } }, h("span", { class: "e", "aria-hidden": "true", text: c.emoji }), h("span", { class: "n", dir: "rtl", text: c.name })));
+    }
+    paint();
+
+    function commit(){
+      const v = parseEntryAmount(amount.value);
+      if (v === null) { hint.textContent = "أدخل مبلغًا صحيحًا أكبر من صفر."; amount.focus(); return; }
+      if (!isValidDate(f.date)) { options.hidden = false; optBtn.setAttribute("aria-expanded", "true"); hint.textContent = "تاريخ غير صالح."; return; }
+      if (!f.categoryId) { hint.textContent = "اختر فئة."; return; }
+      const nm = f.name.trim();
+      let entry;
+      if (editing) {
+        Object.assign(editing, { type: f.type, amount: v, name: nm, categoryId: f.categoryId, date: f.date, accountId: f.accountId, updatedAt: Date.now() });
+        entry = editing;
+      } else {
+        entry = newEntry({ type: f.type, amount: v, name: nm, categoryId: f.categoryId, date: f.date, accountId: f.accountId }, uid(), Date.now());
+        exp.entries.push(entry);
+      }
+      jumpTo(entry);
+      scheduleSave();
+      ctx.close(true);
+      renderExp();
+      const accName = (exp.accounts.find(a => a.id === f.accountId) || {}).name;
+      showToast([(editing ? "حُفظ التعديل: " : (f.type === "income" ? "أُضيف دخل: " : "أُضيف: ")), money(v),
+                 exp.accounts.filter(a => !a.archived).length > 1 && accName ? h("span", { dir: "auto", text: " · " + accName }) : null]);
+    }
+
+    body.append(
+      h("div", { class: "seg", role: "group", "aria-label": "النوع" }, bExp, bInc),
+      h("div", { class: "x-amtrow" }, amount, h("span", { class: "x-unit", dir: "rtl", text: AED })),
+      hint, note, optBtn, options, grid,
+      editing ? h("div", { class: "toolbar" }, h("button", { class: "pill primary", type: "button", text: "حفظ", onclick: commit })) : null);
+    refreshNote();
+    amount.focus({ preventScroll: true });
+    if (editing) { try { amount.select(); } catch (e) {} }
+  });
+}
+fabAdd.addEventListener("click", () => openEntrySheet(null));
+
+/* ================= cycle sheet ("salary arrived" / edit) ================= */
+function openCycleSheet(opts){
+  const acc = curAccount();
+  const editing = opts.cycle || null;
+  const live = liveEntries(accountEntries(EXP(), acc.id));
+  openSheet(editing ? "تعديل الدورة" : "وصل الراتب", (body, ctx) => {
+    const dateIn = h("input", { class: "field", type: "date", dir: "ltr", "aria-label": "تاريخ وصول الراتب (بداية الدورة)", value: editing ? editing.startDate : opts.date });
+    const allowIn = h("input", { class: "field", type: "text", inputmode: "decimal", dir: "ltr", autocomplete: "off", "aria-label": "المبلغ المخصَّص للمصاريف", placeholder: "0",
+      value: editing ? String(editing.allowance) : (opts.allowance ? String(opts.allowance) : "") });
+    const nextIn = h("input", { class: "field", type: "date", dir: "ltr", "aria-label": "تاريخ الراتب القادم المتوقع (اختياري)", value: editing && editing.expectedNextSalaryDate ? editing.expectedNextSalaryDate : "" });
+    const err = h("div", { class: "x-note bad", role: "alert", dir: "rtl", hidden: true });
+    const impact = h("div", { class: "x-note", dir: "rtl", hidden: true });
+    function showImpact(){
+      impact.hidden = true;
+      if (!editing || !isValidDate(dateIn.value) || dateIn.value === editing.startDate) return;
+      const n = movedEntryCount(acc.cycles, live, editing.id, dateIn.value);
+      impact.hidden = false;
+      impact.textContent = n ? "بهذا التغيير ستنتقل " + n + " من المصاريف بين الدورات تلقائيًا." : "لن تنتقل أي مصاريف بين الدورات.";
+    }
+    dateIn.addEventListener("change", showImpact);
+    function fail(msg){ err.hidden = false; err.textContent = msg; }
+    function save(){
+      err.hidden = true;
+      const date = dateIn.value;
+      if (!isValidDate(date)) return fail("اختر تاريخًا صحيحًا.");
+      const allowance = parseAllowance(allowIn.value);
+      if (allowance === null) return fail("أدخل مبلغًا صحيحًا للمخصَّص (يمكن أن يكون 0).");
+      const next = nextIn.value || "";
+      if (next && (!isValidDate(next) || next <= date)) return fail("تاريخ الراتب القادم يجب أن يكون بعد بداية الدورة.");
+      const v = validateCycleDate(acc.cycles, date, editing ? editing.id : undefined);
+      if (!v.ok) return fail(v.error === "duplicate" ? "توجد دورة أخرى بنفس هذا التاريخ. اختر تاريخًا مختلفًا أو عدّل تلك الدورة." : "تاريخ غير صالح.");
+      let id;
+      if (editing) {
+        const r = setCycleDate(acc.cycles, editing.id, date);
+        if (!r.ok) return fail("تعذّر حفظ الدورة.");
+        acc.cycles = r.cycles.map(c => {
+          if (c.id !== editing.id) return c;
+          const n = Object.assign({}, c, { allowance: allowance });
+          if (next) n.expectedNextSalaryDate = next; else delete n.expectedNextSalaryDate;
+          return n;
+        });
+        id = editing.id;
+      } else {
+        const c = { id: uid(), startDate: date, allowance: allowance };
+        if (next) c.expectedNextSalaryDate = next;
+        const r = addCycle(acc.cycles, c);
+        if (!r.ok) return fail("تعذّر حفظ الدورة.");
+        acc.cycles = r.cycles;
+        id = c.id;
+      }
+      X.cycleKey = id; X.sub = "list";
+      scheduleSave();
+      ctx.close(true);
+      renderExp();
+      showToast(editing ? "حُفظت الدورة" : "بدأت دورة جديدة من " + shortArabicDate(date, true));
+    }
+    body.append(
+      h("label", { class: "flabel", dir: "rtl" }, h("span", { text: "تاريخ وصول الراتب (بداية الدورة)" }), dateIn),
+      h("label", { class: "flabel", dir: "rtl" }, h("span", { text: "المبلغ المخصَّص للمصاريف" }), allowIn),
+      h("label", { class: "flabel", dir: "rtl" }, h("span", { text: "تاريخ الراتب القادم المتوقع (اختياري)" }), nextIn),
+      h("button", { class: "chip", type: "button", text: "مسح الراتب القادم", onclick: () => { nextIn.value = ""; } }),
+      h("p", { class: "hint", dir: "rtl", text: "الدورة تنتهي عند بداية الدورة التي بعدها. المبلغ المخصَّص منفصل تمامًا عن دفتر الميزانية." }),
+      impact, err,
+      h("div", { class: "toolbar" },
+        h("button", { class: "pill primary", type: "button", text: "حفظ", onclick: save }),
+        editing ? h("button", { class: "pill", type: "button", text: "حذف الدورة", onclick: () => {
+          if (!confirm("حذف هذه الدورة؟ مصاريفها لن تُحذف، بل ستنتقل تلقائيًا إلى الدورة السابقة (أو «بدون دورة»).")) return;
+          acc.cycles = acc.cycles.filter(c => c.id !== editing.id);
+          X.cycleKey = null; scheduleSave(); ctx.close(true); renderExp(); showToast("حُذفت الدورة، والمصاريف محفوظة");
+        } }) : null));
+    dateIn.focus({ preventScroll: true });
+  });
+}
+
+/* ================= menus: more, accounts, categories, deleted ================= */
+function menuBtn(text, fn, sub){
+  return h("button", { class: "menu-b", type: "button", onclick: fn }, h("span", { dir: "rtl", text: text }), sub ? h("span", { class: "sub", dir: "rtl", text: sub }) : null);
+}
+function openMoreMenu(){
+  const delCount = deletedEntries(EXP().entries).length;
+  openSheet("المزيد", (body) => {
+    body.append(
+      menuBtn("المحذوفات", openDeletedSheet, delCount ? String(delCount) : "لا شيء"),
+      menuBtn("الحسابات", openAccountsSheet),
+      menuBtn("الفئات", openCategoriesSheet),
+      menuBtn("الإعدادات والبيانات", openSettingsSheet));
+  });
+}
+function addAccount(){
+  const name = (prompt("اسم الحساب الجديد:") || "").trim();
+  if (!name) return false;
+  const a = { id: uid(), name: name, archived: false, cycles: [] };
+  EXP().accounts.push(a);
+  EXP().lastAccountId = a.id;
+  X.cycleKey = null;
+  scheduleSave();
+  return true;
+}
+function openAccountsSheet(){
+  openSheet("الحسابات", (body, ctx) => {
+    const list = h("ul", { class: "m-list" });
+    function fill(){
+      list.replaceChildren();
+      const exp = EXP();
+      const activeCount = exp.accounts.filter(a => !a.archived).length;
+      for (const a of exp.accounts) {
+        list.append(h("li", { class: "m-row" + (a.archived ? " off" : "") },
+          h("span", { class: "m-name", dir: "auto", text: a.name + (a.archived ? " (مؤرشف)" : "") }),
+          h("button", { class: "ab", type: "button", "aria-label": "إعادة تسمية " + a.name, text: "✎", onclick: () => {
+            const n = (prompt("الاسم الجديد:", a.name) || "").trim(); if (!n) return; a.name = n; scheduleSave(); fill(); renderExp(); } }),
+          h("button", { class: "chip", type: "button", text: a.archived ? "استعادة" : "أرشفة", onclick: () => {
+            if (!a.archived) {
+              if (activeCount <= 1) { alert("لا يمكن أرشفة آخر حساب نشط."); return; }
+              if (!confirm("أرشفة «" + a.name + "»؟ يُخفى من القوائم وتبقى بياناته محفوظة ويمكن استعادته.")) return;
+            }
+            a.archived = !a.archived;
+            if (a.archived && EXP().lastAccountId === a.id) EXP().lastAccountId = exp.accounts.find(x => !x.archived).id;
+            X.cycleKey = null; scheduleSave(); fill(); renderExp();
+          } })));
+      }
+    }
+    fill();
+    body.append(list, h("div", { class: "toolbar" }, h("button", { class: "pill primary", type: "button", text: "+ حساب", onclick: () => { if (addAccount()) { fill(); renderExp(); } } })));
+  });
+}
+const EMOJI_CHOICES = ["🍔","🍕","🍣","🥗","🍎","🥖","🍰","🍫","☕","🧋","🍺","🛒","🛍️","👕","👟","👜","💄","💍","⛽","🚗","🚌","🚕","✈️","🏨","🏖️","🏠","🔑","🧾","💡","🔌","💧","📱","💻","🌐","🎮","🎬","🎵","📚","🎓","✏️","🧸","👶","🍼","🎁","🎉","🤝","🕌","❤️","💊","🩺","🦷","🧼","🪥","✂️","🐕","🐈","🐟","🌱","🔧","🧰","💼","💰","📦","🎯","⚽","🏋️","🧳","🚿","🛏️"];
+function openCategoriesSheet(){
+  openSheet("الفئات", (body, ctx) => {
+    const list = h("ul", { class: "m-list" });
+    function fill(){
+      list.replaceChildren();
+      const cats = EXP().categories;
+      cats.forEach((c, i) => {
+        const used = EXP().entries.filter(e => e.categoryId === c.id).length;
+        list.append(h("li", { class: "m-row" + (c.hidden ? " off" : "") },
+          h("span", { class: "m-emoji", "aria-hidden": "true", text: c.emoji }),
+          h("span", { class: "m-name", dir: "auto", text: c.name + (c.hidden ? " (مخفية)" : "") }),
+          h("button", { class: "ab", type: "button", "aria-label": "تحريك " + c.name + " للأعلى", disabled: i === 0, text: "↑", onclick: () => { [cats[i - 1], cats[i]] = [cats[i], cats[i - 1]]; scheduleSave(); fill(); } }),
+          h("button", { class: "ab", type: "button", "aria-label": "تحريك " + c.name + " للأسفل", disabled: i === cats.length - 1, text: "↓", onclick: () => { [cats[i + 1], cats[i]] = [cats[i], cats[i + 1]]; scheduleSave(); fill(); } }),
+          h("button", { class: "ab", type: "button", "aria-label": "إعادة تسمية " + c.name, text: "✎", onclick: () => { const n = (prompt("الاسم الجديد:", c.name) || "").trim(); if (!n) return; c.name = n; scheduleSave(); fill(); } }),
+          h("button", { class: "chip", type: "button", title: used ? "مستخدمة في " + used + " مصروف" : "", text: c.hidden ? "إظهار" : "إخفاء", onclick: () => { c.hidden = !c.hidden; scheduleSave(); fill(); } })));
+      });
+    }
+    fill();
+    body.append(h("p", { class: "hint", dir: "rtl", text: "الفئات لا تُحذف، فقط تُخفى، حتى تبقى مصاريفك القديمة مرتبطة بها." }), list,
+      h("div", { class: "toolbar" }, h("button", { class: "pill primary", type: "button", text: "+ فئة جديدة", onclick: () => openNewCategorySheet() })));
+  });
+}
+function openNewCategorySheet(){
+  openSheet("فئة جديدة", (body, ctx) => {
+    let emoji = "";
+    const name = h("input", { class: "field", type: "text", dir: "auto", placeholder: "اسم الفئة", "aria-label": "اسم الفئة" });
+    const err = h("div", { class: "x-note bad", role: "alert", dir: "rtl", hidden: true });
+    const grid = h("div", { class: "emoji-grid", role: "group", "aria-label": "الرمز" });
+    for (const e of EMOJI_CHOICES) grid.append(h("button", { class: "em", type: "button", "aria-label": e, "aria-pressed": "false", text: e, onclick: ev => {
+      emoji = e; for (const b of grid.children) b.setAttribute("aria-pressed", String(b.textContent === e)); } }));
+    body.append(name, h("p", { class: "hint", dir: "rtl", text: "اختر رمزًا:" }), grid, err,
+      h("div", { class: "toolbar" }, h("button", { class: "pill primary", type: "button", text: "إضافة", onclick: () => {
+        const n = name.value.trim();
+        if (!n) { err.hidden = false; err.textContent = "أدخل اسم الفئة."; return; }
+        if (!emoji) { err.hidden = false; err.textContent = "اختر رمزًا."; return; }
+        EXP().categories.push({ id: "cat_" + uid(), name: n, emoji: emoji, hidden: false });
+        scheduleSave(); ctx.close(true); openCategoriesSheet();
+      } })));
+    name.focus({ preventScroll: true });
+  });
+}
+function openDeletedSheet(){
+  openSheet("المحذوفات", (body, ctx) => {
+    const host = h("div");
+    function fill(){
+      host.replaceChildren();
+      const exp = EXP();
+      const del = deletedEntries(exp.entries).sort((a, b) => (b.deletedAt || 0) - (a.deletedAt || 0));
+      if (!del.length) { host.append(h("p", { class: "x-none", dir: "rtl", text: "لا توجد عناصر محذوفة." })); return; }
+      const multi = exp.accounts.length > 1;
+      const ul = h("ul", { class: "m-list" });
+      for (const e of del) {
+        const c = catOf(e.categoryId), nm = e.name || c.name;
+        ul.append(h("li", { class: "m-row del" },
+          h("span", { class: "m-emoji", "aria-hidden": "true", text: c.emoji }),
+          h("div", { class: "m-main" },
+            h("div", { class: "m-name", dir: "auto", text: nm }),
+            h("div", { class: "m-sub", dir: "rtl", text: (isValidDate(e.date) ? shortArabicDate(e.date, true) : "تاريخ غير صالح") + (multi ? " · " + ((exp.accounts.find(a => a.id === entryAccountId(exp, e)) || {}).name || "") : "") })),
+          money(Number(e.amount) || 0, "val"),
+          h("button", { class: "chip", type: "button", text: "استعادة", onclick: () => { delete e.deletedAt; scheduleSave(); fill(); renderExp(); showToast("تمت الاستعادة"); } }),
+          h("button", { class: "chip danger", type: "button", text: "حذف نهائي", onclick: () => {
+            if (!confirm("حذف «" + nm + "» نهائيًا؟ لا يمكن التراجع.")) return;
+            exp.entries.splice(exp.entries.indexOf(e), 1); scheduleSave(); fill(); renderExp(); } })));
+      }
+      host.append(ul, h("div", { class: "toolbar" }, h("button", { class: "pill", type: "button", text: "حذف الكل نهائيًا", onclick: async () => {
+        if (!confirm("حذف كل العناصر المحذوفة (" + del.length + ") نهائيًا؟ لا يمكن التراجع.")) return;
+        if (!(await ensureSnapshot("empty-deleted"))) return;
+        exp.entries = exp.entries.filter(e => !e.deletedAt);
+        scheduleSave(); fill(); renderExp();
+      } })));
+    }
+    fill();
+    body.append(host);
+  });
+}
+
+/* ================= settings and data (persistence status, export, import, snapshots) ================= */
+function fmtDateTime(ms){
+  if (!ms) return "—";
+  const d = new Date(ms);
+  return localDateStr(d) + " " + pad2(d.getHours()) + ":" + pad2(d.getMinutes());
+}
+async function openSettingsSheet(){
+  let est = null;
+  try { if (navigator.storage && navigator.storage.estimate) est = await withTimeout(navigator.storage.estimate(), 2000); } catch (e) {}
+  const snaps = P.idb ? await listSnapshots(P.idb) : [];
+  const meta = readMeta(LS);
+  openSheet("الإعدادات والبيانات", (body, ctx) => {
+    const yes = "نعم", no = "لا";
+    const stat = (label, text, bad) => tline(label, h("span", { class: "val" + (bad ? " neg" : ""), dir: "auto", text: text }));
+    const kb = n => Math.round(n / 1024).toLocaleString("en-US") + " KB";
+    body.append(
+      h("div", { class: "totals" },
+        stat("تخزين دائم (persist)", P.persisted === true ? yes : (P.persisted === false ? "لم يُمنح" : "غير مدعوم"), P.persisted === false),
+        stat("آخر حفظ ناجح", P.lastOk ? fmtDateTime(P.lastOk) : "—", !!P.lastErr),
+        stat("النسخة المحلية (.bak)", P.bakOk ? "سليمة" : "تعذّر تحديثها", !P.bakOk),
+        stat("النسخة الداخلية (IndexedDB)", P.idb ? (P.mirrorOk === false ? "تعذّر التحديث" : (P.mirrorAt ? fmtDateTime(P.mirrorAt) : "نشطة")) : "غير متاحة", !P.idb || P.mirrorOk === false),
+        stat("آخر تصدير", meta.lastExport ? fmtDateTime(meta.lastExport) : "لم يتم", false),
+        est && est.quota ? stat("المساحة المستخدمة", kb(est.usage || 0) + " من " + kb(est.quota), false) : null),
+      h("div", { class: "toolbar" },
+        h("button", { class: "pill primary", type: "button", text: "تصدير كل البيانات", onclick: () => { doExport(); ctx.close(); } }),
+        h("button", { class: "pill", type: "button", text: "استيراد", onclick: () => { ctx.close(true); importFile.click(); } }),
+        navigator.canShare ? h("button", { class: "pill", type: "button", text: "مشاركة الملف", onclick: () => shareExport() }) : null),
+      h("p", { class: "hint", dir: "rtl", text: "التصدير يشمل كل الأشخاص (الميزانية والمصاريف) في ملف واحد باسم التاريخ." }),
+      h("h3", { class: "sub-h", dir: "rtl", text: "النسخ المحفوظة تلقائيًا (آخر " + SNAP_MAX + ")" }),
+      snaps.length ? h("ul", { class: "m-list" }, snaps.map(s => h("li", { class: "m-row" },
+        h("div", { class: "m-main" },
+          h("div", { class: "m-name", dir: "ltr", text: fmtDateTime(s.at) }),
+          h("div", { class: "m-sub", dir: "rtl", text: snapReason(s.reason) + (s.corrupt ? " · قيمة تالفة" : "") }))
+        , s.corrupt ? null : h("button", { class: "chip", type: "button", text: "استرجاع", onclick: () => restoreSnapshot(s, ctx) }),
+        h("button", { class: "chip", type: "button", text: "تنزيل", onclick: () => downloadText(s.json, "snapshot-" + s.day + ".json") }))))
+        : h("p", { class: "x-none", dir: "rtl", text: P.idb ? "لا توجد نسخ بعد." : "غير متاحة في هذا المتصفح." }));
+  });
+}
+function snapReason(r){
+  const m = { daily: "يومية", migration: "قبل الترقية", import: "قبل الاستيراد", "delete-profile": "قبل حذف شخص", "delete-group": "قبل حذف مجموعة",
+              "new-month": "قبل شهر جديد", "empty-deleted": "قبل إفراغ المحذوفات", restore: "قبل الاسترجاع", "before-empty-save": "قبل حفظ حالة فارغة", "before-mirror-restore": "قبل الاسترجاع التلقائي" };
+  if (/^corrupt-/.test(r)) return "قيمة تالفة محفوظة";
+  return m[r] || r;
+}
+function downloadText(text, name){
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], { type: "application/json" }));
+  a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+async function applyNewState(next, reason){
+  if (!(await ensureSnapshot(reason))) return false;
+  state = next;
+  P.allowEmpty = contentScore(next) === 0;
+  X.cycleKey = null;
+  renderAll();
+  saveNow();
+  return true;
+}
+async function restoreSnapshot(s, ctx){
+  let parsed;
+  try { parsed = JSON.parse(s.json); } catch (e) { alert("هذه النسخة تالفة."); return; }
+  if (!confirm("استرجاع نسخة " + fmtDateTime(s.at) + "؟ ستستبدل البيانات الحالية (تُحفظ نسخة منها أولًا).")) return;
+  if (await applyNewState(sanitizeState(isObj(parsed) && Array.isArray(parsed.blocks) ? { profiles: [{ id: uid(), name: "الأساسي", data: parsed }] } : parsed), "restore")) {
+    ctx.close(true); showToast("تم الاسترجاع");
+  }
+}
+
+/* ---- import: validate, preview counts, snapshot, then merge or replace ---- */
+const importFile = document.getElementById("importFile");
+document.getElementById("btnImport").addEventListener("click", () => importFile.click());
+importFile.addEventListener("change", () => {
+  const f = importFile.files && importFile.files[0];
+  importFile.value = "";
+  if (!f) return;
+  const rd = new FileReader();
+  rd.onerror = () => alert("تعذّرت قراءة الملف.");
+  rd.onload = () => {
+    const r = parseImport(String(rd.result));
+    if (!r.ok) { alert("الملف غير صالح، لم يتم الاستيراد. لم يتغيّر شيء."); return; }
+    openImportSheet(r);
+  };
+  rd.readAsText(f);
+});
+function openImportSheet(r){
+  openSheet("استيراد", (body, ctx) => {
+    const now = countState(state);
+    const rows = [["الأشخاص", "profiles"], ["مجموعات الميزانية", "blocks"], ["بنود الميزانية", "rows"], ["الحسابات", "accounts"], ["الدورات", "cycles"], ["المصاريف", "entries"], ["المحذوفات", "deleted"]];
+    const table = h("table", { class: "cmp", dir: "rtl" },
+      h("thead", null, h("tr", null, h("th", { text: "" }), h("th", { text: "في الملف" }), h("th", { text: "عندك الآن" }))),
+      h("tbody", null, rows.map(([lbl, k]) => h("tr", null, h("td", { text: lbl }), h("td", { dir: "ltr", text: String(r.counts[k]) }), h("td", { dir: "ltr", text: String(now[k]) })))));
+    const run = async (fn, reason) => {
+      let next;
+      try { next = fn(); } catch (e) { alert("تعذّر تطبيق الملف. لم يتغيّر شيء."); return; }
+      if (await applyNewState(next, reason)) { ctx.close(true); showToast("تم الاستيراد"); }
+    };
+    const buttons = [];
+    if (r.kind === "state") {
+      buttons.push(h("button", { class: "pill primary", type: "button", text: "دمج مع بياناتي", onclick: () => run(() => mergeStates(state, r.data), "import") }));
+      buttons.push(h("button", { class: "pill", type: "button", text: "استبدال الكل", onclick: () => {
+        if (!confirm("استبدال كل البيانات الحالية بمحتوى الملف؟ تُحفظ نسخة منها أولًا.")) return;
+        run(() => replaceKeepingExp(state, r.data), "import");
+      } }));
+    } else {
+      buttons.push(h("button", { class: "pill primary", type: "button", text: "دمج في «" + cur().name + "»", onclick: () => run(() => mergeStates(state, { profiles: [{ id: cur().id, name: cur().name, data: r.data }] }), "import") }));
+      buttons.push(h("button", { class: "pill", type: "button", text: "استبدال ميزانية «" + cur().name + "»", onclick: () => {
+        if (!confirm("استبدال ميزانية «" + cur().name + "» بمحتوى الملف؟ المصاريف لا تتأثر، وتُحفظ نسخة أولًا.")) return;
+        run(() => { const n = sanitizeState(state); const p = n.profiles.find(x => x.id === cur().id); const keep = p.data.exp; p.data = sanitizeData(r.data); p.data.exp = keep; return n; }, "import");
+      } }));
+    }
+    body.append(
+      h("p", { dir: "rtl", text: r.kind === "state" ? "ملف تصدير كامل." : "ملف بصيغة قديمة لشخص واحد (ميزانية فقط)." }),
+      r.newer ? h("p", { class: "x-note warn", dir: "rtl", text: "هذا الملف من نسخة أحدث من التطبيق. سيُحتفظ بكل حقوله كما هي." }) : null,
+      table,
+      h("p", { class: "hint", dir: "rtl", text: "الدمج لا يغيّر ولا يحذف أي شيء موجود، ويضيف فقط ما هو ناقص. قبل أي تطبيق تُحفظ نسخة احتياطية." }),
+      h("div", { class: "toolbar" }, buttons, h("button", { class: "pill", type: "button", text: "إلغاء", onclick: () => ctx.close() })));
+  });
+}
+
+/* ================= stats (inline SVG, no libraries) ================= */
+function svg(tag, attrs){
+  const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+  for (const k of Object.keys(attrs || {})) el.setAttribute(k, String(attrs[k]));
+  for (let i = 2; i < arguments.length; i++) { const kid = arguments[i]; if (kid) el.append(typeof kid === "string" ? document.createTextNode(kid) : kid); }
+  return el;
+}
+function statCard(title, kids){
+  return h("section", { class: "panel x-stat" }, h("h3", { class: "x-sh", dir: "rtl", text: title }), kids);
+}
+function renderStats(vm){
+  const spentList = expenseList(vm.list);
+  const total = sumMoney(spentList.map(e => Number(e.amount) || 0));
+  const extra = sumMoney(vm.list.filter(e => e.type === "income").map(e => Number(e.amount) || 0));
+  let firstDay, endDay, days;
+  if (vm.cycle) {
+    const s = cycleSummary(vm.acc.cycles, vm.cycle, vm.live, vm.today);
+    firstDay = s.start; endDay = s.lastDay || vm.today; days = Math.max(1, s.daysElapsed);
+    if (endDay < firstDay) endDay = firstDay;
+  } else {
+    const ds = vm.list.map(e => e.date).filter(isValidDate).sort();
+    firstDay = ds[0] || vm.today; endDay = ds[ds.length - 1] || vm.today; days = Math.max(1, daysBetween(firstDay, endDay) + 1);
+  }
+  const frag = document.createDocumentFragment();
+  frag.append(h("section", { class: "panel x-stat" },
+    h("div", { class: "totals" },
+      tline("إجمالي المصروف", money(total, "val")),
+      tline("المتوسط اليومي", money(roundMoney(total / days), "val")),
+      extra > 0 ? tline("دخل إضافي", money(extra, "val")) : null)));
+  if (!spentList.length) { frag.append(h("p", { class: "x-none", dir: "rtl", text: "لا توجد مصاريف في هذه الدورة لعرض الإحصاءات." })); return frag; }
+
+  /* category donut */
+  const cats = categoryTotals(vm.list);
+  const R = 42, CIRC = 2 * Math.PI * R;
+  const donut = svg("svg", { viewBox: "0 0 120 120", class: "donut", role: "img", "aria-label": "توزيع المصروف حسب الفئة" });
+  donut.append(svg("circle", { cx: 60, cy: 60, r: R, fill: "none", stroke: "var(--border)", "stroke-width": 18 }));
+  let off = 0;
+  cats.forEach((c, i) => {
+    const len = CIRC * (c.total / total);
+    donut.append(svg("circle", { cx: 60, cy: 60, r: R, fill: "none", stroke: SLICE_COLORS[i % SLICE_COLORS.length], "stroke-width": 18,
+      "stroke-dasharray": len.toFixed(2) + " " + (CIRC - len).toFixed(2), "stroke-dashoffset": (-off).toFixed(2), transform: "rotate(-90 60 60)" }));
+    off += len;
+  });
+  const t = svg("text", { x: 60, y: 65, "text-anchor": "middle", class: "donut-t" }, formatMoney(total));
+  donut.append(t);
+  const legend = h("ul", { class: "legend" }, cats.map((c, i) => h("li", null,
+    h("span", { class: "dot", style: "background:" + SLICE_COLORS[i % SLICE_COLORS.length] }),
+    h("span", { class: "lg-n", dir: "auto", text: catOf(c.categoryId).emoji + " " + catOf(c.categoryId).name }),
+    h("bdi", { class: "lg-p", dir: "ltr", text: c.pct + "%" }),
+    money(c.total))));
+  frag.append(statCard("حسب الفئة", h("div", { class: "donut-wrap" }, donut, legend)));
+
+  /* last 7 days */
+  const ld = lastDays(vm.list, firstDay, endDay, 7);
+  const maxV = Math.max.apply(null, ld.map(d => d.total).concat([1]));
+  const bw = 280 / ld.length;
+  const bars = svg("svg", { viewBox: "0 0 280 130", class: "bars", role: "img", "aria-label": "المصروف في آخر 7 أيام" });
+  ld.forEach((d, i) => {
+    const ht = Math.round(80 * d.total / maxV);
+    const x = i * bw + bw * 0.18, w = bw * 0.64;
+    bars.append(svg("rect", { x: x.toFixed(1), y: 100 - ht, width: w.toFixed(1), height: Math.max(ht, d.total > 0 ? 2 : 0), rx: 3, class: "bar" + (d.date === vm.today ? " today" : "") }));
+    if (d.total > 0) bars.append(svg("text", { x: (x + w / 2).toFixed(1), y: 95 - ht, "text-anchor": "middle", class: "bar-v" }, formatMoney(d.total)));
+    bars.append(svg("text", { x: (x + w / 2).toFixed(1), y: 118, "text-anchor": "middle", class: "bar-l" }, String(parseDate(d.date).d)));
+  });
+  frag.append(statCard("آخر 7 أيام", bars));
+
+  /* trend over the last 6 cycles */
+  if (vm.cycle) {
+    const tr = cycleTrend(vm.acc.cycles, vm.live, vm.cycle.id, 6);
+    if (tr.length >= 1) {
+      const mx = Math.max.apply(null, tr.map(p => p.total).concat([1]));
+      const step = tr.length > 1 ? 240 / (tr.length - 1) : 0;
+      const pts = tr.map((p, i) => [20 + (tr.length > 1 ? i * step : 120), 100 - Math.round(70 * p.total / mx)]);
+      const line = svg("svg", { viewBox: "0 0 280 140", class: "trend", role: "img", "aria-label": "إجمالي المصروف في آخر 6 دورات" });
+      if (pts.length > 1) line.append(svg("polyline", { points: pts.map(p => p.join(",")).join(" "), fill: "none", class: "tl" }));
+      tr.forEach((p, i) => {
+        const pd = parseDate(p.start);
+        line.append(svg("circle", { cx: pts[i][0], cy: pts[i][1], r: i === tr.length - 1 ? 5 : 3.5, class: "tp" + (i === tr.length - 1 ? " last" : "") }));
+        line.append(svg("text", { x: pts[i][0], y: pts[i][1] - 9, "text-anchor": "middle", class: "bar-v" }, formatMoney(p.total)));
+        line.append(svg("text", { x: pts[i][0], y: 128, "text-anchor": "middle", class: "bar-l" }, pd.d + "/" + pd.m));
+      });
+      frag.append(statCard("اتجاه آخر 6 دورات", line));
+    }
+    /* biggest category changes vs the previous cycle */
+    const ch = categoryChanges(vm.acc.cycles, vm.live, vm.cycle.id).slice(0, 6);
+    const prevExists = vm.sorted.findIndex(c => c.id === vm.cycle.id) > 0;
+    frag.append(statCard("أكبر التغيّرات عن الدورة السابقة", !prevExists
+      ? h("p", { class: "x-none", dir: "rtl", text: "لا توجد دورة سابقة للمقارنة." })
+      : (ch.length ? h("ul", { class: "chg" }, ch.map(c => h("li", { class: "chg-" + c.kind },
+          h("span", { class: "x-emoji", "aria-hidden": "true", text: catOf(c.categoryId).emoji }),
+          h("span", { class: "lg-n", dir: "auto", text: catOf(c.categoryId).name }),
+          h("span", { class: "tag", dir: "rtl", text: c.kind === "new" ? "جديد" : (c.kind === "up" ? "ارتفاع" : "انخفاض") }),
+          h("span", { class: "money val", dir: "ltr" }, h("bdi", { class: "n", text: (c.delta > 0 ? "+" : "") + formatMoney(c.delta) }), h("span", { class: "u", dir: "rtl", text: AED })))))
+        : h("p", { class: "x-none", dir: "rtl", text: "لا تغييرات تُذكر." }))));
+  }
+  return frag;
+}
+
+/* ================= receipt image (canvas, paper style) ================= */
+const RCPT_W = 560;
+function expReceiptLayout(ctx, draw, m){
+  const W = RCPT_W, pad = 40, teeth = 12, COL = pad + 190;      /* amounts end at COL; Arabic text starts at the right edge */
+  const INK = "#24231F", DIMK = "#77736A", RULE = "#B5AE9F", NEG = "#B8473F", GRN = "#38594A";
+  let y = teeth + 44;
+  const font = (w, s, fam) => w + " " + s + "px " + fam;
+  /* Arabic pass: right-to-left, anchored at the right edge */
+  function arabic(text, size, weight, color, align, x, maxW){
+    if (!draw) return;
+    ctx.font = font(weight, size, AR_FONT);
+    ctx.fillStyle = color; ctx.direction = "rtl"; ctx.textAlign = align || "right";
+    let t = text;
+    if (maxW) { while (t.length > 1 && ctx.measureText(t).width > maxW) t = t.slice(0, -1); if (t !== text) t = t.replace(/\s+$/, "") + "…"; }
+    ctx.fillText(t, x != null ? x : W - pad, y);
+  }
+  /* number pass: left-to-right, number and unit drawn separately so bidi can never mix them */
+  function amount(v, size, weight, color, withUnit){
+    if (!draw) return;
+    ctx.fillStyle = color; ctx.direction = "ltr"; ctx.textAlign = "right";
+    let x = COL;
+    if (withUnit !== false) {
+      ctx.font = font(weight, Math.round(size * 0.8), AR_FONT);
+      ctx.direction = "rtl";
+      ctx.fillText(AED, x, y);
+      x -= ctx.measureText(AED).width + 5;
+      ctx.direction = "ltr";
+    }
+    ctx.font = font(weight, size, NUM_FONT);
+    ctx.fillText(typeof v === "string" ? v : formatMoney(v), x, y);
+  }
+  function plain(text, size, color, align, x){
+    if (!draw) return;
+    ctx.font = font(400, size, NUM_FONT); ctx.fillStyle = color; ctx.direction = "ltr"; ctx.textAlign = align; ctx.fillText(text, x, y);
+  }
+  function rule(dashed){
+    if (!draw) return;
+    ctx.strokeStyle = RULE; ctx.lineWidth = 1; ctx.setLineDash(dashed ? [2, 4] : []);
+    ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(W - pad, y); ctx.stroke(); ctx.setLineDash([]);
+  }
+  arabic(m.accountName, 26, 700, INK, "center", W / 2, W - 2 * pad); y += 30;
+  arabic("إيصال المصاريف", 17, 500, DIMK, "center", W / 2); y += 26;
+  if (m.start) {
+    arabic("الفترة", 15, 500, DIMK); plain(m.start + "  →  " + m.end, 15, INK, "left", pad); y += 24;
+  } else { arabic("مصاريف بدون دورة", 15, 500, DIMK); y += 24; }
+  plain(new Date().toLocaleDateString("en-GB"), 13, DIMK, "center", W / 2); y += 22;
+  rule(true); y += 28;
+  if (m.start) { arabic("المخصَّص", 18, 600, INK); amount(m.allowance, 18, 600, INK); y += 26; }
+  if (m.extra > 0) { arabic("دخل إضافي", 16, 500, INK); amount(m.extra, 16, 500, GRN); y += 26; }
+  if (m.start || m.extra > 0) { y += 2; rule(true); y += 28; }
+  if (m.categories.length) {
+    arabic("حسب الفئة", 18, 700, INK); y += 28;
+    for (const c of m.categories) {
+      arabic(c.name, 16, 400, INK, "right", W - pad, W - 2 * pad - 230);
+      amount(c.total, 16, 500, INK);
+      plain(c.pct + "%", 13, DIMK, "left", pad);
+      y += 25;
+    }
+    y += 2; rule(true); y += 28;
+  }
+  for (const d of m.days) {
+    arabic(isValidDate(d.date) ? d.label : "تاريخ غير صالح", 16, 700, INK, "right", W - pad, W - 2 * pad - 230);
+    amount(d.spent, 16, 700, INK);
+    y += 25;
+    for (const e of d.entries) {
+      arabic(e.name || "—", 15, 400, e.type === "income" ? GRN : INK, "right", W - pad, W - 2 * pad - 230);
+      amount((e.type === "income" ? "+" : "") + formatMoney(e.amount), 15, 500, e.type === "income" ? GRN : INK);
+      y += 23;
+    }
+    y += 6;
+  }
+  y += 4; rule(false); y += 32;
+  arabic("إجمالي المصروف", 18, 700, INK); amount(m.spent, 20, 700, INK); y += 36;
+  arabic("المتبقي", 20, 700, INK); amount(m.remaining, 28, 700, m.remaining < 0 ? NEG : GRN); y += 18;
+  y += 8; rule(false); y += 2; rule(false);
+  return y + 34 + teeth;
+}
+function drawExpReceipt(m){
+  const W = RCPT_W, teeth = 12, toothW = 16;
+  const probe = document.createElement("canvas").getContext("2d");
+  const H = Math.ceil(expReceiptLayout(probe, false, m));
+  /* retina x2, capped so very long receipts stay inside the browser's canvas size limits */
+  let scale = (window.devicePixelRatio || 1) * 2;
+  scale = Math.max(1, Math.min(scale, Math.sqrt(14000000 / (W * H)), 16000 / H, 16000 / W));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.floor(W * scale);
+  canvas.height = Math.floor(H * scale);
+  const ctx = canvas.getContext("2d");
+  ctx.scale(scale, scale);
+  ctx.beginPath();
+  ctx.moveTo(0, teeth);
+  for (let x = 0; x < W; x += toothW) { ctx.lineTo(x + toothW / 2, 0); ctx.lineTo(Math.min(x + toothW, W), teeth); }
+  ctx.lineTo(W, H - teeth);
+  for (let x = W; x > 0; x -= toothW) { ctx.lineTo(x - toothW / 2, H); ctx.lineTo(Math.max(x - toothW, 0), H - teeth); }
+  ctx.closePath();
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, "#FFFCF5"); g.addColorStop(1, "#F5F2EA");
+  ctx.fillStyle = g; ctx.fill();
+  ctx.save(); ctx.clip();
+  expReceiptLayout(ctx, true, m);
+  ctx.restore();
+  return canvas;
+}
+async function makeExpReceipt(vm){
+  try {
+    if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (e) {} }
+    const m = buildReceiptModel(EXP(), vm.acc.id, vm.key, vm.today);
+    const canvas = drawExpReceipt(m);
+    const name = "expenses-" + (m.start || "none") + ".png";
+    canvas.toBlob(async blob => {
+      if (!blob) { alert("تعذّر إنشاء صورة الإيصال (الصورة كبيرة جدًا)."); return; }
+      const file = new File([blob], name, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try { await navigator.share({ files: [file], title: m.accountName + " — إيصال المصاريف" }); return; }
+        catch (e) { if (e && e.name === "AbortError") return; }
+      }
+      /* no share sheet: full-screen image with a long-press hint and a download link, never nothing */
+      const url = URL.createObjectURL(blob);
+      document.getElementById("overlayImg").src = url;
+      const dl = document.getElementById("overlayDl");
+      dl.href = url; dl.download = name;
+      overlay.classList.add("on");
+    }, "image/png");
+  } catch (e) { alert("تعذّر إنشاء الإيصال."); }
+}
+
+
+/* ================= section tabs ================= */
+const TAB_IDS = ["ledger", "exp"];
+function showTab(id){
+  for (const t of TAB_IDS) {
+    const on = t === id;
+    const btn = document.querySelector('.tab[data-tab="' + t + '"]');
+    btn.setAttribute("aria-selected", String(on));
+    btn.tabIndex = on ? 0 : -1;
+    document.getElementById(t === "ledger" ? "viewLedger" : "viewExp").hidden = !on;
+  }
+  topHeader.classList.toggle("on-exp", id === "exp");
+  fabAdd.hidden = id !== "exp";
+  if (id === "exp") renderExp();
+  try { LS.setItem(TAB_KEY, id); } catch (e) { /* a remembered tab is only a convenience */ }
+  window.scrollTo(0, 0);
+}
+for (const btn of document.querySelectorAll(".tab")) {
+  btn.addEventListener("click", () => showTab(btn.dataset.tab));
+  btn.addEventListener("keydown", e => {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    const next = btn.dataset.tab === "ledger" ? "exp" : "ledger";
+    showTab(next);
+    document.querySelector('.tab[data-tab="' + next + '"]').focus();
+  });
+}
+
 /* ================= boot ================= */
 renderAll();
+try { const t = LS.getItem(TAB_KEY); if (t === "exp") showTab("exp"); } catch (e) { /* default tab */ }
+bootSafety();
 </script>
 </body>
 </html>
