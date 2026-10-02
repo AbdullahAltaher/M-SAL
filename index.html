@@ -415,7 +415,7 @@ body.x-on{
   --x-tile:rgba(6,11,24,.72);--x-field:rgba(255,255,255,.07);--x-track:rgba(255,255,255,.13);
   --x-glass:rgba(16,26,48,.62);--x-glass-solid:rgba(16,26,48,.96);
   --x-hero-a:#2F6BE0;--x-hero-b:#1D47A8;--x-on-hero:#FFFFFF;--x-on-hero-muted:rgba(255,255,255,.95);
-  --x-btn-a:#2F6BE0;--x-btn-b:#1F4DB8;
+  --x-btn-a:#2F6BE0;--x-btn-b:#1F4DB8;--x-scrim:rgba(3,8,20,.55);
   --x-chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23B9C6E2' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
   /* the shared tokens are re-pointed here, so existing components (header, pills, sheets) pick up the glass look */
   --bg:var(--x-bg0);--surface:var(--x-card);--ink:var(--x-text);--sec:var(--x-muted);--border:var(--x-line);
@@ -431,7 +431,7 @@ body.x-on{
     --x-accent:#2459C8;--x-accent-ink:#1F4FB4;
     --x-exp:#C73A2E;--x-inc:#12794A;--x-warn:#9A5B00;
     --x-tile:rgba(47,111,224,.10);--x-field:rgba(255,255,255,.85);--x-track:rgba(30,60,130,.14);
-    --x-glass:rgba(255,255,255,.66);--x-glass-solid:rgba(250,252,255,.96);
+    --x-glass:rgba(255,255,255,.66);--x-glass-solid:rgba(250,252,255,.96);--x-scrim:rgba(25,45,90,.38);
     --x-chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235A6785' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
   }
 }
@@ -580,6 +580,87 @@ body.x-on .banner.bad{border-color:var(--x-exp)}
   .g-pair{gap:10px}
   .g-mini{padding:14px 12px 12px}
 }
+/* ---- entries view ---- */
+.g-search{position:relative}
+.g-search .si{position:absolute;inset-inline-start:16px;top:0;bottom:0;display:grid;place-items:center;color:var(--x-muted);pointer-events:none}
+.g-search .field{min-height:50px;padding-inline-start:48px;border-radius:999px;font-size:17px}
+.g-chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;margin-inline:-2px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.g-chips::-webkit-scrollbar{display:none}
+.g-fchip{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border-radius:999px;background:var(--x-field);border:1px solid var(--x-line);color:var(--x-text);font:500 14px var(--ar);cursor:pointer;transition:transform .12s cubic-bezier(.23,1,.32,1)}
+.g-fchip .e{font-size:18px;line-height:1}
+.g-fchip:active{transform:scale(.96)}
+.g-fchip[aria-pressed="true"]{background:linear-gradient(180deg,var(--x-btn-a),var(--x-btn-b));border-color:rgba(255,255,255,.2);color:#fff}
+.g-repeat{display:flex;align-items:center;gap:8px;width:100%;min-width:0;min-height:50px;padding:0 16px;border-radius:999px;background:var(--x-field);border:1px dashed var(--x-accent);color:var(--x-text);font:500 15px var(--ar);cursor:pointer;transition:transform .12s cubic-bezier(.23,1,.32,1)}
+.g-repeat:active{transform:scale(.97)}
+.g-repeat svg{flex:none;color:var(--x-accent-ink)}
+.g-repeat .lb,.g-repeat .dash{flex:none;color:var(--x-muted)}
+.g-repeat .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:start}
+.g-repeat .money{flex:none;font-weight:600;color:var(--x-exp)}
+.g-repeat .money .u{color:inherit;opacity:.8}
+.g-daystack{display:flex;flex-direction:column;gap:12px}
+.g-tight{padding:12px 12px 6px}
+.g-dayhead{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:2px 4px 8px}
+.g-dayname{font:600 15px var(--ar);color:var(--x-text)}
+.g-daytot{display:inline-flex;align-items:baseline;gap:8px}
+.g-daytot .money{font-size:14px;font-weight:500;color:var(--x-muted)}
+.g-daytot .money .u{font-size:11px}
+.g-daytot .plus{display:inline-flex;align-items:baseline;direction:ltr;unicode-bidi:isolate;color:var(--x-inc)}
+.g-daytot .plus .money{color:var(--x-inc)}
+/* ---- glass sheets (add, more, accounts, categories, settings...) ---- */
+.sheet-grab{display:none}
+.sx-text{display:none}
+body.x-on .sheet-back{background:var(--x-scrim);-webkit-backdrop-filter:none;backdrop-filter:none}
+body.x-on .sheet{background:var(--x-glass-solid);border:1px solid var(--x-line);border-bottom:none;border-radius:30px 30px 0 0;box-shadow:var(--x-hi),0 -24px 50px -24px rgba(0,0,0,.6);padding:8px 16px calc(18px + env(safe-area-inset-bottom))}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+  body.x-on .sheet{background:var(--x-glass);-webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%)}
+}
+body.x-on .sheet{scrollbar-width:none}
+body.x-on .sheet::-webkit-scrollbar{display:none}
+body.x-on .sheet-grab{display:block;width:40px;height:5px;border-radius:3px;background:var(--x-muted);opacity:.55;margin:2px auto 8px}
+body.x-on .sheet-head{margin-bottom:10px}
+body.x-on .sheet-title{font:700 20px var(--ar);color:var(--x-text)}
+body.x-on .sheet-x{min-width:44px;min-height:44px;padding:0 18px;border-radius:999px;background:var(--x-field);border:1px solid var(--x-line);color:var(--x-text);font:600 15px var(--ar)}
+body.x-on .sx-glyph{display:none}
+body.x-on .sx-text{display:inline}
+body.x-on .seg{margin-bottom:8px}
+body.x-on .x-amtrow{background:var(--x-field);border:1px solid var(--x-line);border-radius:24px;padding:8px 20px;box-shadow:var(--x-hi)}
+body.x-on .x-amtrow:focus-within{border-color:var(--x-accent)}
+body.x-on .x-amount{font:600 40px var(--num);color:var(--x-text)}
+body.x-on .x-unit{color:var(--x-muted)}
+.g-dchips{display:flex;gap:8px;margin:2px 0 6px}
+.g-dchip{position:relative;flex:1;min-width:0;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 10px;border-radius:999px;background:var(--x-field);border:1px solid var(--x-line);color:var(--x-text);font:600 14px var(--ar);cursor:pointer;overflow:hidden;white-space:nowrap;transition:transform .12s cubic-bezier(.23,1,.32,1)}
+.g-dchip:active{transform:scale(.96)}
+.g-dchip:focus-within{outline:2px solid var(--green);outline-offset:2px}
+.g-dchip[aria-pressed="true"],.g-dchip[data-on="1"]{background:linear-gradient(180deg,var(--x-btn-a),var(--x-btn-b));border-color:rgba(255,255,255,.2);color:#fff}
+.g-date-in{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:17px;cursor:pointer;border:none;background:none;-webkit-appearance:none;appearance:none}
+body.x-on .cat-grid{grid-template-columns:repeat(3,1fr);gap:6px 10px}
+body.x-on .cat{background:transparent;border:none;border-radius:20px;min-height:100px;padding:6px 2px;gap:6px;color:var(--x-text)}
+body.x-on .cat .e{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--x-tile);border:1px solid var(--x-line);font-size:27px;line-height:1;box-shadow:var(--x-hi);transition:transform .12s cubic-bezier(.23,1,.32,1)}
+body.x-on .cat:active .e{transform:scale(.94)}
+body.x-on .cat .n{font:500 13px/1.25 var(--ar)}
+body.x-on .cat[aria-pressed="true"]{border:none;box-shadow:none}
+body.x-on .cat[aria-pressed="true"] .e{border-color:var(--x-accent);box-shadow:0 0 0 3px var(--x-accent)}
+body.x-on .x-optbtn{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--x-accent-ink);margin-top:6px}
+body.x-on .x-optbtn svg{transition:transform .15s}
+body.x-on .x-optbtn[aria-expanded="true"] svg{transform:rotate(-90deg)}
+body.x-on .x-hint{color:var(--x-exp)}
+body.x-on .x-note.warn{background:rgba(255,197,107,.16);color:var(--x-text)}
+body.x-on .x-note.bad{color:var(--x-exp)}
+/* ---- more sheet rows ---- */
+.g-mrow{display:flex;align-items:center;gap:14px;width:100%;min-height:60px;padding:6px 4px;background:none;border:none;border-bottom:1px solid var(--x-line-soft);color:var(--x-text);font:600 17px var(--ar);cursor:pointer;text-align:start;transition:transform .12s cubic-bezier(.23,1,.32,1)}
+.g-mrow:last-child{border-bottom:none}
+.g-mrow:active{transform:scale(.98)}
+.g-mrow .ic{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--x-tile);border:1px solid var(--x-line);color:var(--x-accent-ink)}
+.g-mrow .tx{flex:1;min-width:0}
+.g-mrow .sub{padding:2px 10px;border-radius:999px;background:var(--x-field);border:1px solid var(--x-line);color:var(--x-muted);font:500 14px var(--ar)}
+.g-mrow .ch{flex:none;color:var(--x-muted)}
+/* ---- inner parts of the other sheets and toasts ---- */
+body.x-on .m-row{border-bottom-color:var(--x-line-soft)}
+body.x-on .ab{min-width:44px;min-height:44px;border-radius:50%;background:var(--x-field);border-color:var(--x-line);color:var(--x-text)}
+body.x-on .toast{background:var(--x-glass-solid);color:var(--x-text);border:1px solid var(--x-line);border-radius:999px;padding:4px 8px 4px 18px;box-shadow:var(--x-hi),0 16px 36px -10px rgba(0,0,0,.55)}
+body.x-on .t-act{min-width:44px;min-height:44px;color:var(--x-accent-ink)}
+body.x-on .toast .money .u{color:var(--x-muted)}
+.g-tight .g-card-head{padding:2px 4px 0}
 /* ================= small screens ================= */
 @media (max-width:359px){
   #finalBalance{font-size:38px}
@@ -1472,7 +1553,7 @@ function h(tag, attrs){
 function appendKid(el, kid){
   if (kid === null || kid === undefined || kid === false) return;
   if (Array.isArray(kid)) { kid.forEach(k => appendKid(el, k)); return; }
-  el.append(kid.nodeType ? kid : document.createTextNode(String(kid)));
+  Element.prototype.append.call(el, kid.nodeType ? kid : document.createTextNode(String(kid)));    /* the native method, even where a container overrides append */
 }
 function withTimeout(p, ms){
   return new Promise((resolve, reject) => {
@@ -2294,10 +2375,14 @@ function openSheet(title, build, opts){
   closeSheet(true);
   const opener = document.activeElement;
   const body = h("div", { class: "sheet-body" });
+  /* sheet builders pass optional children (null): the native append() would print the word "null", so skip empties */
+  body.append = function(){ appendKid(body, Array.prototype.slice.call(arguments)); };
   const sheet = h("div", { class: "sheet", role: "dialog", "aria-modal": "true", "aria-label": title, tabindex: "-1" },
+    h("div", { class: "sheet-grab", "aria-hidden": "true" }),
     h("div", { class: "sheet-head" },
       h("h2", { class: "sheet-title", dir: "rtl", text: title }),
-      h("button", { class: "icon-btn", type: "button", "aria-label": "إغلاق", onclick: () => closeSheet(), text: "×" })),
+      h("button", { class: "icon-btn sheet-x", type: "button", "aria-label": "إغلاق", onclick: () => closeSheet() },
+        h("span", { class: "sx-glyph", "aria-hidden": "true", text: "×" }), h("span", { class: "sx-text", text: "إلغاء" }))),
     body);
   const back = h("div", { class: "sheet-back", onclick: e => { if (e.target === back) closeSheet(); } }, sheet);
   sheetHost.append(back);
@@ -2582,7 +2667,7 @@ function renderPair(s){
 function renderRecent(vm){
   const flat = [];
   for (const d of groupByDay(vm.list)) { for (const e of d.entries) { flat.push(e); if (flat.length >= 5) break; } if (flat.length >= 5) break; }
-  const card = h("section", { class: "g-card" },
+  const card = h("section", { class: "g-card g-tight" },
     h("div", { class: "g-card-head" },
       h("span", { class: "g-card-title", dir: "rtl", text: "آخر المصاريف" }),
       flat.length ? h("button", { class: "g-link", type: "button", onclick: () => setView("entries"), text: "عرض الكل" }) : null));
@@ -2609,55 +2694,71 @@ function gRow(e, vm, showDate){
       h("button", { class: "g-ib", type: "button", "aria-label": "نسخ " + nm + " بتاريخ اليوم", onclick: () => duplicateEntry(e) }, icon("copy", 18)),
       h("button", { class: "g-ib del", type: "button", "aria-label": "حذف " + nm, onclick: () => softDelete(e) }, icon("trash", 18))));
 }
-/* interim: entries and stats keep their previous look until their own stage */
-function renderEntriesView(vm){ return renderListSection(vm); }
+/* interim: stats keeps its previous look until its own stage */
 function renderStatsView(vm){ return renderStats(vm); }
 
-/* ---- entries list ---- */
-function renderListSection(vm){
-  const wrap = h("div", { class: "x-listwrap" });
-  const search = h("input", { class: "field", type: "search", dir: "rtl", enterkeyhint: "search", placeholder: "بحث بالاسم أو الفئة", "aria-label": "بحث", value: X.query,
-    oninput: e => { X.query = e.target.value; fill(); } });
-  const sel = h("select", { class: "field", dir: "rtl", "aria-label": "تصفية بالفئة", onchange: e => { X.cat = e.target.value; fill(); } },
-    h("option", { value: "", text: "كل الفئات" }));
-  for (const c of EXP().categories) sel.append(h("option", { value: c.id, selected: c.id === X.cat, text: c.emoji + " " + c.name + (c.hidden ? " (مخفية)" : "") }));
-  const host = h("div", { class: "x-days" });
-  function fill(){ host.replaceChildren(renderDays(vm)); }
-  wrap.append(h("div", { class: "x-filters" }, search, sel), host);
-  fill();
-  return wrap;
+/* ---- entries view: search, one-tap category chips, repeat-last chip, one glass card per day ---- */
+function lastExpense(vm){
+  let best = null;
+  for (const e of vm.live) {
+    if (e.type === "income") continue;
+    const a = e.createdAt || 0, b = best ? (best.createdAt || 0) : -1;
+    if (!best || a > b || (a === b && e.date > best.date)) best = e;
+  }
+  return best;
 }
-function renderDays(vm){
+function renderEntriesView(vm){
+  const frag = document.createDocumentFragment();
+  const host = h("div", { class: "g-daystack" });
+  const fill = () => host.replaceChildren(renderDayCards(vm));
+
+  const input = h("input", { class: "field", type: "search", dir: "rtl", enterkeyhint: "search", autocomplete: "off", placeholder: "ابحث بالاسم أو الفئة", "aria-label": "بحث",
+    value: X.query, oninput: e => { X.query = e.target.value; fill(); } });
+  frag.append(h("div", { class: "g-search" }, h("span", { class: "si", "aria-hidden": "true" }, icon("search", 20)), input));
+
+  const usedIds = new Set(vm.list.map(e => e.categoryId));
+  const chips = h("div", { class: "g-chips", role: "group", "aria-label": "تصفية بالفئة" });
+  const paint = () => { for (const b of chips.children) b.setAttribute("aria-pressed", String((b.dataset.id || "") === X.cat)); };
+  const addChip = (id, emoji, name) => chips.append(h("button", { class: "g-fchip", type: "button", "data-id": id, "aria-pressed": "false",
+    onclick: () => { X.cat = (X.cat === id ? "" : id); paint(); fill(); } },
+    emoji ? h("span", { class: "e", "aria-hidden": "true", text: emoji }) : null, h("span", { dir: "rtl", text: name })));
+  addChip("", "", "الكل");
+  for (const c of EXP().categories) if (!c.hidden || usedIds.has(c.id) || c.id === X.cat) addChip(c.id, c.emoji, c.name);
+  paint();
+  frag.append(chips);
+
+  const last = lastExpense(vm);
+  if (last) {
+    const nm = last.name || catNameOf(last.categoryId);
+    frag.append(h("button", { class: "g-repeat", type: "button", "aria-label": "كرر آخر مصروف بتاريخ اليوم: " + nm, onclick: () => duplicateEntry(last) },
+      icon("repeat", 20),
+      h("span", { class: "lb", dir: "rtl", text: "كرر:" }),
+      h("span", { class: "nm", dir: "auto", text: nm }),
+      h("span", { class: "dash", "aria-hidden": "true", text: "—" }),
+      money(Number(last.amount) || 0)));
+  }
+  frag.append(host);
+  fill();
+  return frag;
+}
+function renderDayCards(vm){
   const filtered = filterEntries(vm.list, { query: X.query, categoryId: X.cat }, catNameOf);
   if (!filtered.length) {
-    return h("p", { class: "x-none", dir: "rtl", text: vm.list.length ? "لا توجد نتائج مطابقة." : "لا توجد مصاريف في هذه الدورة بعد. اضغط + لإضافة مصروف." });
+    return h("p", { class: "g-none", dir: "rtl", text: vm.list.length ? "لا توجد نتائج مطابقة." : "لا توجد مصاريف في هذه الدورة بعد. اضغط + لإضافة مصروف." });
   }
-  const panel = h("section", { class: "panel x-panel" });
+  const stack = document.createDocumentFragment();
   for (const d of groupByDay(filtered)) {
-    panel.append(h("div", { class: "x-dayhead" },
-      h("h3", { dir: "rtl", text: safeDayLabel(d.date, vm.today) }),
-      h("span", { class: "x-daytot" }, money(d.spent), d.extra > 0 ? h("span", { class: "x-dayinc" }, "+", money(d.extra)) : null)));
-    const ul = h("ul", { class: "x-rows" });
-    for (const e of d.entries) ul.append(entryRow(e, vm));
-    panel.append(ul);
+    const ul = h("ul", { class: "g-rows" });
+    for (const e of d.entries) ul.append(gRow(e, vm, false));
+    stack.append(h("section", { class: "g-card g-tight" },
+      h("div", { class: "g-dayhead" },
+        h("h3", { class: "g-dayname", dir: "rtl", text: safeDayLabel(d.date, vm.today) }),
+        h("span", { class: "g-daytot" }, money(d.spent), d.extra > 0 ? h("span", { class: "plus" }, "+", money(d.extra)) : null)),
+      ul));
   }
-  return panel;
+  return stack;
 }
-function entryRow(e, vm){
-  const c = catOf(e.categoryId), inc = e.type === "income";
-  const nm = e.name || c.name;
-  const li = h("li", { class: "x-row" + (inc ? " inc" : "") },
-    h("span", { class: "x-emoji", "aria-hidden": "true", text: c.emoji }),
-    h("div", { class: "x-main" },
-      h("div", { class: "x-name", dir: "auto", text: nm }),
-      e.name && e.name !== c.name ? h("div", { class: "x-cat", dir: "rtl", text: c.name }) : null),
-    h("span", { class: "x-amt" + (inc ? " plus" : "") }, inc ? "+" : null, money(Number(e.amount) || 0)),
-    h("div", { class: "x-acts" },
-      h("button", { class: "ab", type: "button", "aria-label": "تعديل " + nm, onclick: () => openEntrySheet(e), text: "✎" }),
-      h("button", { class: "ab", type: "button", "aria-label": "نسخ " + nm + " بتاريخ اليوم", onclick: () => duplicateEntry(e), text: "⧉" }),
-      h("button", { class: "ab", type: "button", "aria-label": "حذف " + nm, onclick: () => softDelete(e), text: "×" })));
-  return li;
-}
+
 function jumpTo(entry){
   const exp = EXP();
   const accId = entryAccountId(exp, entry);
@@ -2692,9 +2793,10 @@ function openEntrySheet(editing, preset){
   const f = editing
     ? { type: editing.type === "income" ? "income" : "expense", name: editing.name || "", categoryId: editing.categoryId, date: editing.date, accountId: startAcc.id }
     : { type: (preset && preset.type) || "expense", name: "", categoryId: null, date: (preset && preset.date) || today, accountId: startAcc.id };
+  const multi = exp.accounts.filter(a => !a.archived).length > 1;
   openSheet(editing ? "تعديل" : "إضافة", (body, ctx) => {
     const bExp = h("button", { class: "seg-b", type: "button", text: "مصروف" });
-    const bInc = h("button", { class: "seg-b", type: "button", text: "دخل إضافي" });
+    const bInc = h("button", { class: "seg-b", type: "button", text: "دخل" });
     const setType = t => { f.type = t; bExp.setAttribute("aria-pressed", String(t === "expense")); bInc.setAttribute("aria-pressed", String(t === "income")); };
     bExp.addEventListener("click", () => setType("expense"));
     bInc.addEventListener("click", () => setType("income"));
@@ -2710,19 +2812,23 @@ function openEntrySheet(editing, preset){
     });
     amount.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); amount.blur(); } });
 
+    /* date: today / yesterday / another date (a transparent native date input sits over the third chip, so one tap opens the picker) */
     const note = h("div", { class: "x-note", dir: "rtl" });
-    const nameIn = h("input", { class: "field", type: "text", dir: "auto", placeholder: "الاسم (يُستخدم اسم الفئة إن تُرك فارغًا)", "aria-label": "الاسم", value: f.name,
-      oninput: () => { f.name = nameIn.value; } });
-    const dateIn = h("input", { class: "field", type: "date", dir: "ltr", "aria-label": "التاريخ", value: isValidDate(f.date) ? f.date : "",
-      onchange: () => { f.date = dateIn.value; refreshNote(); } });
-    const setDate = d => { f.date = d; dateIn.value = d; refreshNote(); };
-    const chips = h("div", { class: "chips" },
-      h("button", { class: "chip", type: "button", text: "اليوم", onclick: () => setDate(today) }),
-      h("button", { class: "chip", type: "button", text: "أمس", onclick: () => setDate(addDays(today, -1)) }),
-      h("button", { class: "chip", type: "button", text: "اختيار تاريخ", onclick: () => { dateIn.focus(); try { if (dateIn.showPicker) dateIn.showPicker(); } catch (e) {} } }));
-    const acctSel = h("select", { class: "field", dir: "rtl", "aria-label": "الحساب", onchange: () => { f.accountId = acctSel.value; refreshNote(); } });
-    for (const a of exp.accounts.filter(x => !x.archived || x.id === f.accountId)) acctSel.append(h("option", { value: a.id, selected: a.id === f.accountId, text: a.name }));
-
+    const dateIn = h("input", { class: "g-date-in", type: "date", dir: "ltr", "aria-label": "تاريخ آخر", value: isValidDate(f.date) ? f.date : "",
+      onchange: () => { if (dateIn.value) setDate(dateIn.value); } });
+    dateIn.addEventListener("click", () => { try { if (dateIn.showPicker) dateIn.showPicker(); } catch (e) { /* the native tap already opens it */ } });
+    const chipToday = h("button", { class: "g-dchip", type: "button", "aria-pressed": "false", text: "اليوم", onclick: () => setDate(today) });
+    const chipYest = h("button", { class: "g-dchip", type: "button", "aria-pressed": "false", text: "أمس", onclick: () => setDate(addDays(today, -1)) });
+    const otherTxt = h("span", { dir: "rtl", text: "تاريخ آخر" });
+    const chipOther = h("label", { class: "g-dchip", "data-on": "0" }, otherTxt, dateIn);
+    function paintDate(){
+      const isT = f.date === today, isY = f.date === addDays(today, -1);
+      chipToday.setAttribute("aria-pressed", String(isT));
+      chipYest.setAttribute("aria-pressed", String(isY));
+      chipOther.dataset.on = (!isT && !isY) ? "1" : "0";
+      otherTxt.textContent = (!isT && !isY && isValidDate(f.date)) ? shortArabicDate(f.date) : "تاريخ آخر";
+    }
+    function setDate(d){ f.date = d; dateIn.value = isValidDate(d) ? d : ""; paintDate(); refreshNote(); }
     function refreshNote(){
       const acc = exp.accounts.find(a => a.id === f.accountId) || startAcc;
       note.className = "x-note";
@@ -2735,10 +2841,17 @@ function openEntrySheet(editing, preset){
       if (f.date === today) note.textContent = "التاريخ: اليوم · " + where;
       else { note.textContent = "سيُسجَّل بتاريخ: " + day + (day === fullArabicDate(f.date) ? "" : " (" + fullArabicDate(f.date) + ")") + " · " + where; note.classList.add("warn"); }
     }
-    const options = h("div", { class: "x-options", hidden: true }, nameIn, chips, dateIn, exp.accounts.filter(a => !a.archived).length > 1 || editing ? acctSel : null);
-    const optBtn = h("button", { class: "x-optbtn", type: "button", "aria-expanded": "false", text: "خيارات: الاسم، التاريخ، الحساب",
-      onclick: () => { const open = options.hidden; options.hidden = !open; optBtn.setAttribute("aria-expanded", String(open)); } });
-    if (editing || f.date !== today) { options.hidden = false; optBtn.setAttribute("aria-expanded", "true"); }
+
+    /* collapsed options: name and account */
+    const nameIn = h("input", { class: "field", type: "text", dir: "auto", placeholder: "الاسم (يُستخدم اسم الفئة إن تُرك فارغًا)", "aria-label": "الاسم", value: f.name,
+      oninput: () => { f.name = nameIn.value; } });
+    const acctSel = h("select", { class: "field x-select", dir: "rtl", "aria-label": "الحساب", onchange: () => { f.accountId = acctSel.value; refreshNote(); } });
+    for (const a of exp.accounts.filter(x => !x.archived || x.id === f.accountId)) acctSel.append(h("option", { value: a.id, selected: a.id === f.accountId, text: a.name }));
+    const options = h("div", { class: "x-options", hidden: true }, nameIn, multi || editing ? acctSel : null);
+    const optBtn = h("button", { class: "x-optbtn", type: "button", "aria-expanded": "false",
+      onclick: () => { const open = options.hidden; options.hidden = !open; optBtn.setAttribute("aria-expanded", String(open)); } },
+      h("span", { dir: "rtl", text: multi || editing ? "خيارات أخرى: الاسم والحساب" : "خيارات أخرى: الاسم" }), icon("chevL", 18));
+    if (editing && (f.name || multi)) { options.hidden = false; optBtn.setAttribute("aria-expanded", "true"); }
 
     const grid = h("div", { class: "cat-grid", role: "group", "aria-label": "الفئة" });
     const visible = exp.categories.filter(c => !c.hidden || (editing && c.id === editing.categoryId));
@@ -2756,7 +2869,7 @@ function openEntrySheet(editing, preset){
     function commit(){
       const v = parseEntryAmount(amount.value);
       if (v === null) { hint.textContent = "أدخل مبلغًا صحيحًا أكبر من صفر."; amount.focus(); return; }
-      if (!isValidDate(f.date)) { options.hidden = false; optBtn.setAttribute("aria-expanded", "true"); hint.textContent = "تاريخ غير صالح."; return; }
+      if (!isValidDate(f.date)) { hint.textContent = "تاريخ غير صالح."; return; }
       if (!f.categoryId) { hint.textContent = "اختر فئة."; return; }
       const nm = f.name.trim();
       let entry;
@@ -2773,14 +2886,18 @@ function openEntrySheet(editing, preset){
       renderExp();
       const accName = (exp.accounts.find(a => a.id === f.accountId) || {}).name;
       showToast([(editing ? "حُفظ التعديل: " : (f.type === "income" ? "أُضيف دخل: " : "أُضيف: ")), money(v),
-                 exp.accounts.filter(a => !a.archived).length > 1 && accName ? h("span", { dir: "auto", text: " · " + accName }) : null]);
+                 multi && accName ? h("span", { dir: "auto", text: " · " + accName }) : null]);
     }
 
     body.append(
       h("div", { class: "seg", role: "group", "aria-label": "النوع" }, bExp, bInc),
       h("div", { class: "x-amtrow" }, amount, h("span", { class: "x-unit", dir: "rtl", text: AED })),
-      hint, note, optBtn, options, grid,
-      editing ? h("div", { class: "toolbar" }, h("button", { class: "pill primary", type: "button", text: "حفظ", onclick: commit })) : null);
+      hint,
+      h("div", { class: "g-dchips", role: "group", "aria-label": "التاريخ" }, chipToday, chipYest, chipOther),
+      note,
+      editing ? h("div", { class: "toolbar" }, h("button", { class: "g-btn primary", type: "button", text: "حفظ", onclick: commit })) : null,
+      grid, optBtn, options);
+    paintDate();
     refreshNote();
     amount.focus({ preventScroll: true });
     if (editing) { try { amount.select(); } catch (e) {} }
@@ -2863,17 +2980,24 @@ function openCycleSheet(opts){
 }
 
 /* ================= menus: more, accounts, categories, deleted ================= */
-function menuBtn(text, fn, sub){
-  return h("button", { class: "menu-b", type: "button", onclick: fn }, h("span", { dir: "rtl", text: text }), sub ? h("span", { class: "sub", dir: "rtl", text: sub }) : null);
+function moreRow(iconName, text, fn, sub){
+  return h("button", { class: "g-mrow", type: "button", onclick: fn },
+    h("span", { class: "ic", "aria-hidden": "true" }, icon(iconName, 22)),
+    h("span", { class: "tx", dir: "rtl", text: text }),
+    sub ? h("span", { class: "sub" }, h("bdi", { dir: "ltr", text: sub })) : null,
+    h("span", { class: "ch", "aria-hidden": "true" }, icon("chevL", 20)));
 }
 function openMoreMenu(){
+  const vm = viewModel();
   const delCount = deletedEntries(EXP().entries).length;
-  openSheet("المزيد", (body) => {
+  openSheet("المزيد", body => {
     body.append(
-      menuBtn("المحذوفات", openDeletedSheet, delCount ? String(delCount) : "لا شيء"),
-      menuBtn("الحسابات", openAccountsSheet),
-      menuBtn("الفئات", openCategoriesSheet),
-      menuBtn("الإعدادات والبيانات", openSettingsSheet));
+      moreRow("wallet", "الحسابات", openAccountsSheet),
+      moreRow("grid", "الفئات", openCategoriesSheet),
+      moreRow("trash", "المحذوفات", openDeletedSheet, delCount ? String(delCount) : null),
+      moreRow("calendar", vm.cycle ? "تعديل الدورة" : "إضافة دورة", () => openCycleSheet(vm.cycle ? { cycle: vm.cycle } : newCycleDefaults(vm))),
+      moreRow("receipt", "الإيصال", () => { closeSheet(true); makeExpReceipt(vm); }),
+      moreRow("sliders", "البيانات والإعدادات", openSettingsSheet));
   });
 }
 function addAccount(){

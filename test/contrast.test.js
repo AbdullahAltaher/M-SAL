@@ -69,6 +69,8 @@ for (const name of ["dark", "light"]) {
   });
   test(name + ": glass header, floating bar and sheets stay legible over every background and over the blue hero card", () => {
     const stuff = Object.assign({}, under, { "hero A": heroA, "hero B": heroB, "white card": [255, 255, 255, 1] , "black": [0, 0, 0, 1] });
+    /* sheets sit on the page behind a translucent scrim: check the glass over the scrim over the brightest things */
+    for (const [uName, U] of Object.entries({ "bg": bg0, "blob": blobPeak, "hero A": heroA, "white": [255, 255, 255, 1] })) stuff["scrim over " + uName] = over(U, T["--x-scrim"]);
     for (const [uName, U] of Object.entries(stuff)) {
       const glass = over(U, T["--x-glass"]);
       for (const k of ["--x-text", "--x-muted"]) {
