@@ -250,7 +250,6 @@ header.top.shrunk #finalBalance{font-size:28px}
 .tab:active{transform:scale(.97)}
 .tab[aria-selected="true"]{background:var(--green);border-color:var(--green);color:var(--on-green)}
 header.top.on-exp .ledger-only{display:none}
-.soon{color:var(--sec);font:400 15px var(--ar);text-align:center;padding:18px 0}
 /* ================= expenses ================= */
 [hidden]{display:none !important}
 html.noscroll,html.noscroll body{overflow:hidden}
@@ -267,7 +266,6 @@ html.noscroll,html.noscroll body{overflow:hidden}
 .tline .money.val{font-weight:600;font-size:17px;color:var(--ink)}
 .tline .money.val.neg{color:var(--neg)}
 .hint{color:var(--sec);font:400 14px/1.5 var(--ar);margin-top:6px}
-.x-top{display:flex;align-items:center;gap:6px}
 .x-select{
   -webkit-appearance:none;appearance:none;flex:1;min-width:0;
   background:transparent;background-image:var(--chev);background-repeat:no-repeat;background-position:left 2px center;
@@ -276,51 +274,18 @@ html.noscroll,html.noscroll body{overflow:hidden}
 }
 .x-select:focus{border-bottom-color:var(--green)}
 .x-select option{background:var(--surface);color:var(--ink)}
-.x-nav{display:flex;align-items:stretch;gap:8px}
-.nav-b{flex:none;width:44px;min-height:44px;border-radius:10px;background:var(--surface);border:1px solid var(--border);color:var(--ink);font:500 24px/1 var(--num);cursor:pointer}
-.nav-b:disabled{opacity:.35;cursor:default}
-.nav-b:active:not(:disabled){transform:scale(.96)}
-.nav-l{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:1px solid transparent;border-radius:10px;color:var(--ink);font:500 15px var(--ar);padding:4px;cursor:pointer}
-.nav-l .pos{font-size:12px;color:var(--sec)}
 .rng{display:inline-flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
 .rng .sep{color:var(--brass);font-family:var(--num)}
-.x-big{direction:ltr;unicode-bidi:isolate;display:inline-flex;align-items:baseline;gap:6px;font-family:var(--num);font-weight:600;font-size:46px;font-variant-numeric:tabular-nums;font-feature-settings:"tnum";color:var(--green)}
-.x-big.neg{color:var(--neg)}
-.x-big .u{font:500 18px var(--ar);color:var(--sec)}
-.x-sum .balance-line{margin-bottom:10px}
-.x-bar{height:8px;border-radius:6px;background:var(--border);overflow:hidden;margin:6px 0 4px}
-.x-bar>i{display:block;height:100%;background:var(--green);border-radius:6px;transition:width .3s}
-.x-bar.over>i{background:var(--neg)}
-.x-empty p{margin-bottom:10px;font:400 16px/1.6 var(--ar)}
-.x-empty p.hint{font:400 14px/1.5 var(--ar)}
 .seg{display:flex;gap:6px}
 .seg-b{flex:1;min-width:0;padding:9px 8px;border-radius:10px;background:var(--surface);border:1px solid var(--border);color:var(--ink);font:500 15px var(--ar);cursor:pointer}
 .seg-b[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--on-green)}
 .field{display:block;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--ink);font:400 17px var(--ar);-webkit-appearance:none;appearance:none;min-height:44px}
 select.field{background-image:var(--chev);background-repeat:no-repeat;background-position:left 12px center;padding-left:32px}
 .field:focus{border-color:var(--green)}
-.x-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-.x-filters .field{flex:1 1 140px;min-width:0}
-.x-panel{padding:4px 16px 10px}
-.x-dayhead{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:12px 0 4px;border-bottom:1px solid var(--border)}
-.x-dayhead h3{font:600 15px var(--ar);color:var(--sec)}
-.x-daytot{display:inline-flex;gap:8px;align-items:baseline}
-.x-daytot .money{font-weight:600;font-size:16px}
-.x-dayinc{color:var(--green);display:inline-flex;direction:ltr;unicode-bidi:isolate}
-.x-rows{list-style:none}
-.x-row{display:grid;grid-template-columns:auto 1fr auto;column-gap:10px;align-items:center;padding:8px 0;border-bottom:1px dotted var(--border)}
-.x-rows .x-row:last-child{border-bottom:none}
-.x-emoji{font-size:24px;line-height:1;width:32px;text-align:center}
-.x-name{font:500 17px var(--ar);overflow-wrap:anywhere}
-.x-cat{font:400 13px var(--ar);color:var(--sec)}
-.x-amt{font-size:17px;display:inline-flex;align-items:baseline;gap:2px;direction:ltr;unicode-bidi:isolate}
-.x-amt.plus{color:var(--green)}
-.x-acts{grid-column:2 / 4;display:flex;gap:6px;justify-content:flex-end;margin-top:4px}
 .ab{min-width:40px;min-height:36px;background:none;border:1px solid var(--border);border-radius:8px;color:var(--sec);font:400 17px/1 var(--num);cursor:pointer}
 .ab:disabled{opacity:.35;cursor:default}
 .ab:active:not(:disabled){transform:scale(.96)}
 .x-none{color:var(--sec);text-align:center;padding:18px 0;font:400 15px var(--ar)}
-#viewExp{padding-bottom:84px}
 .fab{position:fixed;z-index:20;right:calc(16px + env(safe-area-inset-right));bottom:calc(18px + env(safe-area-inset-bottom));width:58px;height:58px;border-radius:50%;background:var(--green);color:var(--on-green);border:none;font:400 32px/1 var(--num);cursor:pointer;box-shadow:0 6px 18px rgba(36,35,31,.28);transition:transform .12s cubic-bezier(.23,1,.32,1)}
 .fab:active{transform:scale(.94)}
 .fab:focus-visible{outline-offset:3px}
@@ -356,8 +321,6 @@ select.field{background-image:var(--chev);background-repeat:no-repeat;background
 .cat .e{font-size:24px;line-height:1}
 .cat:active{transform:scale(.97)}
 .cat[aria-pressed="true"]{border-color:var(--green);box-shadow:0 0 0 1px var(--green) inset}
-.menu-b{display:flex;justify-content:space-between;align-items:center;width:100%;padding:14px 4px;background:none;border:none;border-bottom:1px solid var(--border);color:var(--ink);font:500 17px var(--ar);cursor:pointer;text-align:start}
-.menu-b .sub{color:var(--sec);font-size:14px}
 .m-list{list-style:none}
 .m-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px dotted var(--border);flex-wrap:wrap}
 .m-row.off{opacity:.55}
@@ -372,34 +335,7 @@ select.field{background-image:var(--chev);background-repeat:no-repeat;background
 .cmp{width:100%;border-collapse:collapse;margin:10px 0;font:400 15px var(--ar)}
 .cmp th,.cmp td{padding:6px 8px;border-bottom:1px solid var(--border);text-align:start}
 .cmp td[dir="ltr"]{font-family:var(--num);font-variant-numeric:tabular-nums;text-align:right}
-/* stats */
-.x-sh{font:600 16px var(--ar);margin-bottom:10px}
-.x-stat > .totals:first-child{border-top:none;margin-top:0;padding-top:0}
-.donut-wrap{display:flex;flex-direction:column;align-items:center;gap:12px}
-.donut{width:180px;height:180px}
-.donut-t{font:600 15px var(--num);fill:var(--ink)}
-.legend{list-style:none;width:100%}
-.legend li{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px dotted var(--border)}
-.legend .dot{width:12px;height:12px;border-radius:50%;flex:none}
-.lg-n{flex:1;min-width:0;font:400 15px var(--ar);overflow-wrap:anywhere}
-.lg-p{font:500 14px var(--num);color:var(--sec);min-width:38px;text-align:end}
-.bars,.trend{width:100%;height:auto}
-.bar{fill:var(--green)}
-.bar.today{fill:var(--brass)}
-.bar-v{font:500 10px var(--num);fill:var(--sec)}
-.bar-l{font:500 11px var(--num);fill:var(--sec)}
-.tl{stroke:var(--green);stroke-width:2}
-.tp{fill:var(--green)}
-.tp.last{fill:var(--brass)}
-.chg{list-style:none}
-.chg li{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dotted var(--border)}
-.tag{font:500 12px var(--ar);padding:1px 8px;border-radius:999px;border:1px solid var(--border)}
-.chg-up .tag,.chg-up .money{color:var(--neg);border-color:var(--neg)}
-.chg-down .tag,.chg-down .money{color:var(--green);border-color:var(--green)}
-.chg-new .tag{color:var(--brass);border-color:var(--brass)}
-.chg .money{border:none}
 @media (max-width:359px){
-  .x-big{font-size:38px}
   .cat-grid{grid-template-columns:repeat(3,1fr)}
 }
 /* ================= expenses: liquid glass redesign ================= */
@@ -410,12 +346,13 @@ body.x-on{
   --x-card:rgba(255,255,255,.05);--x-line:rgba(120,160,255,.18);--x-line-soft:rgba(120,160,255,.10);
   --x-hi:inset 0 1px 0 rgba(255,255,255,.10);--x-shadow:0 22px 44px -18px rgba(0,0,0,.55);
   --x-text:#F3F6FF;--x-muted:rgba(255,255,255,.66);
-  --x-accent:#4D8DF0;--x-accent-ink:#8DB8FF;
+  --x-accent:#4D8DF0;--x-accent-ink:#A2C6FF;
   --x-exp:#FF8F85;--x-inc:#5CDC9F;--x-warn:#FFC56B;
   --x-tile:rgba(6,11,24,.72);--x-field:rgba(255,255,255,.07);--x-track:rgba(255,255,255,.13);
   --x-glass:rgba(16,26,48,.62);--x-glass-solid:rgba(16,26,48,.96);
   --x-hero-a:#2F6BE0;--x-hero-b:#1D47A8;--x-on-hero:#FFFFFF;--x-on-hero-muted:rgba(255,255,255,.95);
-  --x-btn-a:#2F6BE0;--x-btn-b:#1F4DB8;--x-scrim:rgba(3,8,20,.55);
+  --x-btn-a:#2F6BE0;--x-btn-b:#1F4DB8;--x-scrim:rgba(3,8,20,.55);--x-card-solid:#161F36;
+  --x-s1:#4D8DF0;--x-s2:#9A86FF;--x-s3:#2BC4C9;--x-s4:#FFC56B;--x-s5:#FF8F85;--x-s6:#5CDC9F;--x-s7:#D894F5;--x-s8:#9FB3D9;
   --x-chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23B9C6E2' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
   /* the shared tokens are re-pointed here, so existing components (header, pills, sheets) pick up the glass look */
   --bg:var(--x-bg0);--surface:var(--x-card);--ink:var(--x-text);--sec:var(--x-muted);--border:var(--x-line);
@@ -431,7 +368,8 @@ body.x-on{
     --x-accent:#2459C8;--x-accent-ink:#1F4FB4;
     --x-exp:#C73A2E;--x-inc:#12794A;--x-warn:#9A5B00;
     --x-tile:rgba(47,111,224,.10);--x-field:rgba(255,255,255,.85);--x-track:rgba(30,60,130,.14);
-    --x-glass:rgba(255,255,255,.66);--x-glass-solid:rgba(250,252,255,.96);--x-scrim:rgba(25,45,90,.38);
+    --x-glass:rgba(255,255,255,.66);--x-glass-solid:rgba(250,252,255,.96);--x-scrim:rgba(25,45,90,.38);--x-card-solid:#F7F9FD;
+    --x-s1:#2459C8;--x-s2:#6B4FD8;--x-s3:#0C8A90;--x-s4:#B26A00;--x-s5:#CB4336;--x-s6:#157F4B;--x-s7:#9448C4;--x-s8:#566A8E;
     --x-chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235A6785' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
   }
 }
@@ -563,7 +501,6 @@ body.x-on .toast-host{bottom:calc(104px + env(safe-area-inset-bottom))}
 .g-ib:active{transform:scale(.96)}
 .g-ib.del{color:var(--x-exp)}
 /* old components that still show in this state pick up the glass look through the re-pointed tokens */
-body.x-on .panel{background:var(--x-card);border-color:var(--x-line);border-radius:26px;box-shadow:var(--x-hi),var(--x-shadow)}
 body.x-on .pill{min-height:44px;background:var(--x-field);border-color:var(--x-line);color:var(--x-text);border-radius:999px}
 body.x-on .pill.primary{background:linear-gradient(180deg,var(--x-btn-a),var(--x-btn-b));border-color:rgba(255,255,255,.18);color:#fff}
 body.x-on .seg-b{min-height:44px;background:var(--x-field);border-color:var(--x-line);color:var(--x-text);border-radius:999px}
@@ -661,6 +598,54 @@ body.x-on .toast{background:var(--x-glass-solid);color:var(--x-text);border:1px 
 body.x-on .t-act{min-width:44px;min-height:44px;color:var(--x-accent-ink)}
 body.x-on .toast .money .u{color:var(--x-muted)}
 .g-tight .g-card-head{padding:2px 4px 0}
+/* ---- stats ---- */
+.g-total .g-big{margin:2px 0 6px}
+.g-donut{position:relative;width:196px;height:196px;margin:2px auto 12px}
+.g-donut-svg{display:block;width:100%;height:100%}
+.g-donut-track{stroke:var(--x-track)}
+.g-donut-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;pointer-events:none}
+.g-donut-c .lb{font:500 13px var(--ar);color:var(--x-muted)}
+.g-donut-c .money{flex-direction:column;align-items:center;gap:0;font-size:22px;font-weight:600;color:var(--x-text)}
+.g-donut-c .money .u{font-size:12px}
+.g-legend{list-style:none}
+.g-legend li{display:flex;align-items:center;gap:10px;min-height:40px;border-bottom:1px solid var(--x-line-soft)}
+.g-legend li:last-child{border-bottom:none}
+.g-legend .dot{flex:none;width:12px;height:12px;border-radius:50%}
+.g-legend .nm{flex:1;min-width:0;font:500 15px var(--ar);color:var(--x-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.g-legend .pc{flex:none;font:600 15px var(--num);color:var(--x-muted);font-variant-numeric:tabular-nums}
+.g-chart{display:block;width:100%;height:auto}
+.g-trk{fill:var(--x-track)}
+.g-barfill{fill:url(#gGradBar)}
+.g-barfill.today{fill:var(--x-accent-ink)}
+.g-val{font:600 11px var(--num);fill:var(--x-text)}
+.g-lab{font:500 11px var(--num);fill:var(--x-muted)}
+.g-lab.today{fill:var(--x-text);font-weight:700}
+.g-axis{stroke:var(--x-line);stroke-width:1;stroke-dasharray:3 4}
+.g-curve{stroke:var(--x-accent-ink);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.g-pt{fill:var(--x-card-solid);stroke:var(--x-accent-ink);stroke-width:2.4}
+.g-pt.last{fill:var(--x-accent-ink)}
+.g-halo{fill:var(--x-accent);opacity:.28}
+.g-tile.sm{width:36px;height:36px;font-size:18px}
+.g-chg{list-style:none}
+.g-chg li{display:flex;align-items:center;gap:10px;min-height:52px;border-bottom:1px solid var(--x-line-soft)}
+.g-chg li:last-child{border-bottom:none}
+.g-chg .nm{flex:1;min-width:0;font:500 15px var(--ar);color:var(--x-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.g-chg .tag{flex:none;padding:1px 10px;border-radius:999px;border:1px solid var(--x-line);font:600 12px var(--ar);color:var(--x-muted)}
+.g-chg .money{flex:none;font-weight:600;font-size:15px}
+.g-chg .k-up .tag,.g-chg .k-up .money{color:var(--x-exp)}
+.g-chg .k-up .tag{border-color:var(--x-exp)}
+.g-chg .k-down .tag,.g-chg .k-down .money{color:var(--x-inc)}
+.g-chg .k-down .tag{border-color:var(--x-inc)}
+.g-chg .k-new .tag{color:var(--x-accent-ink);border-color:var(--x-accent);background:rgba(77,141,240,.08)}
+.g-chg .k-new .money{color:var(--x-exp)}
+.g-chg .money .u{color:inherit;opacity:.78;font-size:11px}
+.g-use{list-style:none}
+.g-use li{padding:10px 0 12px;border-bottom:1px solid var(--x-line-soft)}
+.g-use li:last-child{border-bottom:none;padding-bottom:2px}
+.g-use .top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.g-use .nm{flex:1;min-width:0;font:500 15px var(--ar);color:var(--x-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.g-use .money{flex:none;font-weight:600;font-size:15px;color:var(--x-text)}
+.g-use .money .u{font-size:11px}
 /* ================= small screens ================= */
 @media (max-width:359px){
   #finalBalance{font-size:38px}
@@ -1259,6 +1244,28 @@ function categoryChanges(cycles, entries, cycleId){
   }
   out.sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta) || (String(a.categoryId) < String(b.categoryId) ? -1 : 1));
   return out;
+}
+
+/* ---------- chart helpers ---------- */
+/* compact axis/value label: 46.25 -> "46", 1234 -> "1.2K" (Latin only, so it never mixes with Arabic text) */
+function chartNum(v){
+  const n = Math.abs(Number(v) || 0), r = Math.round(n);
+  const t = r >= 1000 ? (Math.round(n / 100) / 10).toString().replace(/\.0$/, "") + "K" : String(r);
+  return (Number(v) < 0 && r !== 0 ? "-" : "") + t;
+}
+/* smooth curve through points (Catmull-Rom as cubic Beziers). Control points are clamped to [yMin, yMax],
+   so the curve never dips under the baseline or above the top, whatever the data. */
+function smoothPath(pts, yMin, yMax){
+  if (!pts.length) return "";
+  const f = n => Math.round(n * 100) / 100;
+  const cl = y => Math.min(yMax, Math.max(yMin, y));
+  let d = "M" + f(pts[0][0]) + " " + f(pts[0][1]);
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+    d += " C" + f(p1[0] + (p2[0] - p0[0]) / 6) + " " + f(cl(p1[1] + (p2[1] - p0[1]) / 6)) + " " +
+         f(p2[0] - (p3[0] - p1[0]) / 6) + " " + f(cl(p2[1] - (p3[1] - p1[1]) / 6)) + " " + f(p2[0]) + " " + f(p2[1]);
+  }
+  return d;
 }
 
 /* ---------- receipt model ---------- */
@@ -2466,7 +2473,6 @@ function money(v, cls){
 function tline(label, valueEl, cls){
   return h("div", { class: "tline " + (cls || "") }, h("span", { class: "lbl", dir: "rtl", text: label }), valueEl);
 }
-function numVal(n, cls){ return h("span", { class: "val " + (cls || ""), dir: "ltr", text: String(n) }); }
 function rangeLabel(c, bounds){
   return h("span", { class: "rng" },
     h("span", { dir: "rtl", text: shortArabicDate(bounds.start, true) }),
@@ -2479,7 +2485,6 @@ function parseAllowance(raw){
   if (/^0+$/.test(s)) return 0;
   return parseEntryAmount(raw);
 }
-const SLICE_COLORS = ["#38594A", "#B99A5B", "#B8473F", "#5F7F8F", "#8A6F9B", "#7A8F4E", "#C98B4B", "#4F7A72", "#A76F6F", "#8C8A80"];
 
 /* ================= icons (inline SVG paths, no files) ================= */
 const ICONS = {
@@ -2694,9 +2699,6 @@ function gRow(e, vm, showDate){
       h("button", { class: "g-ib", type: "button", "aria-label": "نسخ " + nm + " بتاريخ اليوم", onclick: () => duplicateEntry(e) }, icon("copy", 18)),
       h("button", { class: "g-ib del", type: "button", "aria-label": "حذف " + nm, onclick: () => softDelete(e) }, icon("trash", 18))));
 }
-/* interim: stats keeps its previous look until its own stage */
-function renderStatsView(vm){ return renderStats(vm); }
-
 /* ---- entries view: search, one-tap category chips, repeat-last chip, one glass card per day ---- */
 function lastExpense(vm){
   let best = null;
@@ -3241,13 +3243,20 @@ function svg(tag, attrs){
   for (let i = 2; i < arguments.length; i++) { const kid = arguments[i]; if (kid) el.append(typeof kid === "string" ? document.createTextNode(kid) : kid); }
   return el;
 }
-function statCard(title, kids){
-  return h("section", { class: "panel x-stat" }, h("h3", { class: "x-sh", dir: "rtl", text: title }), kids);
+const SLICES = 8;
+const sliceVar = i => "var(--x-s" + ((i % SLICES) + 1) + ")";
+const entryAmt = e => Number(e.amount) || 0;
+function gCard(title, kids, cls){
+  return h("section", { class: "g-card" + (cls ? " " + cls : "") },
+    title ? h("div", { class: "g-card-head" }, h("span", { class: "g-card-title", dir: "rtl", text: title })) : null, kids);
 }
-function renderStats(vm){
+/* charts run right to left like the rest of the interface: the oldest point sits on the right */
+const chartX = (i, n, left, right) => n > 1 ? right - i * (right - left) / (n - 1) : (left + right) / 2;
+
+function renderStatsView(vm){
   const spentList = expenseList(vm.list);
-  const total = sumMoney(spentList.map(e => Number(e.amount) || 0));
-  const extra = sumMoney(vm.list.filter(e => e.type === "income").map(e => Number(e.amount) || 0));
+  const total = sumMoney(spentList.map(entryAmt));
+  const extra = sumMoney(vm.list.filter(e => e.type === "income").map(entryAmt));
   let firstDay, endDay, days;
   if (vm.cycle) {
     const s = cycleSummary(vm.acc.cycles, vm.cycle, vm.live, vm.today);
@@ -3258,78 +3267,123 @@ function renderStats(vm){
     firstDay = ds[0] || vm.today; endDay = ds[ds.length - 1] || vm.today; days = Math.max(1, daysBetween(firstDay, endDay) + 1);
   }
   const frag = document.createDocumentFragment();
-  frag.append(h("section", { class: "panel x-stat" },
-    h("div", { class: "totals" },
-      tline("إجمالي المصروف", money(total, "val")),
-      tline("المتوسط اليومي", money(roundMoney(total / days), "val")),
-      extra > 0 ? tline("دخل إضافي", money(extra, "val")) : null)));
-  if (!spentList.length) { frag.append(h("p", { class: "x-none", dir: "rtl", text: "لا توجد مصاريف في هذه الدورة لعرض الإحصاءات." })); return frag; }
 
-  /* category donut */
+  /* total */
+  frag.append(gCard("إجمالي المصروف", [
+    h("div", { class: "g-big" }, h("bdi", { class: "n", dir: "ltr", text: formatMoney(total) }), h("span", { class: "u", dir: "rtl", text: AED })),
+    h("div", { class: "g-line" }, h("span", { dir: "rtl", text: "المتوسط اليومي" }), money(roundMoney(total / days))),
+    h("div", { class: "g-line" }, h("span", { dir: "rtl", text: "عدد المصاريف" }), h("bdi", { dir: "ltr", text: String(spentList.length) })),
+    extra > 0 ? h("div", { class: "g-line" }, h("span", { dir: "rtl", text: "دخل إضافي" }), money(extra)) : null
+  ], "g-total"));
+  if (!spentList.length) {
+    frag.append(h("p", { class: "g-none", dir: "rtl", text: "لا توجد مصاريف في هذه الدورة لعرض الإحصاءات." }));
+    return frag;
+  }
+
   const cats = categoryTotals(vm.list);
-  const R = 42, CIRC = 2 * Math.PI * R;
-  const donut = svg("svg", { viewBox: "0 0 120 120", class: "donut", role: "img", "aria-label": "توزيع المصروف حسب الفئة" });
-  donut.append(svg("circle", { cx: 60, cy: 60, r: R, fill: "none", stroke: "var(--border)", "stroke-width": 18 }));
+  frag.append(donutCard(cats, total), gCard("آخر 7 أيام", barsChart(lastDays(vm.list, firstDay, endDay, 7), vm.today)));
+
+  if (vm.cycle) {
+    const tr = cycleTrend(vm.acc.cycles, vm.live, vm.cycle.id, 6);
+    if (tr.length) frag.append(gCard("اتجاه آخر 6 دورات", trendChart(tr)));
+    frag.append(changesCard(vm));
+  }
+  frag.append(usageCard(cats));
+  frag.append(h("button", { class: "g-btn primary", type: "button", onclick: () => makeExpReceipt(vm) }, icon("share", 20), h("span", { dir: "rtl", text: "شارك ملخصك" })));
+  return frag;
+}
+
+/* category donut: centre total (HTML, so Arabic and numbers never share one text node) + legend with percentages */
+function donutCard(cats, total){
+  const R = 42, CIRC = 2 * Math.PI * R, gap = cats.length > 1 ? 1.4 : 0;
+  const ring = svg("svg", { viewBox: "0 0 120 120", class: "g-donut-svg", role: "img", "aria-label": "توزيع المصروف حسب الفئة" });
+  ring.append(svg("circle", { cx: 60, cy: 60, r: R, fill: "none", class: "g-donut-track", "stroke-width": 14 }));
   let off = 0;
   cats.forEach((c, i) => {
     const len = CIRC * (c.total / total);
-    donut.append(svg("circle", { cx: 60, cy: 60, r: R, fill: "none", stroke: SLICE_COLORS[i % SLICE_COLORS.length], "stroke-width": 18,
-      "stroke-dasharray": len.toFixed(2) + " " + (CIRC - len).toFixed(2), "stroke-dashoffset": (-off).toFixed(2), transform: "rotate(-90 60 60)" }));
+    ring.append(svg("circle", { cx: 60, cy: 60, r: R, fill: "none", "stroke-width": 14, style: "stroke:" + sliceVar(i),
+      "stroke-dasharray": Math.max(0.5, len - gap).toFixed(2) + " " + (CIRC - Math.max(0.5, len - gap)).toFixed(2),
+      "stroke-dashoffset": (-off).toFixed(2), transform: "rotate(-90 60 60)" }));
     off += len;
   });
-  const t = svg("text", { x: 60, y: 65, "text-anchor": "middle", class: "donut-t" }, formatMoney(total));
-  donut.append(t);
-  const legend = h("ul", { class: "legend" }, cats.map((c, i) => h("li", null,
-    h("span", { class: "dot", style: "background:" + SLICE_COLORS[i % SLICE_COLORS.length] }),
-    h("span", { class: "lg-n", dir: "auto", text: catOf(c.categoryId).emoji + " " + catOf(c.categoryId).name }),
-    h("bdi", { class: "lg-p", dir: "ltr", text: c.pct + "%" }),
-    money(c.total))));
-  frag.append(statCard("حسب الفئة", h("div", { class: "donut-wrap" }, donut, legend)));
+  const legend = h("ul", { class: "g-legend" }, cats.map((c, i) => h("li", null,
+    h("span", { class: "dot", style: "background:" + sliceVar(i), "aria-hidden": "true" }),
+    h("span", { class: "nm", dir: "auto", text: catOf(c.categoryId).emoji + " " + catOf(c.categoryId).name }),
+    h("bdi", { class: "pc", dir: "ltr", text: c.pct + "%" }))));
+  return gCard("حسب الفئة", [
+    h("div", { class: "g-donut" }, ring, h("div", { class: "g-donut-c" }, h("span", { class: "lb", dir: "rtl", text: "الإجمالي" }), money(total))),
+    legend
+  ]);
+}
 
-  /* last 7 days */
-  const ld = lastDays(vm.list, firstDay, endDay, 7);
+/* last 7 days: rounded bars over a faint track, today in the brighter accent */
+function barsChart(ld, today){
+  const W = 300, base = 112, maxH = 78, n = ld.length, bw = W / n;
   const maxV = Math.max.apply(null, ld.map(d => d.total).concat([1]));
-  const bw = 280 / ld.length;
-  const bars = svg("svg", { viewBox: "0 0 280 130", class: "bars", role: "img", "aria-label": "المصروف في آخر 7 أيام" });
+  const s = svg("svg", { viewBox: "0 0 300 140", class: "g-chart", role: "img", "aria-label": "المصروف في آخر 7 أيام" },
+    svg("defs", null, svg("linearGradient", { id: "gGradBar", x1: 0, y1: 0, x2: 0, y2: 1 },
+      svg("stop", { offset: "0%", style: "stop-color:var(--x-accent-ink)" }), svg("stop", { offset: "100%", style: "stop-color:var(--x-accent)" }))));
   ld.forEach((d, i) => {
-    const ht = Math.round(80 * d.total / maxV);
-    const x = i * bw + bw * 0.18, w = bw * 0.64;
-    bars.append(svg("rect", { x: x.toFixed(1), y: 100 - ht, width: w.toFixed(1), height: Math.max(ht, d.total > 0 ? 2 : 0), rx: 3, class: "bar" + (d.date === vm.today ? " today" : "") }));
-    if (d.total > 0) bars.append(svg("text", { x: (x + w / 2).toFixed(1), y: 95 - ht, "text-anchor": "middle", class: "bar-v" }, formatMoney(d.total)));
-    bars.append(svg("text", { x: (x + w / 2).toFixed(1), y: 118, "text-anchor": "middle", class: "bar-l" }, String(parseDate(d.date).d)));
+    const w = Math.min(28, bw * 0.62), x = chartX(i, n, bw / 2, W - bw / 2) - w / 2;
+    const ht = d.total > 0 ? Math.max(6, Math.round(maxH * d.total / maxV)) : 0;
+    const cx = (x + w / 2).toFixed(1);
+    s.append(svg("rect", { x: x.toFixed(1), y: base - maxH, width: w.toFixed(1), height: maxH, rx: 9, class: "g-trk" }));
+    if (ht) s.append(svg("rect", { x: x.toFixed(1), y: base - ht, width: w.toFixed(1), height: ht, rx: 9, class: "g-barfill" + (d.date === today ? " today" : "") }));
+    if (d.total > 0) s.append(svg("text", { x: cx, y: Math.max(14, base - ht - 7), "text-anchor": "middle", class: "g-val" }, chartNum(d.total)));
+    s.append(svg("text", { x: cx, y: base + 22, "text-anchor": "middle", class: "g-lab" + (d.date === today ? " today" : "") }, String(parseDate(d.date).d)));
   });
-  frag.append(statCard("آخر 7 أيام", bars));
+  return s;
+}
 
-  /* trend over the last 6 cycles */
-  if (vm.cycle) {
-    const tr = cycleTrend(vm.acc.cycles, vm.live, vm.cycle.id, 6);
-    if (tr.length >= 1) {
-      const mx = Math.max.apply(null, tr.map(p => p.total).concat([1]));
-      const step = tr.length > 1 ? 240 / (tr.length - 1) : 0;
-      const pts = tr.map((p, i) => [20 + (tr.length > 1 ? i * step : 120), 100 - Math.round(70 * p.total / mx)]);
-      const line = svg("svg", { viewBox: "0 0 280 140", class: "trend", role: "img", "aria-label": "إجمالي المصروف في آخر 6 دورات" });
-      if (pts.length > 1) line.append(svg("polyline", { points: pts.map(p => p.join(",")).join(" "), fill: "none", class: "tl" }));
-      tr.forEach((p, i) => {
-        const pd = parseDate(p.start);
-        line.append(svg("circle", { cx: pts[i][0], cy: pts[i][1], r: i === tr.length - 1 ? 5 : 3.5, class: "tp" + (i === tr.length - 1 ? " last" : "") }));
-        line.append(svg("text", { x: pts[i][0], y: pts[i][1] - 9, "text-anchor": "middle", class: "bar-v" }, formatMoney(p.total)));
-        line.append(svg("text", { x: pts[i][0], y: 128, "text-anchor": "middle", class: "bar-l" }, pd.d + "/" + pd.m));
-      });
-      frag.append(statCard("اتجاه آخر 6 دورات", line));
-    }
-    /* biggest category changes vs the previous cycle */
-    const ch = categoryChanges(vm.acc.cycles, vm.live, vm.cycle.id).slice(0, 6);
-    const prevExists = vm.sorted.findIndex(c => c.id === vm.cycle.id) > 0;
-    frag.append(statCard("أكبر التغيّرات عن الدورة السابقة", !prevExists
-      ? h("p", { class: "x-none", dir: "rtl", text: "لا توجد دورة سابقة للمقارنة." })
-      : (ch.length ? h("ul", { class: "chg" }, ch.map(c => h("li", { class: "chg-" + c.kind },
-          h("span", { class: "x-emoji", "aria-hidden": "true", text: catOf(c.categoryId).emoji }),
-          h("span", { class: "lg-n", dir: "auto", text: catOf(c.categoryId).name }),
-          h("span", { class: "tag", dir: "rtl", text: c.kind === "new" ? "جديد" : (c.kind === "up" ? "ارتفاع" : "انخفاض") }),
-          h("span", { class: "money val", dir: "ltr" }, h("bdi", { class: "n", text: (c.delta > 0 ? "+" : "") + formatMoney(c.delta) }), h("span", { class: "u", dir: "rtl", text: AED })))))
-        : h("p", { class: "x-none", dir: "rtl", text: "لا تغييرات تُذكر." }))));
+/* totals of the last 6 cycles: smooth curve with an area fill */
+function trendChart(tr){
+  const W = 300, left = 28, right = 272, top = 38, base = 126;
+  const mx = Math.max.apply(null, tr.map(p => p.total).concat([1]));
+  const pts = tr.map((p, i) => [chartX(i, tr.length, left, right), base - Math.round((base - top) * p.total / mx)]);
+  const s = svg("svg", { viewBox: "0 0 300 164", class: "g-chart", role: "img", "aria-label": "إجمالي المصروف في آخر 6 دورات" },
+    svg("defs", null, svg("linearGradient", { id: "gGradArea", x1: 0, y1: 0, x2: 0, y2: 1 },
+      svg("stop", { offset: "0%", style: "stop-color:var(--x-accent);stop-opacity:.42" }), svg("stop", { offset: "100%", style: "stop-color:var(--x-accent);stop-opacity:0" }))));
+  s.append(svg("line", { x1: 12, y1: base, x2: W - 12, y2: base, class: "g-axis" }));
+  if (pts.length > 1) {
+    const line = smoothPath(pts, top, base);
+    s.append(svg("path", { d: line + " L" + pts[pts.length - 1][0] + " " + base + " L" + pts[0][0] + " " + base + " Z", fill: "url(#gGradArea)" }));
+    s.append(svg("path", { d: line, fill: "none", class: "g-curve" }));
   }
-  return frag;
+  tr.forEach((p, i) => {
+    const pd = parseDate(p.start), last = i === tr.length - 1, x = pts[i][0], y = pts[i][1];
+    if (last) s.append(svg("circle", { cx: x, cy: y, r: 9, class: "g-halo" }));
+    s.append(svg("circle", { cx: x, cy: y, r: last ? 5 : 4, class: "g-pt" + (last ? " last" : "") }));
+    s.append(svg("text", { x: x, y: Math.max(14, y - 12), "text-anchor": "middle", class: "g-val" }, chartNum(p.total)));
+    s.append(svg("text", { x: x, y: base + 22, "text-anchor": "middle", class: "g-lab" + (last ? " today" : "") }, pd.d + "/" + pd.m));
+  });
+  return s;
+}
+
+/* biggest category changes against the previous cycle */
+function changesCard(vm){
+  const prevExists = vm.sorted.findIndex(c => c.id === vm.cycle.id) > 0;
+  const ch = categoryChanges(vm.acc.cycles, vm.live, vm.cycle.id).slice(0, 5);
+  if (!prevExists) return gCard("أكبر التغيّرات عن الدورة السابقة", h("p", { class: "g-none", dir: "rtl", text: "لا توجد دورة سابقة للمقارنة." }));
+  if (!ch.length) return gCard("أكبر التغيّرات عن الدورة السابقة", h("p", { class: "g-none", dir: "rtl", text: "لا تغييرات تُذكر." }));
+  return gCard("أكبر التغيّرات عن الدورة السابقة", h("ul", { class: "g-chg" }, ch.map(c => h("li", { class: "k-" + c.kind },
+    h("span", { class: "g-tile sm", "aria-hidden": "true", text: catOf(c.categoryId).emoji }),
+    h("span", { class: "nm", dir: "auto", text: catOf(c.categoryId).name }),
+    h("span", { class: "tag", dir: "rtl", text: c.kind === "new" ? "جديد" : (c.kind === "up" ? "ارتفاع" : "انخفاض") }),
+    h("span", { class: "money dl", dir: "ltr" }, h("bdi", { class: "n", text: (c.delta > 0 ? "+" : "") + formatMoney(c.delta) }), h("span", { class: "u", dir: "rtl", text: AED }))))));
+}
+
+/* per-category usage: amount plus a bar sized by its share of the total */
+function usageCard(cats){
+  return gCard("الاستخدام حسب الفئة", h("ul", { class: "g-use" }, cats.map((c, i) => {
+    const cat = catOf(c.categoryId);
+    return h("li", null,
+      h("div", { class: "top" },
+        h("span", { class: "g-tile sm", "aria-hidden": "true", text: cat.emoji }),
+        h("span", { class: "nm", dir: "auto", text: cat.name }),
+        money(c.total)),
+      h("div", { class: "g-bar", role: "progressbar", "aria-label": cat.name, "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": String(c.pct) },
+        h("i", { style: "width:" + Math.max(2, c.pct) + "%;background:" + sliceVar(i) })));
+  })));
 }
 
 /* ================= receipt image (canvas, paper style) ================= */
@@ -3459,6 +3513,14 @@ async function makeExpReceipt(vm){
 }
 
 
+/* the status/toolbar colour follows the Expenses background while that tab is open, and goes back for the ledger */
+const THEME_META = [...document.querySelectorAll('meta[name="theme-color"]')];
+const THEME_ORIG = THEME_META.map(m => m.getAttribute("content"));
+function syncThemeColor(on){
+  const light = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+  THEME_META.forEach((m, i) => m.setAttribute("content", on ? (light ? "#E3EBF8" : "#0B1426") : THEME_ORIG[i]));
+}
+
 /* ================= section tabs ================= */
 const TAB_IDS = ["ledger", "exp"];
 function showTab(id){
@@ -3471,6 +3533,7 @@ function showTab(id){
   }
   topHeader.classList.toggle("on-exp", id === "exp");
   document.body.classList.toggle("x-on", id === "exp");     /* scopes the whole Expenses look; the ledger never sees it */
+  syncThemeColor(id === "exp");
   if (id === "exp") renderExp();
   try { LS.setItem(TAB_KEY, id); } catch (e) { /* a remembered tab is only a convenience */ }
   window.scrollTo(0, 0);

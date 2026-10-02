@@ -56,6 +56,16 @@ test("Arabic text never gets letter-spacing in the new CSS", () => {
   assert.ok(!/letter-spacing/.test(mine));
 });
 
+test("no dead CSS: every class in the Expenses CSS is used by the markup or the script", () => {
+  const css = /<style>([\s\S]*)<\/style>/.exec(html)[1];
+  const mine = css.slice(css.indexOf("/* ================= expenses ================= */")).replace(/url\([^)]*\)/g, "");
+  const rest = html.replace(/<style>[\s\S]*<\/style>/, "");
+  const DYNAMIC = ["k-up", "k-down", "k-new"];                 /* built as "k-" + kind in the script */
+  const dead = [...new Set([...mine.matchAll(/\.([a-zA-Z][\w-]*)/g)].map(m => m[1]))]
+    .filter(c => !rest.includes(c) && !DYNAMIC.includes(c));
+  assert.deepStrictEqual(dead, [], "unused classes: " + dead.join(", "));
+});
+
 test("reduced motion is honoured and focus rings exist", () => {
   assert.ok(/prefers-reduced-motion:\s*reduce/.test(html));
   assert.ok(/:focus-visible\s*\{/.test(html));

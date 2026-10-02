@@ -301,4 +301,38 @@ test("replace import keeps existing Expenses data when the old file had none, an
   assert.deepStrictEqual(r2.profiles[1].data.exp, L.defaultExp(), "unknown profile gets defaults");
 });
 
+test("chartNum: compact Latin labels for chart values", () => {
+  assert.strictEqual(L.chartNum(0), "0");
+  assert.strictEqual(L.chartNum(46.25), "46");
+  assert.strictEqual(L.chartNum(7.5), "8");
+  assert.strictEqual(L.chartNum(999), "999");
+  assert.strictEqual(L.chartNum(999.6), "1K");
+  assert.strictEqual(L.chartNum(1000), "1K");
+  assert.strictEqual(L.chartNum(1250), "1.3K");
+  assert.strictEqual(L.chartNum(12400), "12.4K");
+  assert.strictEqual(L.chartNum(10000), "10K", "a whole number ending in 0 must keep its digits");
+  assert.strictEqual(L.chartNum(20000), "20K");
+  assert.strictEqual(L.chartNum(100000), "100K");
+  assert.strictEqual(L.chartNum(-20), "-20");
+  assert.strictEqual(L.chartNum(-0.2), "0");
+  assert.strictEqual(L.chartNum(undefined), "0");
+  assert.ok(!/[٠-٩]/.test(L.chartNum(123456)));
+});
+test("smoothPath: starts and ends on the data points, one curve per gap, and stays inside the plot", () => {
+  assert.strictEqual(L.smoothPath([], 0, 100), "");
+  assert.strictEqual(L.smoothPath([[10, 50]], 0, 100), "M10 50");
+  const pts = [[0, 90], [50, 10], [100, 95], [150, 20], [200, 60]];
+  const d = L.smoothPath(pts, 10, 95);
+  assert.ok(d.startsWith("M0 90"));
+  assert.ok(d.endsWith(" 200 60"));
+  assert.strictEqual((d.match(/C/g) || []).length, pts.length - 1);
+  const nums = d.replace(/[MC]/g, " ").trim().split(/\s+/).map(Number);
+  assert.ok(nums.every(n => isFinite(n)));
+  for (let i = 1; i < nums.length; i += 2) assert.ok(nums[i] >= 10 && nums[i] <= 95, "y " + nums[i] + " must stay in [10, 95]");
+  /* an extreme spike must not overshoot the baseline */
+  const spike = L.smoothPath([[0, 100], [10, 0], [20, 100]], 0, 100).replace(/[MC]/g, " ").trim().split(/\s+/).map(Number);
+  for (let i = 1; i < spike.length; i += 2) assert.ok(spike[i] >= 0 && spike[i] <= 100);
+  assert.strictEqual(L.smoothPath([[0, 5], [10, 5]], 0, 10), "M0 5 C1.67 5 8.33 5 10 5");
+});
+
 done();

@@ -101,6 +101,19 @@ for (const name of ["dark", "light"]) {
       assert.ok(ratio([255, 226, 222, 1], bg) >= 3, "over amount on " + label);
     }
   });
+  test(name + ": the 8 chart colours read at 3:1 on cards over every background, and the 'new' tag text at 4.5:1", () => {
+    for (const [uName, U] of Object.entries(under)) {
+      const card = over(U, T["--x-card"]);
+      for (let k = 1; k <= 8; k++) {
+        const r = ratio(T["--x-s" + k], card); report.push([name, "--x-s" + k + " on card/" + uName, r]);
+        assert.ok(r >= 3, name + " --x-s" + k + " on card over " + uName + " = " + r.toFixed(2));
+      }
+      const tagBg = over(card, [77, 141, 240, 0.08]);          /* the 'new' tag fill */
+      const r = ratio(T["--x-accent-ink"], tagBg); report.push([name, "new tag on tag/" + uName, r]);
+      assert.ok(r >= 4.5, name + " new tag text over " + uName + " = " + r.toFixed(2));
+      assert.ok(ratio(T["--x-card-solid"], card) >= 1, "solid card token parses");
+    }
+  });
   test(name + ": the accent colour used for icons and active dots reads at 3:1 on the background and on cards", () => {
     for (const [uName, U] of Object.entries(under)) {
       assert.ok(ratio(T["--x-accent"], U) >= 3, name + " accent on " + uName);
