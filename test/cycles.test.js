@@ -320,10 +320,79 @@ test("summary: spent today, days elapsed, days left and 'can spend today'", () =
   assert.strictEqual(s.totalDays, 30);
   assert.strictEqual(s.daysLeft, 21);
   assert.strictEqual(s.remaining, 853.75);
-  assert.strictEqual(s.canSpendToday, roundTo(853.75 / 21));
+  /* today's budget is fixed at the start of the day: (1000 - 100 spent before today) / 21 days left */
+  assert.strictEqual(s.startOfToday, 900);
+  assert.strictEqual(s.todayBudget, roundTo(900 / 21));
+  assert.strictEqual(s.leftToday, roundTo(roundTo(900 / 21) - 46.25));
+  assert.strictEqual(s.canSpendToday, s.leftToday);
   assert.strictEqual(s.dailyAverage, 14.63);
 });
 function roundTo(n){ return Math.round(n * 100) / 100; }
+
+test("today's budget: the exact reported case (remaining 2,617.98, 25 days left, 441.28 spent today)", () => {
+  /* start of today = 3500 - 440.74 = 3059.26 ; remaining after today's spending = 2617.98 */
+  const cycles = [cyc("a", "2026-09-27", 3500, { expectedNextSalaryDate: "2026-10-28" })];
+  const entries = [exp("before", "2026-09-30", 440.74), exp("today", "2026-10-03", 441.28)];
+  const s = L.cycleSummary(cycles, cycles[0], entries, "2026-10-03");
+  assert.strictEqual(s.remaining, 2617.98);
+  assert.strictEqual(s.daysLeft, 25);
+  assert.strictEqual(s.startOfToday, 3059.26);
+  assert.strictEqual(s.todayBudget, 122.37);
+  assert.strictEqual(s.spentToday, 441.28);
+  assert.strictEqual(s.leftToday, -318.91);
+  assert.strictEqual(s.overToday, 318.91);
+  assert.strictEqual(s.tomorrow, 109.08);               /* 2617.98 / (25 - 1) */
+});
+test("today's budget stays FIXED while you spend: spending more only lowers what is left today", () => {
+  const cycles = [cyc("a", "2026-09-27", 3500, { expectedNextSalaryDate: "2026-10-28" })];
+  const base = [exp("before", "2026-09-30", 440.74)];
+  const at = amount => L.cycleSummary(cycles, cycles[0], amount ? base.concat([exp("t", "2026-10-03", amount)]) : base, "2026-10-03");
+  const budgets = [0, 10, 100, 441.28, 900].map(a => at(a).todayBudget);
+  assert.ok(budgets.every(b => b === budgets[0]), "budget must not move: " + budgets.join(","));
+  assert.strictEqual(at(100).leftToday, roundTo(budgets[0] - 100));
+  assert.strictEqual(at(122.37).leftToday, 0);
+  assert.strictEqual(at(122.37).overToday, 0);
+  assert.strictEqual(at(122.37).tomorrow, null, "not over: no 'tomorrow' line");
+  assert.ok(at(122.38).overToday > 0);
+});
+test("today's budget with nothing spent today: the whole share is left, and no 'tomorrow' figure", () => {
+  const cycles = [cyc("a", "2026-09-27", 3000, { expectedNextSalaryDate: "2026-10-27" })];
+  const s = L.cycleSummary(cycles, cycles[0], [exp("e", "2026-09-30", 300)], "2026-10-03");
+  assert.strictEqual(s.daysLeft, 24);
+  assert.strictEqual(s.startOfToday, 2700);
+  assert.strictEqual(s.todayBudget, 112.5);
+  assert.strictEqual(s.spentToday, 0);
+  assert.strictEqual(s.leftToday, 112.5);
+  assert.strictEqual(s.overToday, 0);
+  assert.strictEqual(s.tomorrow, null);
+});
+test("today's budget with income dated today: it adds to today's budget, not to the start-of-day pool", () => {
+  const cycles = [cyc("a", "2026-09-27", 3000, { expectedNextSalaryDate: "2026-10-27" })];
+  const entries = [exp("e", "2026-09-30", 300), { id: "i", type: "income", amount: 50, date: "2026-10-03" }, exp("t", "2026-10-03", 60)];
+  const s = L.cycleSummary(cycles, cycles[0], entries, "2026-10-03");
+  assert.strictEqual(s.startOfToday, 2700, "today's income is not in the start-of-day figure");
+  assert.strictEqual(s.todayBudget, 162.5);               /* 2700 / 24 + 50 */
+  assert.strictEqual(s.leftToday, 102.5);
+  /* income from an earlier day IS part of the start-of-day pool */
+  const s2 = L.cycleSummary(cycles, cycles[0], [{ id: "i", type: "income", amount: 240, date: "2026-10-01" }], "2026-10-03");
+  assert.strictEqual(s2.startOfToday, 3240);
+  assert.strictEqual(s2.todayBudget, 135);
+  /* the tomorrow figure counts today's income and spending */
+  const over = L.cycleSummary(cycles, cycles[0], [{ id: "i", type: "income", amount: 50, date: "2026-10-03" }, exp("t", "2026-10-03", 400)], "2026-10-03");
+  assert.strictEqual(over.tomorrow, roundTo((3000 + 50 - 400) / 23));
+});
+test("today's budget ignores deleted entries and entries dated after today; last day has no 'tomorrow'", () => {
+  const cycles = [cyc("a", "2026-09-27", 3000, { expectedNextSalaryDate: "2026-10-27" })];
+  const entries = [exp("gone", "2026-09-30", 999, { deletedAt: 1 }), exp("future", "2026-10-10", 500), exp("t", "2026-10-03", 5, { deletedAt: 2 })];
+  const s = L.cycleSummary(cycles, cycles[0], entries, "2026-10-03");
+  assert.strictEqual(s.startOfToday, 3000);
+  assert.strictEqual(s.spentToday, 0);
+  assert.strictEqual(s.leftToday, 125);
+  const last = L.cycleSummary([cyc("a", "2026-09-27", 100, { expectedNextSalaryDate: "2026-10-04" })], { id: "a", startDate: "2026-09-27", allowance: 100, expectedNextSalaryDate: "2026-10-04" }, [exp("t", "2026-10-03", 150)], "2026-10-03");
+  assert.strictEqual(last.daysLeft, 1);
+  assert.strictEqual(last.leftToday, -50);
+  assert.strictEqual(last.tomorrow, null, "daysLeft is 1: no tomorrow in this cycle");
+});
 
 test("summary: days left is at least 1, even on or after the expected salary date", () => {
   const cycles = [cyc("a", "2026-05-01", 300, { expectedNextSalaryDate: "2026-05-31" })];

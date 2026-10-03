@@ -886,7 +886,7 @@ function cycleSummary(cycles, cycle, entries, today){
   const lastCounted = b.lastDay && b.lastDay < today ? b.lastDay : today;
   const daysElapsed = lastCounted < b.start ? 0 : daysBetween(b.start, lastCounted) + 1;
 
-  let totalDays = null, daysLeft = null, canSpendToday = null;
+  let totalDays = null, daysLeft = null, startOfToday = null, todayBudget = null, leftToday = null, overToday = 0, tomorrow = null;
   if (!b.open) {
     totalDays = daysBetween(b.start, b.endExclusive);
   } else {
@@ -894,7 +894,17 @@ function cycleSummary(cycles, cycle, entries, today){
     if (isValidDate(exp) && exp > b.start) {
       totalDays = daysBetween(b.start, exp);
       daysLeft = Math.max(1, daysBetween(today, exp));
-      canSpendToday = roundMoney(remaining / daysLeft);
+      /* Today's budget is fixed for the whole day: what was left when the day began, shared over the days
+         left (today included), plus income that arrived today. Entries dated after today are not part of it. */
+      const before = mine.filter(e => e.date < today);
+      const incomeToday = sumMoney(mine.filter(e => e.type === "income" && e.date === today).map(amt));
+      startOfToday = roundMoney(allowance + sumMoney(before.filter(e => e.type === "income").map(amt)) - sumMoney(before.filter(e => e.type !== "income").map(amt)));
+      todayBudget = roundMoney(startOfToday / daysLeft + incomeToday);
+      leftToday = roundMoney(todayBudget - spentToday);
+      if (leftToday < 0) {
+        overToday = roundMoney(-leftToday);
+        if (daysLeft > 1) tomorrow = roundMoney((startOfToday + incomeToday - spentToday) / (daysLeft - 1));
+      }
     }
   }
   return {
@@ -902,7 +912,8 @@ function cycleSummary(cycles, cycle, entries, today){
     allowance: allowance, extra: extra, budget: budget, spent: spent, remaining: remaining,
     spentToday: spentToday,
     progress: budget > 0 ? Math.min(1, spent / budget) : (spent > 0 ? 1 : 0),
-    daysElapsed: daysElapsed, totalDays: totalDays, daysLeft: daysLeft, canSpendToday: canSpendToday,
+    daysElapsed: daysElapsed, totalDays: totalDays, daysLeft: daysLeft, startOfToday: startOfToday, todayBudget: todayBudget, leftToday: leftToday,
+    overToday: overToday, tomorrow: tomorrow, canSpendToday: leftToday,
     dailyAverage: roundMoney(spent / Math.max(1, daysElapsed)),
     over: remaining < 0,
     entryCount: mine.length
@@ -2650,18 +2661,19 @@ function renderDaily(vm, s){
       h("div", { class: "g-big" }, h("bdi", { class: "n", dir: "ltr", text: formatMoney(s.dailyAverage) }), h("span", { class: "u", dir: "rtl", text: AED })),
       h("div", { class: "g-line" }, h("span", { dir: "rtl", text: "مدة الدورة" }), h("span", { class: "grp" }, h("bdi", { dir: "ltr", text: String(s.totalDays) }), h("span", { dir: "rtl", text: "يوم" }))));
   }
-  const dayBudget = Math.max(0, roundMoney(s.spentToday + s.canSpendToday));
-  const frac = dayBudget > 0 ? s.spentToday / dayBudget : (s.spentToday > 0 ? 1 : 0);
-  const over = s.canSpendToday < 0;
+  const dayBudget = Math.max(0, s.todayBudget);
+  const over = s.leftToday < 0;
+  const frac = over ? 1 : (dayBudget > 0 ? s.spentToday / dayBudget : (s.spentToday > 0 ? 1 : 0));
   return h("section", { class: "g-card g-daily" },
     h("div", { class: "g-card-head" },
-      h("span", { class: "g-card-title", dir: "rtl", text: "تقدر تصرف اليوم" }),
+      h("span", { class: "g-card-title", dir: "rtl", text: over ? "تجاوزت اليوم" : "تقدر تصرف اليوم" }),
       h("span", { class: "g-pill" }, h("span", { dir: "rtl", text: "باقي" }), h("bdi", { dir: "ltr", text: String(s.daysLeft) }), h("span", { dir: "rtl", text: "يوم" }))),
-    h("div", { class: "g-big" + (over ? " over" : "") }, h("bdi", { class: "n", dir: "ltr", text: formatMoney(s.canSpendToday) }), h("span", { class: "u", dir: "rtl", text: AED })),
-    progressBar(frac, over, "المصروف اليوم من المتاح اليوم"),
+    h("div", { class: "g-big" + (over ? " over" : "") }, h("bdi", { class: "n", dir: "ltr", text: formatMoney(over ? s.overToday : s.leftToday) }), h("span", { class: "u", dir: "rtl", text: AED })),
+    progressBar(frac, over, "المصروف اليوم من ميزانية اليوم"),
     h("div", { class: "g-line" },
       h("span", { class: "grp" }, h("span", { dir: "rtl", text: "صرفت" }), money(s.spentToday)),
-      h("span", { class: "grp" }, h("span", { dir: "rtl", text: "من" }), money(dayBudget))));
+      h("span", { class: "grp" }, h("span", { dir: "rtl", text: "من" }), money(dayBudget))),
+    over && s.tomorrow !== null ? h("div", { class: "g-line" }, h("span", { dir: "rtl", text: "بكرة تقدر تصرف" }), money(s.tomorrow)) : null);
 }
 function renderPair(s){
   return h("div", { class: "g-pair" },
