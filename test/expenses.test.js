@@ -335,4 +335,55 @@ test("smoothPath: starts and ends on the data points, one curve per gap, and sta
   assert.strictEqual(L.smoothPath([[0, 5], [10, 5]], 0, 10), "M0 5 C1.67 5 8.33 5 10 5");
 });
 
+test("canSaveEntry: needs an amount above zero, a category and a non-empty description", () => {
+  const ok = { amount: "46.25", categoryId: "cat_food", name: "غدا" };
+  assert.strictEqual(L.canSaveEntry(ok), true);
+  assert.strictEqual(L.canSaveEntry(Object.assign({}, ok, { amount: "٤٦٫٢٥" })), true, "Arabic-Indic digits count");
+  assert.strictEqual(L.canSaveEntry(Object.assign({}, ok, { amount: 12 })), true);
+  for (const amount of ["", "0", "٠", "0.00", "0.004", "-5", "abc", null, undefined])
+    assert.strictEqual(L.canSaveEntry(Object.assign({}, ok, { amount })), false, "amount " + JSON.stringify(amount));
+  for (const categoryId of [null, undefined, ""])
+    assert.strictEqual(L.canSaveEntry(Object.assign({}, ok, { categoryId })), false, "category " + JSON.stringify(categoryId));
+  for (const name of ["", "   ", "\t \n", null, undefined, 5])
+    assert.strictEqual(L.canSaveEntry(Object.assign({}, ok, { name })), false, "name " + JSON.stringify(name));
+  assert.strictEqual(L.canSaveEntry(Object.assign({}, ok, { name: "  عشا  " })), true, "padding is fine, content is what counts");
+  assert.strictEqual(L.canSaveEntry(null), false);
+  assert.strictEqual(L.canSaveEntry({}), false);
+});
+test("suggestNames: most used names for the category first, ties by most recent use", () => {
+  const e = (name, date, cat, extra) => Object.assign({ id: name + date, name, date, categoryId: cat || "cat_coffee", type: "expense", amount: 5, createdAt: Date.parse(date + "T10:00:00Z") }, extra || {});
+  const list = [e("لاتيه", "2026-09-01"), e("لاتيه", "2026-09-05"), e("لاتيه", "2026-09-09"),
+                e("اسبريسو", "2026-09-02"), e("اسبريسو", "2026-09-08"),
+                e("شاي", "2026-09-03"), e("كابتشينو", "2026-09-10"),
+                e("موكا", "2026-08-01")];
+  assert.deepStrictEqual(L.suggestNames(list, "cat_coffee"), ["لاتيه", "اسبريسو", "كابتشينو", "شاي"], "count, then recency (كابتشينو is newer than شاي)");
+  assert.deepStrictEqual(L.suggestNames(list, "cat_coffee", 2), ["لاتيه", "اسبريسو"]);
+  assert.strictEqual(L.suggestNames(list, "cat_coffee").length, 4, "at most four by default");
+  assert.deepStrictEqual(L.suggestNames(list, "cat_coffee", 10).length, 5);
+});
+test("suggestNames: other categories, deleted entries and empty names are ignored; spelling variants merge", () => {
+  const e = (name, date, extra) => Object.assign({ id: name + date, name, date, categoryId: "cat_food", type: "expense", amount: 5, createdAt: 1 }, extra || {});
+  const list = [e("غداء", "2026-09-01"), e("غداء", "2026-09-02", { deletedAt: 9 }), e("  ", "2026-09-03"), e("", "2026-09-03"), e(undefined, "2026-09-03"),
+                e("مطعم", "2026-09-04", { categoryId: "cat_fun" }), e("إفطار", "2026-09-05"), e("افطار", "2026-09-06"), e("ٱفطار", "2026-09-07")];
+  assert.deepStrictEqual(L.suggestNames(list, "cat_food"), ["ٱفطار", "غداء"], "three افطار spellings are one name, shown as the latest spelling");
+  assert.deepStrictEqual(L.suggestNames(list, "cat_fun"), ["مطعم"]);
+  assert.deepStrictEqual(L.suggestNames(list, "cat_kids"), [], "no history and no starter names");
+  assert.deepStrictEqual(L.suggestNames(null, "cat_kids"), []);
+});
+test("suggestNames: with no history, food gets the starter names; history replaces them; the input is not changed", () => {
+  assert.deepStrictEqual(L.suggestNames([], "cat_food"), ["ريوق", "غدا", "عشا"]);
+  assert.deepStrictEqual(L.suggestNames([], "cat_food", 2), ["ريوق", "غدا"]);
+  const only = [{ id: "1", name: "شاورما", date: "2026-09-01", categoryId: "cat_food", type: "expense", amount: 9 }];
+  assert.deepStrictEqual(L.suggestNames(only, "cat_food"), ["شاورما"], "once there is history, the starter names step aside");
+  const frozen = JSON.parse(JSON.stringify(only)); Object.freeze(frozen); frozen.forEach(Object.freeze);
+  assert.deepStrictEqual(L.suggestNames(frozen, "cat_food"), ["شاورما"]);
+  assert.deepStrictEqual(L.suggestNames([{ id: "d", name: "غدا", categoryId: "cat_food", date: "2026-09-01", deletedAt: 1 }], "cat_food"), ["ريوق", "غدا", "عشا"], "deleted history does not count");
+});
+test("suggestNames: full ties fall back to alphabetical order so the chips never shuffle", () => {
+  const e = (name) => ({ id: name, name, date: "2026-09-01", categoryId: "cat_gifts", type: "expense", amount: 1, createdAt: 5 });
+  const a = L.suggestNames([e("ب"), e("ا"), e("ج")], "cat_gifts");
+  const b = L.suggestNames([e("ج"), e("ب"), e("ا")], "cat_gifts");
+  assert.deepStrictEqual(a, b);
+});
+
 done();

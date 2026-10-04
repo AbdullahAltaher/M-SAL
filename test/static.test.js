@@ -71,6 +71,16 @@ test("reduced motion is honoured and focus rings exist", () => {
   assert.ok(/:focus-visible\s*\{/.test(html));
 });
 
+test("sheets: slide in/out on transform and opacity only, with a fade-only variant for reduced motion", () => {
+  const css = /<style>([\s\S]*)<\/style>/.exec(html)[1];
+  assert.ok(/\.sheet\{[^}]*transform:translateY\(100%\)[^}]*transition:transform 320ms cubic-bezier\(\.32,\.72,0,1\)/.test(css), "open: 320ms, spec curve");
+  assert.ok(/\.sheet-back\.closing \.sheet\{[^}]*transition-duration:240ms/.test(css), "close: 240ms");
+  const rm = /@media \(prefers-reduced-motion: reduce\)\{\s*\.sheet-back \.sheet[^}]*\}[\s\S]*?\n\}/.exec(css);
+  assert.ok(rm, "reduced-motion block for sheets");
+  assert.ok(/transform:none;opacity:0;transition:opacity \.12s/.test(rm[0]), "fade only, no slide");
+  assert.ok(!/@keyframes sheetUp/.test(css), "old keyframe animation is gone");
+});
+
 test("safe-area insets are respected by the new fixed elements", () => {
   const css = /<style>([\s\S]*)<\/style>/.exec(html)[1];
   assert.ok(/\.fab\{[^}]*safe-area-inset-bottom/.test(css));

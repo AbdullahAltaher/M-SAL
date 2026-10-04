@@ -18,7 +18,7 @@ const NAMES = ["KEY", "BAK", "OLD_KEYS", "SCHEMA_VERSION", "DEFAULT_ACCOUNT_ID",
   "AED", "formatMoney", "moneyText", "toLatinDigits", "parseEntryAmount", "weekdayIndex", "shortArabicDate",
   "fullArabicDate", "dayLabel", "NO_CYCLE_KEY", "newEntry", "entryAccountId", "accountEntries", "liveEntries",
   "deletedEntries", "searchKey", "filterEntries", "groupByDay", "categoryTotals", "lastDays", "cycleTrend",
-  "categoryChanges", "chartNum", "smoothPath", "buildReceiptModel", "movedEntryCount", "replaceKeepingExp", "countState", "contentScore", "mergeStates", "parseImport",
+  "categoryChanges", "canSaveEntry", "suggestNames", "DEFAULT_SUGGESTIONS", "chartNum", "smoothPath", "buildReceiptModel", "movedEntryCount", "replaceKeepingExp", "countState", "contentScore", "mergeStates", "parseImport",
   "META_KEY", "TAB_KEY", "SNAP_MAX", "EXPORT_REMIND_DAYS", "isQuotaError", "scoreOfRaw", "overwriteRisk", "writeMain",
   "mirrorWrite", "mirrorRead", "takeSnapshot", "listSnapshots", "planRecovery", "readMeta", "writeMeta",
   "exportReminder", "exportFileName"];

@@ -296,9 +296,15 @@ select.field{background-image:var(--chev);background-repeat:no-repeat;background
 .m-name[dir="ltr"]{text-align:right;font-family:var(--num)}
 .t-act{background:none;border:none;color:var(--brass);font:700 15px var(--ar);cursor:pointer;padding:6px}
 /* bottom sheets */
-.sheet-back{position:fixed;left:0;right:0;top:0;height:100dvh;z-index:60;background:rgba(20,19,16,.5);display:flex;align-items:flex-end;justify-content:center;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
-.sheet{width:100%;max-width:560px;max-height:94%;background:var(--bg);border:1px solid var(--border);border-bottom:none;border-radius:18px 18px 0 0;padding:12px 16px calc(14px + env(safe-area-inset-bottom));overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;animation:sheetUp .22s cubic-bezier(.23,1,.32,1)}
-@keyframes sheetUp{from{transform:translateY(24px);opacity:.4}}
+.sheet-back{position:fixed;left:0;right:0;top:0;height:100dvh;z-index:60;display:flex;align-items:flex-end;justify-content:center}
+.sheet-back::before{content:"";position:absolute;inset:0;background:rgba(20,19,16,.5);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;transition:opacity 320ms cubic-bezier(.32,.72,0,1)}
+.sheet-back.on::before{opacity:var(--dim,1)}
+.sheet-back.drag::before{transition:none}
+.sheet-back.closing::before{opacity:0;transition-duration:240ms}
+.sheet{position:relative;width:100%;max-width:560px;max-height:94%;background:var(--bg);border:1px solid var(--border);border-bottom:none;border-radius:18px 18px 0 0;padding:12px 16px calc(14px + env(safe-area-inset-bottom));overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;transform:translateY(100%);transition:transform 320ms cubic-bezier(.32,.72,0,1)}
+.sheet-back.on .sheet{transform:translateY(0)}
+.sheet-back.drag .sheet{transition:none}
+.sheet-back.closing .sheet{transform:translateY(100%);transition-duration:240ms}
 .sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .sheet-title{font:600 18px var(--ar)}
 .flabel{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;font:500 15px var(--ar);color:var(--sec)}
@@ -546,14 +552,13 @@ body.x-on .banner.bad{border-color:var(--x-exp)}
 /* ---- glass sheets (add, more, accounts, categories, settings...) ---- */
 .sheet-grab{display:none}
 .sx-text{display:none}
-body.x-on .sheet-back{background:var(--x-scrim);-webkit-backdrop-filter:none;backdrop-filter:none}
-body.x-on .sheet{background:var(--x-glass-solid);border:1px solid var(--x-line);border-bottom:none;border-radius:30px 30px 0 0;box-shadow:var(--x-hi),0 -24px 50px -24px rgba(0,0,0,.6);padding:8px 16px calc(18px + env(safe-area-inset-bottom))}
+body.x-on .sheet-back::before{background:var(--x-scrim);-webkit-backdrop-filter:none;backdrop-filter:none}
+body.x-on .sheet{background:var(--x-glass-solid);border:1px solid var(--x-line);border-bottom:none;border-radius:30px 30px 0 0;box-shadow:var(--x-hi),0 -24px 50px -24px rgba(0,0,0,.6);--sh-pb:calc(18px + env(safe-area-inset-bottom));padding:8px 16px var(--sh-pb)}
 @supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
   body.x-on .sheet{background:var(--x-glass);-webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%)}
 }
 body.x-on .sheet{scrollbar-width:none}
 body.x-on .sheet::-webkit-scrollbar{display:none}
-body.x-on .sheet-grab{display:block;width:40px;height:5px;border-radius:3px;background:var(--x-muted);opacity:.55;margin:2px auto 8px}
 body.x-on .sheet-head{margin-bottom:10px}
 body.x-on .sheet-title{font:700 20px var(--ar);color:var(--x-text)}
 body.x-on .sheet-x{min-width:44px;min-height:44px;padding:0 18px;border-radius:999px;background:var(--x-field);border:1px solid var(--x-line);color:var(--x-text);font:600 15px var(--ar)}
@@ -646,6 +651,32 @@ body.x-on .toast .money .u{color:var(--x-muted)}
 .g-use .nm{flex:1;min-width:0;font:500 15px var(--ar);color:var(--x-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .g-use .money{flex:none;font-weight:600;font-size:15px;color:var(--x-text)}
 .g-use .money .u{font-size:11px}
+/* ---- add sheet: grabber, required description, save bar, keyboard ---- */
+body.x-on .sheet-grab{display:grid;place-items:center;width:100%;height:32px;margin:0;background:none;opacity:1;border-radius:0;touch-action:none;cursor:grab}
+body.x-on .sheet-grab::before{content:"";width:40px;height:5px;border-radius:3px;background:var(--x-muted);opacity:.55}
+body.x-on .sheet-back.drag .sheet-grab{cursor:grabbing}
+.g-name{overflow:hidden;opacity:0;visibility:hidden;transition:height 220ms cubic-bezier(.32,.72,0,1),opacity 220ms ease,visibility 0s linear 220ms}
+.g-name.open{opacity:1;visibility:visible;transition:height 220ms cubic-bezier(.32,.72,0,1),opacity 220ms ease,visibility 0s}
+.g-name-inner{padding:8px 0 2px}
+.g-sugg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.g-sugg:empty{display:none}
+.g-name-in{font-size:17px}
+body.x-on .g-name-in.bad{border-color:var(--x-exp)}
+.g-name-in.shake{animation:gShake .36s cubic-bezier(.36,.07,.19,.97)}
+@keyframes gShake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(2px)}30%,50%,70%{transform:translateX(-3px)}40%,60%{transform:translateX(3px)}}
+body.x-on .cat{transition:opacity .15s}
+body.x-on .cat-grid.has-sel .cat:not([aria-pressed="true"]){opacity:.5}
+body.x-on .sheet-back.kb .sheet{--sh-pb:12px}
+.g-savebar{position:sticky;bottom:calc(-1 * var(--sh-pb,18px));z-index:2;margin:12px -16px calc(-1 * var(--sh-pb,18px));padding:12px 16px var(--sh-pb,18px);background:linear-gradient(to top,var(--x-glass-solid) 72%,transparent)}
+.g-save{width:100%;min-height:54px;font-size:17px}
+.g-btn.primary[aria-disabled="true"]{opacity:.45;box-shadow:none}
+/* reduced motion: sheets only fade (briefly), nothing slides */
+@media (prefers-reduced-motion: reduce){
+  .sheet-back .sheet,.sheet-back.closing .sheet{transform:none;opacity:0;transition:opacity .12s linear !important}
+  .sheet-back.on .sheet{opacity:1}
+  .sheet-back::before{transition:opacity .12s linear !important}
+  .g-name{transition:none !important}
+}
 /* ================= small screens ================= */
 @media (max-width:359px){
   #finalBalance{font-size:38px}
@@ -1255,6 +1286,36 @@ function categoryChanges(cycles, entries, cycleId){
   }
   out.sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta) || (String(a.categoryId) < String(b.categoryId) ? -1 : 1));
   return out;
+}
+
+/* ---------- add sheet: save rule and name suggestions ---------- */
+/* A new expense needs an amount above zero, a category, and a non-empty description (spaces alone do not count). */
+function canSaveEntry(f){
+  return !!f && parseEntryAmount(f.amount) !== null && !!f.categoryId && typeof f.name === "string" && f.name.trim() !== "";
+}
+const DEFAULT_SUGGESTIONS = { cat_food: ["ريوق", "غدا", "عشا"] };
+/* Up to `limit` names for a category: the ones used most often in past (not deleted) entries, ties broken by the
+   most recent use, then alphabetically. Spelling variants (أ/ا, ة/ه, case) count as one name and show the latest
+   spelling. With no history at all, the category's starter names are offered instead. Never mutates `entries`. */
+function suggestNames(entries, categoryId, limit){
+  const max = limit == null ? 4 : limit;
+  const groups = new Map();
+  for (const e of (Array.isArray(entries) ? entries : [])) {
+    if (!e || e.deletedAt || e.categoryId !== categoryId || typeof e.name !== "string") continue;
+    const name = e.name.trim();
+    if (!name) continue;
+    const key = searchKey(name), at = (e.createdAt || 0), day = e.date || "";
+    const g = groups.get(key);
+    if (!g) groups.set(key, { name: name, count: 1, day: day, at: at });
+    else {
+      g.count++;
+      if (day > g.day || (day === g.day && at >= g.at)) { g.name = name; g.day = day; g.at = at; }
+    }
+  }
+  const ranked = [...groups.values()].sort((a, b) =>
+    b.count - a.count || (a.day === b.day ? 0 : (a.day < b.day ? 1 : -1)) || b.at - a.at || (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+  if (!ranked.length) return (DEFAULT_SUGGESTIONS[categoryId] || []).slice(0, max);
+  return ranked.slice(0, max).map(g => g.name);
 }
 
 /* ---------- chart helpers ---------- */
@@ -2367,11 +2428,32 @@ const sheetHost = document.getElementById("sheetHost");
 const toastHost = document.getElementById("toastHost");
 let sheetState = null;
 
+let closingSheet = null;
+const reducedMotion = () => !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+/* Keep the sheet directly on top of the on-screen keyboard: the container follows the VISUAL viewport (its bottom edge is the keyboard's
+   top edge), the sheet is capped to that height minus a small margin, and a focused field is scrolled into the visible part. */
 function fitSheet(){
   if (!sheetState) return;
-  const vv = window.visualViewport, b = sheetState.back;
-  b.style.top = (vv ? vv.offsetTop : 0) + "px";           /* keep the sheet above the on-screen keyboard */
-  b.style.height = (vv ? vv.height : window.innerHeight) + "px";
+  const vv = window.visualViewport, b = sheetState.back, sh = sheetState.sheet;
+  const h = vv ? vv.height : window.innerHeight;
+  b.style.top = (vv ? vv.offsetTop : 0) + "px";
+  b.style.height = h + "px";
+  sh.style.maxHeight = Math.max(160, h - 8) + "px";
+  const keyboard = vv ? (window.innerHeight - vv.height - vv.offsetTop) > 80 : false;
+  b.classList.toggle("kb", keyboard);
+  ensureVisible();                                       /* also where the whole viewport resizes (Android) and no keyboard is detectable */
+}
+function ensureVisible(){
+  const s = sheetState, el = document.activeElement;
+  if (!s || !el || !s.sheet.contains(el) || !/^(INPUT|SELECT|TEXTAREA)$/.test(el.tagName)) return;
+  const r = el.getBoundingClientRect(), sr = s.sheet.getBoundingClientRect();
+  const bar = s.sheet.querySelector(".g-savebar");
+  const top = sr.top + 8, bottom = sr.bottom - (bar ? bar.getBoundingClientRect().height : 0) - 8;
+  let dy = 0;
+  if (r.bottom > bottom) dy = r.bottom - bottom;
+  else if (r.top < top) dy = r.top - top;
+  if (Math.abs(dy) > 1) s.sheet.scrollBy({ top: dy, behavior: reducedMotion() ? "auto" : "smooth" });
 }
 if (window.visualViewport) {
   window.visualViewport.addEventListener("resize", fitSheet);
@@ -2379,18 +2461,62 @@ if (window.visualViewport) {
 }
 window.addEventListener("resize", fitSheet);
 
-function closeSheet(silent){
+function finishClose(s){
+  clearTimeout(s.timer);
+  s.back.remove();
+  if (closingSheet === s) closingSheet = null;
+  if (!sheetState) document.documentElement.classList.remove("noscroll");
+}
+/* Slides down (about 240ms) and then removes itself. `instant` is only for replacing one sheet by another. */
+function closeSheet(silent, instant){
   if (!sheetState) return;
   const s = sheetState;
   sheetState = null;
-  s.back.remove();
-  document.documentElement.classList.remove("noscroll");
   if (!silent && s.opener && document.contains(s.opener)) { try { s.opener.focus({ preventScroll: true }); } catch (e) {} }
   if (s.onClose) s.onClose();
+  if (instant) { finishClose(s); return; }
+  closingSheet = s;
+  s.back.classList.remove("on", "drag");
+  s.back.classList.add("closing");
+  s.back.style.pointerEvents = "none";
+  s.timer = setTimeout(() => finishClose(s), reducedMotion() ? 140 : 260);
+}
+/* Drag the grabber down: the sheet follows the finger, closes past 30% of its height or on a fast flick, else springs back. */
+function enableSheetDrag(s){
+  const grab = s.sheet.querySelector(".sheet-grab");
+  if (!grab) return;
+  let y0 = null, last = 0, lastT = 0, vel = 0;
+  const dyOf = e => Math.max(0, e.clientY - y0);
+  grab.addEventListener("pointerdown", e => {
+    if (s !== sheetState || getComputedStyle(grab).display === "none") return;
+    y0 = e.clientY; last = e.clientY; lastT = performance.now(); vel = 0;
+    try { grab.setPointerCapture(e.pointerId); } catch (err) { /* older browsers */ }
+    s.back.classList.add("drag");
+  });
+  grab.addEventListener("pointermove", e => {
+    if (y0 === null) return;
+    const dy = dyOf(e), now = performance.now();
+    if (now > lastT) { vel = (e.clientY - last) / (now - lastT); last = e.clientY; lastT = now; }
+    s.sheet.style.transform = "translateY(" + dy + "px)";
+    s.back.style.setProperty("--dim", String(Math.max(0, 1 - dy / (s.sheet.offsetHeight || 1))));
+  });
+  const release = (e, cancelled) => {
+    if (y0 === null) return;
+    const dy = cancelled ? 0 : dyOf(e), h = s.sheet.offsetHeight || 1;
+    y0 = null;
+    s.back.classList.remove("drag");
+    void s.sheet.offsetHeight;                              /* transitions are back on before the transform is cleared */
+    s.sheet.style.transform = "";
+    if (!cancelled && (dy > h * 0.3 || (vel > 0.6 && dy > 8))) closeSheet();
+    else s.back.style.removeProperty("--dim");               /* spring back */
+  };
+  grab.addEventListener("pointerup", e => release(e, false));
+  grab.addEventListener("pointercancel", e => release(e, true));
 }
 /* build(body, {close}) fills the sheet; it may focus an input (called synchronously from the tap, so iOS opens the keyboard) */
 function openSheet(title, build, opts){
-  closeSheet(true);
+  if (closingSheet) finishClose(closingSheet);
+  closeSheet(true, true);
   const opener = document.activeElement;
   const body = h("div", { class: "sheet-body" });
   /* sheet builders pass optional children (null): the native append() would print the word "null", so skip empties */
@@ -2408,9 +2534,14 @@ function openSheet(title, build, opts){
   sheetState = { back: back, sheet: sheet, opener: opener, onClose: opts && opts.onClose };
   fitSheet();
   sheet.focus({ preventScroll: true });
+  sheet.addEventListener("focusin", () => { setTimeout(ensureVisible, 60); setTimeout(ensureVisible, 340); });
+  enableSheetDrag(sheetState);
   build(body, { close: closeSheet, sheet: sheet });
+  void sheet.offsetHeight;                                   /* the starting position (below the screen) is painted, then it slides in */
+  back.classList.add("on");
   return sheetState;
 }
+
 document.addEventListener("keydown", e => {
   if (!sheetState) return;
   if (e.key === "Escape") { e.preventDefault(); closeSheet(); return; }
@@ -2805,7 +2936,7 @@ function openEntrySheet(editing, preset){
   const today = todayStr();
   const startAcc = editing ? (exp.accounts.find(a => a.id === entryAccountId(exp, editing)) || curAccount()) : curAccount();
   const f = editing
-    ? { type: editing.type === "income" ? "income" : "expense", name: editing.name || "", categoryId: editing.categoryId, date: editing.date, accountId: startAcc.id }
+    ? { type: editing.type === "income" ? "income" : "expense", name: editing.name || catNameOf(editing.categoryId), categoryId: editing.categoryId, date: editing.date, accountId: startAcc.id }
     : { type: (preset && preset.type) || "expense", name: "", categoryId: null, date: (preset && preset.date) || today, accountId: startAcc.id };
   const multi = exp.accounts.filter(a => !a.archived).length > 1;
   openSheet(editing ? "تعديل" : "إضافة", (body, ctx) => {
@@ -2817,14 +2948,47 @@ function openEntrySheet(editing, preset){
     setType(f.type);
 
     const amount = h("input", { class: "x-amount", type: "text", inputmode: "decimal", autocomplete: "off", autocapitalize: "off", autocorrect: "off",
-      enterkeyhint: "done", dir: "ltr", placeholder: "0", "aria-label": "المبلغ", value: editing ? String(editing.amount) : "" });
+      enterkeyhint: "next", dir: "ltr", placeholder: "0", "aria-label": "المبلغ", value: editing ? String(editing.amount) : "" });
     const hint = h("div", { class: "x-hint", role: "alert", dir: "rtl" });
     amount.addEventListener("input", () => {
       const n = toLatinDigits(amount.value).replace(/٫/g, ".").replace(/،/g, ",");
       if (n !== amount.value) amount.value = n;
       hint.textContent = "";
+      refresh();
     });
-    amount.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); amount.blur(); } });
+    amount.addEventListener("keydown", e => {
+      if (e.key !== "Enter") return;
+      e.preventDefault();
+      if (f.categoryId) nameIn.focus(); else amount.blur();
+    });
+
+    /* description: required. It expands under the amount once a category is chosen. */
+    const nameIn = h("input", { class: "field g-name-in", type: "text", dir: "auto", enterkeyhint: "done", autocomplete: "off",
+      placeholder: "وصف المصروف", "aria-label": "وصف المصروف", value: f.name,
+      oninput: () => { f.name = nameIn.value; nameIn.classList.remove("bad"); hint.textContent = ""; refresh(); } });
+    nameIn.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); commit(); } });
+    const sugg = h("div", { class: "g-sugg", role: "group", "aria-label": "اقتراحات الوصف" });
+    const nameInner = h("div", { class: "g-name-inner" }, sugg, nameIn);
+    const nameBox = h("div", { class: "g-name", "aria-hidden": "true" }, nameInner);
+    nameBox.style.height = "0px";
+    nameBox.inert = true;
+    let nameOpen = false;
+    function showName(animate){
+      if (nameOpen) return;
+      nameOpen = true;
+      nameBox.classList.add("open");
+      nameBox.removeAttribute("aria-hidden");
+      nameBox.inert = false;
+      if (animate) {
+        nameBox.style.height = nameInner.scrollHeight + "px";
+        setTimeout(() => { if (nameOpen) nameBox.style.height = "auto"; }, 240);
+      } else nameBox.style.height = "auto";
+    }
+    function paintSugg(){
+      sugg.replaceChildren(...suggestNames(exp.entries, f.categoryId, 4).map(n => h("button", { class: "g-fchip", type: "button",
+        onclick: () => { f.name = n; nameIn.value = n; nameIn.classList.remove("bad"); hint.textContent = ""; refresh(); try { nameIn.focus({ preventScroll: true }); } catch (e) {} } },
+        h("span", { dir: "auto", text: n }))));
+    }
 
     /* date: today / yesterday / another date (a transparent native date input sits over the third chip, so one tap opens the picker) */
     const note = h("div", { class: "x-note", dir: "rtl" });
@@ -2856,36 +3020,53 @@ function openEntrySheet(editing, preset){
       else { note.textContent = "سيُسجَّل بتاريخ: " + day + (day === fullArabicDate(f.date) ? "" : " (" + fullArabicDate(f.date) + ")") + " · " + where; note.classList.add("warn"); }
     }
 
-    /* collapsed options: name and account */
-    const nameIn = h("input", { class: "field", type: "text", dir: "auto", placeholder: "الاسم (يُستخدم اسم الفئة إن تُرك فارغًا)", "aria-label": "الاسم", value: f.name,
-      oninput: () => { f.name = nameIn.value; } });
-    const acctSel = h("select", { class: "field x-select", dir: "rtl", "aria-label": "الحساب", onchange: () => { f.accountId = acctSel.value; refreshNote(); } });
-    for (const a of exp.accounts.filter(x => !x.archived || x.id === f.accountId)) acctSel.append(h("option", { value: a.id, selected: a.id === f.accountId, text: a.name }));
-    const options = h("div", { class: "x-options", hidden: true }, nameIn, multi || editing ? acctSel : null);
-    const optBtn = h("button", { class: "x-optbtn", type: "button", "aria-expanded": "false",
-      onclick: () => { const open = options.hidden; options.hidden = !open; optBtn.setAttribute("aria-expanded", String(open)); } },
-      h("span", { dir: "rtl", text: multi || editing ? "خيارات أخرى: الاسم والحساب" : "خيارات أخرى: الاسم" }), icon("chevL", 18));
-    if (editing && (f.name || multi)) { options.hidden = false; optBtn.setAttribute("aria-expanded", "true"); }
-
+    /* categories: a tap selects (the others dim); it no longer saves */
     const grid = h("div", { class: "cat-grid", role: "group", "aria-label": "الفئة" });
     const visible = exp.categories.filter(c => !c.hidden || (editing && c.id === editing.categoryId));
-    function paint(){ for (const b of grid.children) b.setAttribute("aria-pressed", String(b.dataset.id === f.categoryId)); }
+    function paint(){
+      for (const b of grid.children) b.setAttribute("aria-pressed", String(b.dataset.id === f.categoryId));
+      grid.classList.toggle("has-sel", !!f.categoryId);
+    }
     for (const c of visible) {
       grid.append(h("button", { class: "cat", type: "button", "data-id": c.id, "aria-pressed": "false", onclick: () => {
         f.categoryId = c.id;
-        nameIn.placeholder = c.name;
-        paint();
-        if (!editing) commit();
+        paint(); paintSugg();
+        const firstTime = !nameOpen;
+        showName(true);
+        hint.textContent = "";
+        if (firstTime || !f.name.trim()) { try { nameIn.focus({ preventScroll: true }); } catch (e) {} }
+        refresh();
       } }, h("span", { class: "e", "aria-hidden": "true", text: c.emoji }), h("span", { class: "n", dir: "rtl", text: c.name })));
     }
-    paint();
 
+    /* account selector (only with more than one account), collapsed */
+    const acctSel = h("select", { class: "field x-select", dir: "rtl", "aria-label": "الحساب", onchange: () => { f.accountId = acctSel.value; refreshNote(); } });
+    for (const a of exp.accounts.filter(x => !x.archived || x.id === f.accountId)) acctSel.append(h("option", { value: a.id, selected: a.id === f.accountId, text: a.name }));
+    const options = h("div", { class: "x-options", hidden: true }, acctSel);
+    const optBtn = h("button", { class: "x-optbtn", type: "button", "aria-expanded": "false",
+      onclick: () => { const open = options.hidden; options.hidden = !open; optBtn.setAttribute("aria-expanded", String(open)); } },
+      h("span", { dir: "rtl", text: "خيارات أخرى" }), icon("chevL", 18));
+
+    /* save: always at the bottom of the sheet; looks disabled until the form is complete, but still answers a tap */
+    const saveBtn = h("button", { class: "g-btn primary g-save", type: "button", "aria-disabled": "true", onclick: () => commit(), text: "حفظ" });
+    function refresh(){
+      const ok = canSaveEntry({ amount: amount.value, categoryId: f.categoryId, name: f.name });
+      saveBtn.setAttribute("aria-disabled", String(!ok));
+    }
+    function shakeName(){
+      hint.textContent = "اكتب وصف";
+      nameIn.classList.remove("shake");
+      void nameIn.offsetWidth;
+      nameIn.classList.add("shake", "bad");
+      nameIn.focus();
+    }
     function commit(){
       const v = parseEntryAmount(amount.value);
       if (v === null) { hint.textContent = "أدخل مبلغًا صحيحًا أكبر من صفر."; amount.focus(); return; }
-      if (!isValidDate(f.date)) { hint.textContent = "تاريخ غير صالح."; return; }
       if (!f.categoryId) { hint.textContent = "اختر فئة."; return; }
       const nm = f.name.trim();
+      if (!nm) { showName(true); shakeName(); return; }
+      if (!isValidDate(f.date)) { hint.textContent = "تاريخ غير صالح."; return; }
       let entry;
       if (editing) {
         Object.assign(editing, { type: f.type, amount: v, name: nm, categoryId: f.categoryId, date: f.date, accountId: f.accountId, updatedAt: Date.now() });
@@ -2906,13 +3087,18 @@ function openEntrySheet(editing, preset){
     body.append(
       h("div", { class: "seg", role: "group", "aria-label": "النوع" }, bExp, bInc),
       h("div", { class: "x-amtrow" }, amount, h("span", { class: "x-unit", dir: "rtl", text: AED })),
+      nameBox,
       hint,
       h("div", { class: "g-dchips", role: "group", "aria-label": "التاريخ" }, chipToday, chipYest, chipOther),
       note,
-      editing ? h("div", { class: "toolbar" }, h("button", { class: "g-btn primary", type: "button", text: "حفظ", onclick: commit })) : null,
-      grid, optBtn, options);
+      grid,
+      multi ? optBtn : null, multi ? options : null,
+      h("div", { class: "g-savebar" }, saveBtn));
     paintDate();
     refreshNote();
+    paint();
+    if (editing && f.categoryId) { paintSugg(); showName(false); }
+    refresh();
     amount.focus({ preventScroll: true });
     if (editing) { try { amount.select(); } catch (e) {} }
   });
