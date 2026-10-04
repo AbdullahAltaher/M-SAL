@@ -73,12 +73,25 @@ test("reduced motion is honoured and focus rings exist", () => {
 
 test("sheets: slide in/out on transform and opacity only, with a fade-only variant for reduced motion", () => {
   const css = /<style>([\s\S]*)<\/style>/.exec(html)[1];
-  assert.ok(/\.sheet\{[^}]*transform:translateY\(100%\)[^}]*transition:transform 320ms cubic-bezier\(\.32,\.72,0,1\)/.test(css), "open: 320ms, spec curve");
+  assert.ok(/\.sheet\{[^}]*transform:translateY\(100%\)[^}]*transition:transform 400ms cubic-bezier\(\.32,\.72,0,1\)/.test(css), "open: 400ms, spec curve");
   assert.ok(/\.sheet-back\.closing \.sheet\{[^}]*transition-duration:240ms/.test(css), "close: 240ms");
+  assert.ok(/\.sheet-back\.on \.sheet\{transform:translateY\(calc\(-1 \* var\(--lift,0px\)\)\)/.test(css), "the keyboard lifts the sheet with a transform");
+  assert.ok(/\.sheet-back\.settled \.sheet\{transition:transform 260ms/.test(css), "the keyboard fit is a short transition");
   const rm = /@media \(prefers-reduced-motion: reduce\)\{\s*\.sheet-back \.sheet[^}]*\}[\s\S]*?\n\}/.exec(css);
   assert.ok(rm, "reduced-motion block for sheets");
-  assert.ok(/transform:none;opacity:0;transition:opacity \.12s/.test(rm[0]), "fade only, no slide");
+  assert.ok(/opacity:0;transition:opacity \.12s/.test(rm[0]) && !/translateY\(100%\)/.test(rm[0]), "fade only, no slide");
   assert.ok(!/@keyframes sheetUp/.test(css), "old keyframe animation is gone");
+});
+
+test("opening: the keyboard is primed by a proxy input inside the tap, and viewport changes are ignored while the sheet slides", () => {
+  assert.ok(/<input class="kb-proxy" id="kbProxy"[^>]*inputmode="decimal"/.test(html), "hidden proxy input with a decimal keypad");
+  const js = /<script>([\s\S]*)<\/script>/.exec(html)[1];
+  assert.ok(/function primeKeyboard\(\)\{[^}]*kbProxy\.focus/.test(js), "focus() on the proxy");
+  assert.ok(/function fitSheet\(\)\{\s*const s = sheetState;\s*if \(!s \|\| s\.opening\) return;/.test(js), "no positioning while opening");
+  assert.ok(/const OPEN_MS = 400/.test(js));
+  const entry = js.slice(js.indexOf("function openEntrySheet"), js.indexOf("fabAdd.addEventListener"));
+  assert.ok(entry.indexOf("primeKeyboard();") > 0 && entry.indexOf("primeKeyboard();") < entry.indexOf("openSheet("), "primed before the sheet is built, synchronously");
+  assert.ok(/onOpened:[\s\S]*field\.focus/.test(entry), "focus moves to the real amount field only when the slide has finished");
 });
 
 test("safe-area insets are respected by the new fixed elements", () => {
